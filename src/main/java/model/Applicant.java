@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-09T13:18:42.423-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
 public class Applicant  implements Serializable {
   
   private Integer id = null;
@@ -59,14 +59,14 @@ public class Applicant  implements Serializable {
 
 
   /**
-   * Foreign key to members
+   * Member token
    **/
   public Applicant memberId(String memberId) {
     this.memberId = memberId;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "Foreign key to members")
+  @ApiModelProperty(example = "null", value = "Member token")
   @JsonProperty("member_id")
   public String getMemberId() {
     return memberId;

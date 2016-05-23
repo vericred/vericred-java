@@ -2,8 +2,8 @@ package api;
 
 import vericred.ApiClient;
 
-import model.Query;
-import model.Plan;
+import model.PlanSearchResponse;
+import model.RequestPlanFind;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-09T13:18:42.423-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
 public interface PlansApi extends ApiClient.Api {
 
 
   /**
-   * Find a set of plans for a Zip Code and County
+   * Find Plans
    * ### Location Information
 
 Searching for a set of plans requires a &#x60;zip_code&#x60; and &#x60;fips_code&#x60;
@@ -36,7 +36,6 @@ Applicants *must* include an age.  If smoker is omitted, its value is assumed
 to be false.
 
 #### Multiple Applicants
-
 To get pricing for multiple applicants, just append multiple sets
 of data to the URL with the age and smoking status of each applicant
 next to each other.
@@ -79,14 +78,13 @@ and return it for each plan.  If no values are provided, the
 
 &#x60;GET /plans?zip_code&#x3D;07451&amp;fips_code&#x3D;33025&amp;household_size&#x3D;4&amp;household_income&#x3D;40000&#x60;
 
-
-   * @param query Plan query (required)
-   * @return List<Plan>
+   * @param body  (optional)
+   * @return PlanSearchResponse
    */
-  @RequestLine("POST /plans/find")
+  @RequestLine("POST /plans/search")
   @Headers({
     "Content-type: application/json",
     "Accepts: application/json",
   })
-  List<Plan> plansFindPost(Query query);
+  PlanSearchResponse findPlans(RequestPlanFind body);
 }

@@ -4,20 +4,27 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import java.io.Serializable;
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-09T13:18:42.423-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
 public class Pricing  implements Serializable {
   
   private Integer age = null;
   private LocalDate effectiveDate = null;
   private LocalDate expirationDate = null;
   private Integer planId = null;
-  private Integer ratingAreaId = null;
+  private BigDecimal premiumChildOnly = null;
+  private BigDecimal premiumFamily = null;
+  private BigDecimal premiumSingle = null;
+  private BigDecimal premiumSingleAndChildren = null;
+  private BigDecimal premiumSingleAndSpouse = null;
+  private BigDecimal premiumSingleSmoker = null;
+  private String ratingAreaId = null;
 
   
   /**
@@ -93,19 +100,127 @@ public class Pricing  implements Serializable {
 
 
   /**
+   * Child-only premium
+   **/
+  public Pricing premiumChildOnly(BigDecimal premiumChildOnly) {
+    this.premiumChildOnly = premiumChildOnly;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Child-only premium")
+  @JsonProperty("premium_child_only")
+  public BigDecimal getPremiumChildOnly() {
+    return premiumChildOnly;
+  }
+  public void setPremiumChildOnly(BigDecimal premiumChildOnly) {
+    this.premiumChildOnly = premiumChildOnly;
+  }
+
+
+  /**
+   * Family premium
+   **/
+  public Pricing premiumFamily(BigDecimal premiumFamily) {
+    this.premiumFamily = premiumFamily;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Family premium")
+  @JsonProperty("premium_family")
+  public BigDecimal getPremiumFamily() {
+    return premiumFamily;
+  }
+  public void setPremiumFamily(BigDecimal premiumFamily) {
+    this.premiumFamily = premiumFamily;
+  }
+
+
+  /**
+   * Single-person premium
+   **/
+  public Pricing premiumSingle(BigDecimal premiumSingle) {
+    this.premiumSingle = premiumSingle;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Single-person premium")
+  @JsonProperty("premium_single")
+  public BigDecimal getPremiumSingle() {
+    return premiumSingle;
+  }
+  public void setPremiumSingle(BigDecimal premiumSingle) {
+    this.premiumSingle = premiumSingle;
+  }
+
+
+  /**
+   * Single person including children premium
+   **/
+  public Pricing premiumSingleAndChildren(BigDecimal premiumSingleAndChildren) {
+    this.premiumSingleAndChildren = premiumSingleAndChildren;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Single person including children premium")
+  @JsonProperty("premium_single_and_children")
+  public BigDecimal getPremiumSingleAndChildren() {
+    return premiumSingleAndChildren;
+  }
+  public void setPremiumSingleAndChildren(BigDecimal premiumSingleAndChildren) {
+    this.premiumSingleAndChildren = premiumSingleAndChildren;
+  }
+
+
+  /**
+   * Person with spouse premium
+   **/
+  public Pricing premiumSingleAndSpouse(BigDecimal premiumSingleAndSpouse) {
+    this.premiumSingleAndSpouse = premiumSingleAndSpouse;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Person with spouse premium")
+  @JsonProperty("premium_single_and_spouse")
+  public BigDecimal getPremiumSingleAndSpouse() {
+    return premiumSingleAndSpouse;
+  }
+  public void setPremiumSingleAndSpouse(BigDecimal premiumSingleAndSpouse) {
+    this.premiumSingleAndSpouse = premiumSingleAndSpouse;
+  }
+
+
+  /**
+   * Premium for single smoker
+   **/
+  public Pricing premiumSingleSmoker(BigDecimal premiumSingleSmoker) {
+    this.premiumSingleSmoker = premiumSingleSmoker;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Premium for single smoker")
+  @JsonProperty("premium_single_smoker")
+  public BigDecimal getPremiumSingleSmoker() {
+    return premiumSingleSmoker;
+  }
+  public void setPremiumSingleSmoker(BigDecimal premiumSingleSmoker) {
+    this.premiumSingleSmoker = premiumSingleSmoker;
+  }
+
+
+  /**
    * Foreign key to rating areas
    **/
-  public Pricing ratingAreaId(Integer ratingAreaId) {
+  public Pricing ratingAreaId(String ratingAreaId) {
     this.ratingAreaId = ratingAreaId;
     return this;
   }
   
   @ApiModelProperty(example = "null", value = "Foreign key to rating areas")
   @JsonProperty("rating_area_id")
-  public Integer getRatingAreaId() {
+  public String getRatingAreaId() {
     return ratingAreaId;
   }
-  public void setRatingAreaId(Integer ratingAreaId) {
+  public void setRatingAreaId(String ratingAreaId) {
     this.ratingAreaId = ratingAreaId;
   }
 
@@ -123,12 +238,18 @@ public class Pricing  implements Serializable {
         Objects.equals(this.effectiveDate, pricing.effectiveDate) &&
         Objects.equals(this.expirationDate, pricing.expirationDate) &&
         Objects.equals(this.planId, pricing.planId) &&
+        Objects.equals(this.premiumChildOnly, pricing.premiumChildOnly) &&
+        Objects.equals(this.premiumFamily, pricing.premiumFamily) &&
+        Objects.equals(this.premiumSingle, pricing.premiumSingle) &&
+        Objects.equals(this.premiumSingleAndChildren, pricing.premiumSingleAndChildren) &&
+        Objects.equals(this.premiumSingleAndSpouse, pricing.premiumSingleAndSpouse) &&
+        Objects.equals(this.premiumSingleSmoker, pricing.premiumSingleSmoker) &&
         Objects.equals(this.ratingAreaId, pricing.ratingAreaId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(age, effectiveDate, expirationDate, planId, ratingAreaId);
+    return Objects.hash(age, effectiveDate, expirationDate, planId, premiumChildOnly, premiumFamily, premiumSingle, premiumSingleAndChildren, premiumSingleAndSpouse, premiumSingleSmoker, ratingAreaId);
   }
 
   @Override
@@ -140,6 +261,12 @@ public class Pricing  implements Serializable {
     sb.append("    effectiveDate: ").append(toIndentedString(effectiveDate)).append("\n");
     sb.append("    expirationDate: ").append(toIndentedString(expirationDate)).append("\n");
     sb.append("    planId: ").append(toIndentedString(planId)).append("\n");
+    sb.append("    premiumChildOnly: ").append(toIndentedString(premiumChildOnly)).append("\n");
+    sb.append("    premiumFamily: ").append(toIndentedString(premiumFamily)).append("\n");
+    sb.append("    premiumSingle: ").append(toIndentedString(premiumSingle)).append("\n");
+    sb.append("    premiumSingleAndChildren: ").append(toIndentedString(premiumSingleAndChildren)).append("\n");
+    sb.append("    premiumSingleAndSpouse: ").append(toIndentedString(premiumSingleAndSpouse)).append("\n");
+    sb.append("    premiumSingleSmoker: ").append(toIndentedString(premiumSingleSmoker)).append("\n");
     sb.append("    ratingAreaId: ").append(toIndentedString(ratingAreaId)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -9,11 +9,11 @@ import java.io.Serializable;
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-09T13:18:42.423-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
 public class DrugCoverage  implements Serializable {
   
   private String planId = null;
-  private String ndcPackageCode = null;
+  private String drugPackageId = null;
   private String tier = null;
   private Boolean quantityLimit = null;
   private Boolean priorAuthorization = null;
@@ -41,18 +41,18 @@ public class DrugCoverage  implements Serializable {
   /**
    * NDC package code
    **/
-  public DrugCoverage ndcPackageCode(String ndcPackageCode) {
-    this.ndcPackageCode = ndcPackageCode;
+  public DrugCoverage drugPackageId(String drugPackageId) {
+    this.drugPackageId = drugPackageId;
     return this;
   }
   
   @ApiModelProperty(example = "null", value = "NDC package code")
-  @JsonProperty("ndc_package_code")
-  public String getNdcPackageCode() {
-    return ndcPackageCode;
+  @JsonProperty("drug_package_id")
+  public String getDrugPackageId() {
+    return drugPackageId;
   }
-  public void setNdcPackageCode(String ndcPackageCode) {
-    this.ndcPackageCode = ndcPackageCode;
+  public void setDrugPackageId(String drugPackageId) {
+    this.drugPackageId = drugPackageId;
   }
 
 
@@ -138,7 +138,7 @@ public class DrugCoverage  implements Serializable {
     }
     DrugCoverage drugCoverage = (DrugCoverage) o;
     return Objects.equals(this.planId, drugCoverage.planId) &&
-        Objects.equals(this.ndcPackageCode, drugCoverage.ndcPackageCode) &&
+        Objects.equals(this.drugPackageId, drugCoverage.drugPackageId) &&
         Objects.equals(this.tier, drugCoverage.tier) &&
         Objects.equals(this.quantityLimit, drugCoverage.quantityLimit) &&
         Objects.equals(this.priorAuthorization, drugCoverage.priorAuthorization) &&
@@ -147,7 +147,7 @@ public class DrugCoverage  implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(planId, ndcPackageCode, tier, quantityLimit, priorAuthorization, stepTherapy);
+    return Objects.hash(planId, drugPackageId, tier, quantityLimit, priorAuthorization, stepTherapy);
   }
 
   @Override
@@ -156,7 +156,7 @@ public class DrugCoverage  implements Serializable {
     sb.append("class DrugCoverage {\n");
     
     sb.append("    planId: ").append(toIndentedString(planId)).append("\n");
-    sb.append("    ndcPackageCode: ").append(toIndentedString(ndcPackageCode)).append("\n");
+    sb.append("    drugPackageId: ").append(toIndentedString(drugPackageId)).append("\n");
     sb.append("    tier: ").append(toIndentedString(tier)).append("\n");
     sb.append("    quantityLimit: ").append(toIndentedString(quantityLimit)).append("\n");
     sb.append("    priorAuthorization: ").append(toIndentedString(priorAuthorization)).append("\n");

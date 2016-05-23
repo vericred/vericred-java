@@ -4,34 +4,37 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.io.Serializable;
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-09T13:18:42.423-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
 public class Drug  implements Serializable {
   
-  private String ndc = null;
+  private String id = null;
   private String proprietaryName = null;
   private String nonProprietaryName = null;
+  private List<String> drugPackageIds = new ArrayList<String>();
 
   
   /**
    * National Drug Code ID
    **/
-  public Drug ndc(String ndc) {
-    this.ndc = ndc;
+  public Drug id(String id) {
+    this.id = id;
     return this;
   }
   
   @ApiModelProperty(example = "null", value = "National Drug Code ID")
-  @JsonProperty("ndc")
-  public String getNdc() {
-    return ndc;
+  @JsonProperty("id")
+  public String getId() {
+    return id;
   }
-  public void setNdc(String ndc) {
-    this.ndc = ndc;
+  public void setId(String id) {
+    this.id = id;
   }
 
 
@@ -71,6 +74,24 @@ public class Drug  implements Serializable {
   }
 
 
+  /**
+   * Array of drug package Ids
+   **/
+  public Drug drugPackageIds(List<String> drugPackageIds) {
+    this.drugPackageIds = drugPackageIds;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Array of drug package Ids")
+  @JsonProperty("drug_package_ids")
+  public List<String> getDrugPackageIds() {
+    return drugPackageIds;
+  }
+  public void setDrugPackageIds(List<String> drugPackageIds) {
+    this.drugPackageIds = drugPackageIds;
+  }
+
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -80,14 +101,15 @@ public class Drug  implements Serializable {
       return false;
     }
     Drug drug = (Drug) o;
-    return Objects.equals(this.ndc, drug.ndc) &&
+    return Objects.equals(this.id, drug.id) &&
         Objects.equals(this.proprietaryName, drug.proprietaryName) &&
-        Objects.equals(this.nonProprietaryName, drug.nonProprietaryName);
+        Objects.equals(this.nonProprietaryName, drug.nonProprietaryName) &&
+        Objects.equals(this.drugPackageIds, drug.drugPackageIds);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(ndc, proprietaryName, nonProprietaryName);
+    return Objects.hash(id, proprietaryName, nonProprietaryName, drugPackageIds);
   }
 
   @Override
@@ -95,9 +117,10 @@ public class Drug  implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class Drug {\n");
     
-    sb.append("    ndc: ").append(toIndentedString(ndc)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    proprietaryName: ").append(toIndentedString(proprietaryName)).append("\n");
     sb.append("    nonProprietaryName: ").append(toIndentedString(nonProprietaryName)).append("\n");
+    sb.append("    drugPackageIds: ").append(toIndentedString(drugPackageIds)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -10,45 +10,45 @@ import java.io.Serializable;
 
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
-public class CarrierSubsidiary  implements Serializable {
+public class DrugPackage  implements Serializable {
   
-  private Integer id = null;
-  private String name = null;
+  private String id = null;
+  private String description = null;
 
   
   /**
-   * Primary key
+   * National Drug Code ID (Package)
    **/
-  public CarrierSubsidiary id(Integer id) {
+  public DrugPackage id(String id) {
     this.id = id;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "Primary key")
+  @ApiModelProperty(example = "null", value = "National Drug Code ID (Package)")
   @JsonProperty("id")
-  public Integer getId() {
+  public String getId() {
     return id;
   }
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 
 
   /**
-   * Subsidiary name
+   * Package description
    **/
-  public CarrierSubsidiary name(String name) {
-    this.name = name;
+  public DrugPackage description(String description) {
+    this.description = description;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "Subsidiary name")
-  @JsonProperty("name")
-  public String getName() {
-    return name;
+  @ApiModelProperty(example = "null", value = "Package description")
+  @JsonProperty("description")
+  public String getDescription() {
+    return description;
   }
-  public void setName(String name) {
-    this.name = name;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
 
@@ -60,23 +60,23 @@ public class CarrierSubsidiary  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CarrierSubsidiary carrierSubsidiary = (CarrierSubsidiary) o;
-    return Objects.equals(this.id, carrierSubsidiary.id) &&
-        Objects.equals(this.name, carrierSubsidiary.name);
+    DrugPackage drugPackage = (DrugPackage) o;
+    return Objects.equals(this.id, drugPackage.id) &&
+        Objects.equals(this.description, drugPackage.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name);
+    return Objects.hash(id, description);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CarrierSubsidiary {\n");
+    sb.append("class DrugPackage {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");
     return sb.toString();
   }

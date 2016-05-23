@@ -10,40 +10,40 @@ import java.io.Serializable;
 
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
-public class Carrier  implements Serializable {
+public class CountyBulk  implements Serializable {
   
-  private Integer id = null;
+  private String id = null;
   private String name = null;
-  private String logoPath = null;
+  private String stateId = null;
 
   
   /**
-   * Primary key
+   * FIPs code for the county
    **/
-  public Carrier id(Integer id) {
+  public CountyBulk id(String id) {
     this.id = id;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "Primary key")
+  @ApiModelProperty(example = "null", value = "FIPs code for the county")
   @JsonProperty("id")
-  public Integer getId() {
+  public String getId() {
     return id;
   }
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 
 
   /**
-   * Name of the Carrier
+   * Name of the county
    **/
-  public Carrier name(String name) {
+  public CountyBulk name(String name) {
     this.name = name;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "Name of the Carrier")
+  @ApiModelProperty(example = "null", value = "Name of the county")
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -54,20 +54,20 @@ public class Carrier  implements Serializable {
 
 
   /**
-   * URL for the Carrier's logo
+   * State code
    **/
-  public Carrier logoPath(String logoPath) {
-    this.logoPath = logoPath;
+  public CountyBulk stateId(String stateId) {
+    this.stateId = stateId;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "URL for the Carrier's logo")
-  @JsonProperty("logo_path")
-  public String getLogoPath() {
-    return logoPath;
+  @ApiModelProperty(example = "null", value = "State code")
+  @JsonProperty("state_id")
+  public String getStateId() {
+    return stateId;
   }
-  public void setLogoPath(String logoPath) {
-    this.logoPath = logoPath;
+  public void setStateId(String stateId) {
+    this.stateId = stateId;
   }
 
 
@@ -79,25 +79,25 @@ public class Carrier  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Carrier carrier = (Carrier) o;
-    return Objects.equals(this.id, carrier.id) &&
-        Objects.equals(this.name, carrier.name) &&
-        Objects.equals(this.logoPath, carrier.logoPath);
+    CountyBulk countyBulk = (CountyBulk) o;
+    return Objects.equals(this.id, countyBulk.id) &&
+        Objects.equals(this.name, countyBulk.name) &&
+        Objects.equals(this.stateId, countyBulk.stateId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, logoPath);
+    return Objects.hash(id, name, stateId);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Carrier {\n");
+    sb.append("class CountyBulk {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    logoPath: ").append(toIndentedString(logoPath)).append("\n");
+    sb.append("    stateId: ").append(toIndentedString(stateId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -4,32 +4,32 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import model.Provider;
 
 import java.io.Serializable;
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-09T13:18:42.423-04:00")
-public class InlineResponse2001  implements Serializable {
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
+public class Meta  implements Serializable {
   
-  private Provider provider = null;
+  private Integer total = null;
 
   
   /**
+   * Number of entities returned
    **/
-  public InlineResponse2001 provider(Provider provider) {
-    this.provider = provider;
+  public Meta total(Integer total) {
+    this.total = total;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "")
-  @JsonProperty("provider")
-  public Provider getProvider() {
-    return provider;
+  @ApiModelProperty(example = "null", value = "Number of entities returned")
+  @JsonProperty("total")
+  public Integer getTotal() {
+    return total;
   }
-  public void setProvider(Provider provider) {
-    this.provider = provider;
+  public void setTotal(Integer total) {
+    this.total = total;
   }
 
 
@@ -41,21 +41,21 @@ public class InlineResponse2001  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InlineResponse2001 inlineResponse2001 = (InlineResponse2001) o;
-    return Objects.equals(this.provider, inlineResponse2001.provider);
+    Meta meta = (Meta) o;
+    return Objects.equals(this.total, meta.total);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(provider);
+    return Objects.hash(total);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InlineResponse2001 {\n");
+    sb.append("class Meta {\n");
     
-    sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-09T13:18:42.423-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
 public class County  implements Serializable {
   
   private Integer id = null;
@@ -112,14 +112,14 @@ public class County  implements Serializable {
 
 
   /**
-   * Is the state containing this county active for consumers?*deprecated in favor of last_date_for_individual
+   * Is the state containing this county active for consumers?(deprecated in favor of last_date_for_individual)
    **/
   public County stateLive(Boolean stateLive) {
     this.stateLive = stateLive;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "Is the state containing this county active for consumers?*deprecated in favor of last_date_for_individual")
+  @ApiModelProperty(example = "null", value = "Is the state containing this county active for consumers?(deprecated in favor of last_date_for_individual)")
   @JsonProperty("state_live")
   public Boolean getStateLive() {
     return stateLive;
@@ -130,14 +130,14 @@ public class County  implements Serializable {
 
 
   /**
-   * Is the state containing this county active for business?*deprecated in favor of last_date_for_shop
+   * Is the state containing this county active for business?(deprecated in favor of last_date_for_shop)
    **/
   public County stateLiveForBusiness(Boolean stateLiveForBusiness) {
     this.stateLiveForBusiness = stateLiveForBusiness;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "Is the state containing this county active for business?*deprecated in favor of last_date_for_shop")
+  @ApiModelProperty(example = "null", value = "Is the state containing this county active for business?(deprecated in favor of last_date_for_shop)")
   @JsonProperty("state_live_for_business")
   public Boolean getStateLiveForBusiness() {
     return stateLiveForBusiness;
