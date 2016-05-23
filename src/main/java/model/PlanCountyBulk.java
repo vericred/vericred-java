@@ -10,17 +10,17 @@ import java.io.Serializable;
 
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
-public class Carrier  implements Serializable {
+public class PlanCountyBulk  implements Serializable {
   
   private Integer id = null;
-  private String name = null;
-  private String logoPath = null;
+  private Integer planId = null;
+  private Integer countyId = null;
 
   
   /**
    * Primary key
    **/
-  public Carrier id(Integer id) {
+  public PlanCountyBulk id(Integer id) {
     this.id = id;
     return this;
   }
@@ -36,38 +36,38 @@ public class Carrier  implements Serializable {
 
 
   /**
-   * Name of the Carrier
+   * Foreign key to plan
    **/
-  public Carrier name(String name) {
-    this.name = name;
+  public PlanCountyBulk planId(Integer planId) {
+    this.planId = planId;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "Name of the Carrier")
-  @JsonProperty("name")
-  public String getName() {
-    return name;
+  @ApiModelProperty(example = "null", value = "Foreign key to plan")
+  @JsonProperty("plan_id")
+  public Integer getPlanId() {
+    return planId;
   }
-  public void setName(String name) {
-    this.name = name;
+  public void setPlanId(Integer planId) {
+    this.planId = planId;
   }
 
 
   /**
-   * URL for the Carrier's logo
+   * Foreign key to county
    **/
-  public Carrier logoPath(String logoPath) {
-    this.logoPath = logoPath;
+  public PlanCountyBulk countyId(Integer countyId) {
+    this.countyId = countyId;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "URL for the Carrier's logo")
-  @JsonProperty("logo_path")
-  public String getLogoPath() {
-    return logoPath;
+  @ApiModelProperty(example = "null", value = "Foreign key to county")
+  @JsonProperty("county_id")
+  public Integer getCountyId() {
+    return countyId;
   }
-  public void setLogoPath(String logoPath) {
-    this.logoPath = logoPath;
+  public void setCountyId(Integer countyId) {
+    this.countyId = countyId;
   }
 
 
@@ -79,25 +79,25 @@ public class Carrier  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Carrier carrier = (Carrier) o;
-    return Objects.equals(this.id, carrier.id) &&
-        Objects.equals(this.name, carrier.name) &&
-        Objects.equals(this.logoPath, carrier.logoPath);
+    PlanCountyBulk planCountyBulk = (PlanCountyBulk) o;
+    return Objects.equals(this.id, planCountyBulk.id) &&
+        Objects.equals(this.planId, planCountyBulk.planId) &&
+        Objects.equals(this.countyId, planCountyBulk.countyId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, logoPath);
+    return Objects.hash(id, planId, countyId);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Carrier {\n");
+    sb.append("class PlanCountyBulk {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    logoPath: ").append(toIndentedString(logoPath)).append("\n");
+    sb.append("    planId: ").append(toIndentedString(planId)).append("\n");
+    sb.append("    countyId: ").append(toIndentedString(countyId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -4,12 +4,15 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.io.Serializable;
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-09T13:18:42.423-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
 public class PlanSearchResult  implements Serializable {
   
   private Boolean adultDental = null;
@@ -19,25 +22,35 @@ public class PlanSearchResult  implements Serializable {
   private String carrierName = null;
   private Boolean childDental = null;
   private String childEyewear = null;
+  private String childEyeExam = null;
   private String customerServicePhoneNumber = null;
   private String durableMedicalEquipment = null;
   private String diagnosticTest = null;
   private String drugFormularyUrl = null;
+  private String effectiveDate = null;
+  private String expirationDate = null;
   private String emergencyRoom = null;
   private String familyDrugDeductible = null;
   private String familyDrugMoop = null;
   private String familyMedicalDeductible = null;
   private String familyMedicalMoop = null;
   private String genericDrugs = null;
+  private String habilitationServices = null;
   private String hiosIssuerId = null;
+  private String homeHealthCare = null;
+  private String hospiceService = null;
   private String id = null;
   private String imaging = null;
+  private List<Integer> inNetworkIds = new ArrayList<Integer>();
   private String individualDrugDeductible = null;
   private String individualDrugMoop = null;
   private String individualMedicalDeductible = null;
   private String individualMedicalMoop = null;
+  private String inpatientBirth = null;
   private String inpatientFacility = null;
+  private String inpatientMentalHealth = null;
   private String inpatientPhysician = null;
+  private String inpatientSubstance = null;
   private String level = null;
   private String logoUrl = null;
   private String name = null;
@@ -45,20 +58,28 @@ public class PlanSearchResult  implements Serializable {
   private Boolean onMarket = null;
   private Boolean offMarket = null;
   private Boolean outOfNetworkCoverage = null;
+  private List<Integer> outOfNetworkIds = new ArrayList<Integer>();
   private String outpatientFacility = null;
   private String outpatientMentalHealth = null;
   private String outpatientPhysician = null;
+  private String outpatientSubstance = null;
   private String planMarket = null;
   private String planType = null;
   private String preferredBrandDrugs = null;
+  private String prenatalPostnatalCare = null;
   private String preventativeCare = null;
+  private BigDecimal premiumSubsidized = null;
+  private BigDecimal premium = null;
   private String primaryCarePhysician = null;
   private String rehabilitationServices = null;
+  private String skilledNursing = null;
   private String specialist = null;
   private String specialtyDrugs = null;
   private String urgentCare = null;
   private Integer matchPercentage = null;
   private Integer perfectMatchPercentage = null;
+  private BigDecimal employeePremium = null;
+  private BigDecimal dependentPremium = null;
 
   
   /**
@@ -188,6 +209,24 @@ public class PlanSearchResult  implements Serializable {
 
 
   /**
+   * Child eye exam benefits summary
+   **/
+  public PlanSearchResult childEyeExam(String childEyeExam) {
+    this.childEyeExam = childEyeExam;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Child eye exam benefits summary")
+  @JsonProperty("child_eye_exam")
+  public String getChildEyeExam() {
+    return childEyeExam;
+  }
+  public void setChildEyeExam(String childEyeExam) {
+    this.childEyeExam = childEyeExam;
+  }
+
+
+  /**
    * Phone number to contact the insurance carrier
    **/
   public PlanSearchResult customerServicePhoneNumber(String customerServicePhoneNumber) {
@@ -256,6 +295,42 @@ public class PlanSearchResult  implements Serializable {
   }
   public void setDrugFormularyUrl(String drugFormularyUrl) {
     this.drugFormularyUrl = drugFormularyUrl;
+  }
+
+
+  /**
+   * Effective date of coverage.
+   **/
+  public PlanSearchResult effectiveDate(String effectiveDate) {
+    this.effectiveDate = effectiveDate;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Effective date of coverage.")
+  @JsonProperty("effective_date")
+  public String getEffectiveDate() {
+    return effectiveDate;
+  }
+  public void setEffectiveDate(String effectiveDate) {
+    this.effectiveDate = effectiveDate;
+  }
+
+
+  /**
+   * Expiration date of coverage.
+   **/
+  public PlanSearchResult expirationDate(String expirationDate) {
+    this.expirationDate = expirationDate;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Expiration date of coverage.")
+  @JsonProperty("expiration_date")
+  public String getExpirationDate() {
+    return expirationDate;
+  }
+  public void setExpirationDate(String expirationDate) {
+    this.expirationDate = expirationDate;
   }
 
 
@@ -368,6 +443,24 @@ public class PlanSearchResult  implements Serializable {
 
 
   /**
+   * Habilitation services benefits summary
+   **/
+  public PlanSearchResult habilitationServices(String habilitationServices) {
+    this.habilitationServices = habilitationServices;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Habilitation services benefits summary")
+  @JsonProperty("habilitation_services")
+  public String getHabilitationServices() {
+    return habilitationServices;
+  }
+  public void setHabilitationServices(String habilitationServices) {
+    this.habilitationServices = habilitationServices;
+  }
+
+
+  /**
    * 
    **/
   public PlanSearchResult hiosIssuerId(String hiosIssuerId) {
@@ -382,6 +475,42 @@ public class PlanSearchResult  implements Serializable {
   }
   public void setHiosIssuerId(String hiosIssuerId) {
     this.hiosIssuerId = hiosIssuerId;
+  }
+
+
+  /**
+   * Home health care benefits summary
+   **/
+  public PlanSearchResult homeHealthCare(String homeHealthCare) {
+    this.homeHealthCare = homeHealthCare;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Home health care benefits summary")
+  @JsonProperty("home_health_care")
+  public String getHomeHealthCare() {
+    return homeHealthCare;
+  }
+  public void setHomeHealthCare(String homeHealthCare) {
+    this.homeHealthCare = homeHealthCare;
+  }
+
+
+  /**
+   * Hospice service benefits summary
+   **/
+  public PlanSearchResult hospiceService(String hospiceService) {
+    this.hospiceService = hospiceService;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Hospice service benefits summary")
+  @JsonProperty("hospice_service")
+  public String getHospiceService() {
+    return hospiceService;
+  }
+  public void setHospiceService(String hospiceService) {
+    this.hospiceService = hospiceService;
   }
 
 
@@ -418,6 +547,24 @@ public class PlanSearchResult  implements Serializable {
   }
   public void setImaging(String imaging) {
     this.imaging = imaging;
+  }
+
+
+  /**
+   * List of NPI numbers for Providers passed in who accept this Plan
+   **/
+  public PlanSearchResult inNetworkIds(List<Integer> inNetworkIds) {
+    this.inNetworkIds = inNetworkIds;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "List of NPI numbers for Providers passed in who accept this Plan")
+  @JsonProperty("in_network_ids")
+  public List<Integer> getInNetworkIds() {
+    return inNetworkIds;
+  }
+  public void setInNetworkIds(List<Integer> inNetworkIds) {
+    this.inNetworkIds = inNetworkIds;
   }
 
 
@@ -494,6 +641,24 @@ public class PlanSearchResult  implements Serializable {
 
 
   /**
+   * Inpatient birth benefits summary
+   **/
+  public PlanSearchResult inpatientBirth(String inpatientBirth) {
+    this.inpatientBirth = inpatientBirth;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Inpatient birth benefits summary")
+  @JsonProperty("inpatient_birth")
+  public String getInpatientBirth() {
+    return inpatientBirth;
+  }
+  public void setInpatientBirth(String inpatientBirth) {
+    this.inpatientBirth = inpatientBirth;
+  }
+
+
+  /**
    * Cost under the plan for an inpatient facility
    **/
   public PlanSearchResult inpatientFacility(String inpatientFacility) {
@@ -512,6 +677,24 @@ public class PlanSearchResult  implements Serializable {
 
 
   /**
+   * Inpatient mental helath benefits summary
+   **/
+  public PlanSearchResult inpatientMentalHealth(String inpatientMentalHealth) {
+    this.inpatientMentalHealth = inpatientMentalHealth;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Inpatient mental helath benefits summary")
+  @JsonProperty("inpatient_mental_health")
+  public String getInpatientMentalHealth() {
+    return inpatientMentalHealth;
+  }
+  public void setInpatientMentalHealth(String inpatientMentalHealth) {
+    this.inpatientMentalHealth = inpatientMentalHealth;
+  }
+
+
+  /**
    * Cost under the plan for an inpatient physician
    **/
   public PlanSearchResult inpatientPhysician(String inpatientPhysician) {
@@ -526,6 +709,24 @@ public class PlanSearchResult  implements Serializable {
   }
   public void setInpatientPhysician(String inpatientPhysician) {
     this.inpatientPhysician = inpatientPhysician;
+  }
+
+
+  /**
+   * Inpatient substance abuse benefits summary
+   **/
+  public PlanSearchResult inpatientSubstance(String inpatientSubstance) {
+    this.inpatientSubstance = inpatientSubstance;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Inpatient substance abuse benefits summary")
+  @JsonProperty("inpatient_substance")
+  public String getInpatientSubstance() {
+    return inpatientSubstance;
+  }
+  public void setInpatientSubstance(String inpatientSubstance) {
+    this.inpatientSubstance = inpatientSubstance;
   }
 
 
@@ -656,6 +857,24 @@ public class PlanSearchResult  implements Serializable {
 
 
   /**
+   * List of NPI numbers for Providers passed in who do not accept this Plan
+   **/
+  public PlanSearchResult outOfNetworkIds(List<Integer> outOfNetworkIds) {
+    this.outOfNetworkIds = outOfNetworkIds;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "List of NPI numbers for Providers passed in who do not accept this Plan")
+  @JsonProperty("out_of_network_ids")
+  public List<Integer> getOutOfNetworkIds() {
+    return outOfNetworkIds;
+  }
+  public void setOutOfNetworkIds(List<Integer> outOfNetworkIds) {
+    this.outOfNetworkIds = outOfNetworkIds;
+  }
+
+
+  /**
    * Benefits summary for outpatient facility coverage
    **/
   public PlanSearchResult outpatientFacility(String outpatientFacility) {
@@ -706,6 +925,24 @@ public class PlanSearchResult  implements Serializable {
   }
   public void setOutpatientPhysician(String outpatientPhysician) {
     this.outpatientPhysician = outpatientPhysician;
+  }
+
+
+  /**
+   * Outpatient substance abuse benefits summary
+   **/
+  public PlanSearchResult outpatientSubstance(String outpatientSubstance) {
+    this.outpatientSubstance = outpatientSubstance;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Outpatient substance abuse benefits summary")
+  @JsonProperty("outpatient_substance")
+  public String getOutpatientSubstance() {
+    return outpatientSubstance;
+  }
+  public void setOutpatientSubstance(String outpatientSubstance) {
+    this.outpatientSubstance = outpatientSubstance;
   }
 
 
@@ -764,6 +1001,24 @@ public class PlanSearchResult  implements Serializable {
 
 
   /**
+   * Inpatient substance abuse benefits summary
+   **/
+  public PlanSearchResult prenatalPostnatalCare(String prenatalPostnatalCare) {
+    this.prenatalPostnatalCare = prenatalPostnatalCare;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Inpatient substance abuse benefits summary")
+  @JsonProperty("prenatal_postnatal_care")
+  public String getPrenatalPostnatalCare() {
+    return prenatalPostnatalCare;
+  }
+  public void setPrenatalPostnatalCare(String prenatalPostnatalCare) {
+    this.prenatalPostnatalCare = prenatalPostnatalCare;
+  }
+
+
+  /**
    * Benefits summary for preventative care
    **/
   public PlanSearchResult preventativeCare(String preventativeCare) {
@@ -778,6 +1033,42 @@ public class PlanSearchResult  implements Serializable {
   }
   public void setPreventativeCare(String preventativeCare) {
     this.preventativeCare = preventativeCare;
+  }
+
+
+  /**
+   * Cumulative premium amount after subsidy
+   **/
+  public PlanSearchResult premiumSubsidized(BigDecimal premiumSubsidized) {
+    this.premiumSubsidized = premiumSubsidized;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Cumulative premium amount after subsidy")
+  @JsonProperty("premium_subsidized")
+  public BigDecimal getPremiumSubsidized() {
+    return premiumSubsidized;
+  }
+  public void setPremiumSubsidized(BigDecimal premiumSubsidized) {
+    this.premiumSubsidized = premiumSubsidized;
+  }
+
+
+  /**
+   * Cumulative premium amount
+   **/
+  public PlanSearchResult premium(BigDecimal premium) {
+    this.premium = premium;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Cumulative premium amount")
+  @JsonProperty("premium")
+  public BigDecimal getPremium() {
+    return premium;
+  }
+  public void setPremium(BigDecimal premium) {
+    this.premium = premium;
   }
 
 
@@ -814,6 +1105,24 @@ public class PlanSearchResult  implements Serializable {
   }
   public void setRehabilitationServices(String rehabilitationServices) {
     this.rehabilitationServices = rehabilitationServices;
+  }
+
+
+  /**
+   * Benefits summary for skilled nursing services
+   **/
+  public PlanSearchResult skilledNursing(String skilledNursing) {
+    this.skilledNursing = skilledNursing;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Benefits summary for skilled nursing services")
+  @JsonProperty("skilled_nursing")
+  public String getSkilledNursing() {
+    return skilledNursing;
+  }
+  public void setSkilledNursing(String skilledNursing) {
+    this.skilledNursing = skilledNursing;
   }
 
 
@@ -907,6 +1216,42 @@ public class PlanSearchResult  implements Serializable {
   }
 
 
+  /**
+   * Cumulative premium amount for employees
+   **/
+  public PlanSearchResult employeePremium(BigDecimal employeePremium) {
+    this.employeePremium = employeePremium;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Cumulative premium amount for employees")
+  @JsonProperty("employee_premium")
+  public BigDecimal getEmployeePremium() {
+    return employeePremium;
+  }
+  public void setEmployeePremium(BigDecimal employeePremium) {
+    this.employeePremium = employeePremium;
+  }
+
+
+  /**
+   * Cumulative premium amount for dependents
+   **/
+  public PlanSearchResult dependentPremium(BigDecimal dependentPremium) {
+    this.dependentPremium = dependentPremium;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Cumulative premium amount for dependents")
+  @JsonProperty("dependent_premium")
+  public BigDecimal getDependentPremium() {
+    return dependentPremium;
+  }
+  public void setDependentPremium(BigDecimal dependentPremium) {
+    this.dependentPremium = dependentPremium;
+  }
+
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -923,25 +1268,35 @@ public class PlanSearchResult  implements Serializable {
         Objects.equals(this.carrierName, planSearchResult.carrierName) &&
         Objects.equals(this.childDental, planSearchResult.childDental) &&
         Objects.equals(this.childEyewear, planSearchResult.childEyewear) &&
+        Objects.equals(this.childEyeExam, planSearchResult.childEyeExam) &&
         Objects.equals(this.customerServicePhoneNumber, planSearchResult.customerServicePhoneNumber) &&
         Objects.equals(this.durableMedicalEquipment, planSearchResult.durableMedicalEquipment) &&
         Objects.equals(this.diagnosticTest, planSearchResult.diagnosticTest) &&
         Objects.equals(this.drugFormularyUrl, planSearchResult.drugFormularyUrl) &&
+        Objects.equals(this.effectiveDate, planSearchResult.effectiveDate) &&
+        Objects.equals(this.expirationDate, planSearchResult.expirationDate) &&
         Objects.equals(this.emergencyRoom, planSearchResult.emergencyRoom) &&
         Objects.equals(this.familyDrugDeductible, planSearchResult.familyDrugDeductible) &&
         Objects.equals(this.familyDrugMoop, planSearchResult.familyDrugMoop) &&
         Objects.equals(this.familyMedicalDeductible, planSearchResult.familyMedicalDeductible) &&
         Objects.equals(this.familyMedicalMoop, planSearchResult.familyMedicalMoop) &&
         Objects.equals(this.genericDrugs, planSearchResult.genericDrugs) &&
+        Objects.equals(this.habilitationServices, planSearchResult.habilitationServices) &&
         Objects.equals(this.hiosIssuerId, planSearchResult.hiosIssuerId) &&
+        Objects.equals(this.homeHealthCare, planSearchResult.homeHealthCare) &&
+        Objects.equals(this.hospiceService, planSearchResult.hospiceService) &&
         Objects.equals(this.id, planSearchResult.id) &&
         Objects.equals(this.imaging, planSearchResult.imaging) &&
+        Objects.equals(this.inNetworkIds, planSearchResult.inNetworkIds) &&
         Objects.equals(this.individualDrugDeductible, planSearchResult.individualDrugDeductible) &&
         Objects.equals(this.individualDrugMoop, planSearchResult.individualDrugMoop) &&
         Objects.equals(this.individualMedicalDeductible, planSearchResult.individualMedicalDeductible) &&
         Objects.equals(this.individualMedicalMoop, planSearchResult.individualMedicalMoop) &&
+        Objects.equals(this.inpatientBirth, planSearchResult.inpatientBirth) &&
         Objects.equals(this.inpatientFacility, planSearchResult.inpatientFacility) &&
+        Objects.equals(this.inpatientMentalHealth, planSearchResult.inpatientMentalHealth) &&
         Objects.equals(this.inpatientPhysician, planSearchResult.inpatientPhysician) &&
+        Objects.equals(this.inpatientSubstance, planSearchResult.inpatientSubstance) &&
         Objects.equals(this.level, planSearchResult.level) &&
         Objects.equals(this.logoUrl, planSearchResult.logoUrl) &&
         Objects.equals(this.name, planSearchResult.name) &&
@@ -949,25 +1304,33 @@ public class PlanSearchResult  implements Serializable {
         Objects.equals(this.onMarket, planSearchResult.onMarket) &&
         Objects.equals(this.offMarket, planSearchResult.offMarket) &&
         Objects.equals(this.outOfNetworkCoverage, planSearchResult.outOfNetworkCoverage) &&
+        Objects.equals(this.outOfNetworkIds, planSearchResult.outOfNetworkIds) &&
         Objects.equals(this.outpatientFacility, planSearchResult.outpatientFacility) &&
         Objects.equals(this.outpatientMentalHealth, planSearchResult.outpatientMentalHealth) &&
         Objects.equals(this.outpatientPhysician, planSearchResult.outpatientPhysician) &&
+        Objects.equals(this.outpatientSubstance, planSearchResult.outpatientSubstance) &&
         Objects.equals(this.planMarket, planSearchResult.planMarket) &&
         Objects.equals(this.planType, planSearchResult.planType) &&
         Objects.equals(this.preferredBrandDrugs, planSearchResult.preferredBrandDrugs) &&
+        Objects.equals(this.prenatalPostnatalCare, planSearchResult.prenatalPostnatalCare) &&
         Objects.equals(this.preventativeCare, planSearchResult.preventativeCare) &&
+        Objects.equals(this.premiumSubsidized, planSearchResult.premiumSubsidized) &&
+        Objects.equals(this.premium, planSearchResult.premium) &&
         Objects.equals(this.primaryCarePhysician, planSearchResult.primaryCarePhysician) &&
         Objects.equals(this.rehabilitationServices, planSearchResult.rehabilitationServices) &&
+        Objects.equals(this.skilledNursing, planSearchResult.skilledNursing) &&
         Objects.equals(this.specialist, planSearchResult.specialist) &&
         Objects.equals(this.specialtyDrugs, planSearchResult.specialtyDrugs) &&
         Objects.equals(this.urgentCare, planSearchResult.urgentCare) &&
         Objects.equals(this.matchPercentage, planSearchResult.matchPercentage) &&
-        Objects.equals(this.perfectMatchPercentage, planSearchResult.perfectMatchPercentage);
+        Objects.equals(this.perfectMatchPercentage, planSearchResult.perfectMatchPercentage) &&
+        Objects.equals(this.employeePremium, planSearchResult.employeePremium) &&
+        Objects.equals(this.dependentPremium, planSearchResult.dependentPremium);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(adultDental, ambulance, benefitsSummaryUrl, buyLink, carrierName, childDental, childEyewear, customerServicePhoneNumber, durableMedicalEquipment, diagnosticTest, drugFormularyUrl, emergencyRoom, familyDrugDeductible, familyDrugMoop, familyMedicalDeductible, familyMedicalMoop, genericDrugs, hiosIssuerId, id, imaging, individualDrugDeductible, individualDrugMoop, individualMedicalDeductible, individualMedicalMoop, inpatientFacility, inpatientPhysician, level, logoUrl, name, nonPreferredBrandDrugs, onMarket, offMarket, outOfNetworkCoverage, outpatientFacility, outpatientMentalHealth, outpatientPhysician, planMarket, planType, preferredBrandDrugs, preventativeCare, primaryCarePhysician, rehabilitationServices, specialist, specialtyDrugs, urgentCare, matchPercentage, perfectMatchPercentage);
+    return Objects.hash(adultDental, ambulance, benefitsSummaryUrl, buyLink, carrierName, childDental, childEyewear, childEyeExam, customerServicePhoneNumber, durableMedicalEquipment, diagnosticTest, drugFormularyUrl, effectiveDate, expirationDate, emergencyRoom, familyDrugDeductible, familyDrugMoop, familyMedicalDeductible, familyMedicalMoop, genericDrugs, habilitationServices, hiosIssuerId, homeHealthCare, hospiceService, id, imaging, inNetworkIds, individualDrugDeductible, individualDrugMoop, individualMedicalDeductible, individualMedicalMoop, inpatientBirth, inpatientFacility, inpatientMentalHealth, inpatientPhysician, inpatientSubstance, level, logoUrl, name, nonPreferredBrandDrugs, onMarket, offMarket, outOfNetworkCoverage, outOfNetworkIds, outpatientFacility, outpatientMentalHealth, outpatientPhysician, outpatientSubstance, planMarket, planType, preferredBrandDrugs, prenatalPostnatalCare, preventativeCare, premiumSubsidized, premium, primaryCarePhysician, rehabilitationServices, skilledNursing, specialist, specialtyDrugs, urgentCare, matchPercentage, perfectMatchPercentage, employeePremium, dependentPremium);
   }
 
   @Override
@@ -982,25 +1345,35 @@ public class PlanSearchResult  implements Serializable {
     sb.append("    carrierName: ").append(toIndentedString(carrierName)).append("\n");
     sb.append("    childDental: ").append(toIndentedString(childDental)).append("\n");
     sb.append("    childEyewear: ").append(toIndentedString(childEyewear)).append("\n");
+    sb.append("    childEyeExam: ").append(toIndentedString(childEyeExam)).append("\n");
     sb.append("    customerServicePhoneNumber: ").append(toIndentedString(customerServicePhoneNumber)).append("\n");
     sb.append("    durableMedicalEquipment: ").append(toIndentedString(durableMedicalEquipment)).append("\n");
     sb.append("    diagnosticTest: ").append(toIndentedString(diagnosticTest)).append("\n");
     sb.append("    drugFormularyUrl: ").append(toIndentedString(drugFormularyUrl)).append("\n");
+    sb.append("    effectiveDate: ").append(toIndentedString(effectiveDate)).append("\n");
+    sb.append("    expirationDate: ").append(toIndentedString(expirationDate)).append("\n");
     sb.append("    emergencyRoom: ").append(toIndentedString(emergencyRoom)).append("\n");
     sb.append("    familyDrugDeductible: ").append(toIndentedString(familyDrugDeductible)).append("\n");
     sb.append("    familyDrugMoop: ").append(toIndentedString(familyDrugMoop)).append("\n");
     sb.append("    familyMedicalDeductible: ").append(toIndentedString(familyMedicalDeductible)).append("\n");
     sb.append("    familyMedicalMoop: ").append(toIndentedString(familyMedicalMoop)).append("\n");
     sb.append("    genericDrugs: ").append(toIndentedString(genericDrugs)).append("\n");
+    sb.append("    habilitationServices: ").append(toIndentedString(habilitationServices)).append("\n");
     sb.append("    hiosIssuerId: ").append(toIndentedString(hiosIssuerId)).append("\n");
+    sb.append("    homeHealthCare: ").append(toIndentedString(homeHealthCare)).append("\n");
+    sb.append("    hospiceService: ").append(toIndentedString(hospiceService)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    imaging: ").append(toIndentedString(imaging)).append("\n");
+    sb.append("    inNetworkIds: ").append(toIndentedString(inNetworkIds)).append("\n");
     sb.append("    individualDrugDeductible: ").append(toIndentedString(individualDrugDeductible)).append("\n");
     sb.append("    individualDrugMoop: ").append(toIndentedString(individualDrugMoop)).append("\n");
     sb.append("    individualMedicalDeductible: ").append(toIndentedString(individualMedicalDeductible)).append("\n");
     sb.append("    individualMedicalMoop: ").append(toIndentedString(individualMedicalMoop)).append("\n");
+    sb.append("    inpatientBirth: ").append(toIndentedString(inpatientBirth)).append("\n");
     sb.append("    inpatientFacility: ").append(toIndentedString(inpatientFacility)).append("\n");
+    sb.append("    inpatientMentalHealth: ").append(toIndentedString(inpatientMentalHealth)).append("\n");
     sb.append("    inpatientPhysician: ").append(toIndentedString(inpatientPhysician)).append("\n");
+    sb.append("    inpatientSubstance: ").append(toIndentedString(inpatientSubstance)).append("\n");
     sb.append("    level: ").append(toIndentedString(level)).append("\n");
     sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
@@ -1008,20 +1381,28 @@ public class PlanSearchResult  implements Serializable {
     sb.append("    onMarket: ").append(toIndentedString(onMarket)).append("\n");
     sb.append("    offMarket: ").append(toIndentedString(offMarket)).append("\n");
     sb.append("    outOfNetworkCoverage: ").append(toIndentedString(outOfNetworkCoverage)).append("\n");
+    sb.append("    outOfNetworkIds: ").append(toIndentedString(outOfNetworkIds)).append("\n");
     sb.append("    outpatientFacility: ").append(toIndentedString(outpatientFacility)).append("\n");
     sb.append("    outpatientMentalHealth: ").append(toIndentedString(outpatientMentalHealth)).append("\n");
     sb.append("    outpatientPhysician: ").append(toIndentedString(outpatientPhysician)).append("\n");
+    sb.append("    outpatientSubstance: ").append(toIndentedString(outpatientSubstance)).append("\n");
     sb.append("    planMarket: ").append(toIndentedString(planMarket)).append("\n");
     sb.append("    planType: ").append(toIndentedString(planType)).append("\n");
     sb.append("    preferredBrandDrugs: ").append(toIndentedString(preferredBrandDrugs)).append("\n");
+    sb.append("    prenatalPostnatalCare: ").append(toIndentedString(prenatalPostnatalCare)).append("\n");
     sb.append("    preventativeCare: ").append(toIndentedString(preventativeCare)).append("\n");
+    sb.append("    premiumSubsidized: ").append(toIndentedString(premiumSubsidized)).append("\n");
+    sb.append("    premium: ").append(toIndentedString(premium)).append("\n");
     sb.append("    primaryCarePhysician: ").append(toIndentedString(primaryCarePhysician)).append("\n");
     sb.append("    rehabilitationServices: ").append(toIndentedString(rehabilitationServices)).append("\n");
+    sb.append("    skilledNursing: ").append(toIndentedString(skilledNursing)).append("\n");
     sb.append("    specialist: ").append(toIndentedString(specialist)).append("\n");
     sb.append("    specialtyDrugs: ").append(toIndentedString(specialtyDrugs)).append("\n");
     sb.append("    urgentCare: ").append(toIndentedString(urgentCare)).append("\n");
     sb.append("    matchPercentage: ").append(toIndentedString(matchPercentage)).append("\n");
     sb.append("    perfectMatchPercentage: ").append(toIndentedString(perfectMatchPercentage)).append("\n");
+    sb.append("    employeePremium: ").append(toIndentedString(employeePremium)).append("\n");
+    sb.append("    dependentPremium: ").append(toIndentedString(dependentPremium)).append("\n");
     sb.append("}");
     return sb.toString();
   }

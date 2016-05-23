@@ -9,45 +9,45 @@ import java.io.Serializable;
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-09T13:18:42.423-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
 public class RatingArea  implements Serializable {
   
-  private Integer id = null;
-  private Integer stateId = null;
+  private String id = null;
+  private String stateId = null;
 
   
   /**
-   * Primary key
+   * Name of the Rating Area
    **/
-  public RatingArea id(Integer id) {
+  public RatingArea id(String id) {
     this.id = id;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "Primary key")
+  @ApiModelProperty(example = "null", value = "Name of the Rating Area")
   @JsonProperty("id")
-  public Integer getId() {
+  public String getId() {
     return id;
   }
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 
 
   /**
-   * Foreign key to state
+   * State Code
    **/
-  public RatingArea stateId(Integer stateId) {
+  public RatingArea stateId(String stateId) {
     this.stateId = stateId;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "Foreign key to state")
+  @ApiModelProperty(example = "null", value = "State Code")
   @JsonProperty("state_id")
-  public Integer getStateId() {
+  public String getStateId() {
     return stateId;
   }
-  public void setStateId(Integer stateId) {
+  public void setStateId(String stateId) {
     this.stateId = stateId;
   }
 

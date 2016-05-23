@@ -1,6 +1,6 @@
 package vericred;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-09T13:18:42.423-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
 public class StringUtil {
   /**
    * Check if the given array contains the given value (with case-insensitive comparison).

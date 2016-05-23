@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-09T13:18:42.423-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
 public class ZipCounty  implements Serializable {
   
   private Integer countyId = null;

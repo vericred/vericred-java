@@ -4,12 +4,15 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.io.Serializable;
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-09T13:18:42.423-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
 public class Provider  implements Serializable {
   
   private Boolean acceptingChangeOfPayorPatients = null;
@@ -21,8 +24,11 @@ public class Provider  implements Serializable {
   private String email = null;
   private String gender = null;
   private String firstName = null;
+  private List<String> hiosIds = new ArrayList<String>();
   private Integer id = null;
   private String lastName = null;
+  private BigDecimal latitude = null;
+  private BigDecimal longitude = null;
   private String middleName = null;
   private String personalPhone = null;
   private String phone = null;
@@ -201,6 +207,24 @@ public class Provider  implements Serializable {
 
 
   /**
+   * List of HIOS ids for this provider
+   **/
+  public Provider hiosIds(List<String> hiosIds) {
+    this.hiosIds = hiosIds;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "List of HIOS ids for this provider")
+  @JsonProperty("hios_ids")
+  public List<String> getHiosIds() {
+    return hiosIds;
+  }
+  public void setHiosIds(List<String> hiosIds) {
+    this.hiosIds = hiosIds;
+  }
+
+
+  /**
    * National Provider Index (NPI) number
    **/
   public Provider id(Integer id) {
@@ -233,6 +257,42 @@ public class Provider  implements Serializable {
   }
   public void setLastName(String lastName) {
     this.lastName = lastName;
+  }
+
+
+  /**
+   * Latitude of provider
+   **/
+  public Provider latitude(BigDecimal latitude) {
+    this.latitude = latitude;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Latitude of provider")
+  @JsonProperty("latitude")
+  public BigDecimal getLatitude() {
+    return latitude;
+  }
+  public void setLatitude(BigDecimal latitude) {
+    this.latitude = latitude;
+  }
+
+
+  /**
+   * Longitude of provider
+   **/
+  public Provider longitude(BigDecimal longitude) {
+    this.longitude = longitude;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Longitude of provider")
+  @JsonProperty("longitude")
+  public BigDecimal getLongitude() {
+    return longitude;
+  }
+  public void setLongitude(BigDecimal longitude) {
+    this.longitude = longitude;
   }
 
 
@@ -488,8 +548,11 @@ public class Provider  implements Serializable {
         Objects.equals(this.email, provider.email) &&
         Objects.equals(this.gender, provider.gender) &&
         Objects.equals(this.firstName, provider.firstName) &&
+        Objects.equals(this.hiosIds, provider.hiosIds) &&
         Objects.equals(this.id, provider.id) &&
         Objects.equals(this.lastName, provider.lastName) &&
+        Objects.equals(this.latitude, provider.latitude) &&
+        Objects.equals(this.longitude, provider.longitude) &&
         Objects.equals(this.middleName, provider.middleName) &&
         Objects.equals(this.personalPhone, provider.personalPhone) &&
         Objects.equals(this.phone, provider.phone) &&
@@ -507,7 +570,7 @@ public class Provider  implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(acceptingChangeOfPayorPatients, acceptingMedicaidPatients, acceptingMedicarePatients, acceptingPrivatePatients, acceptingReferralPatients, city, email, gender, firstName, id, lastName, middleName, personalPhone, phone, presentationName, specialty, state, stateId, streetLine1, streetLine2, suffix, title, type, zipCode);
+    return Objects.hash(acceptingChangeOfPayorPatients, acceptingMedicaidPatients, acceptingMedicarePatients, acceptingPrivatePatients, acceptingReferralPatients, city, email, gender, firstName, hiosIds, id, lastName, latitude, longitude, middleName, personalPhone, phone, presentationName, specialty, state, stateId, streetLine1, streetLine2, suffix, title, type, zipCode);
   }
 
   @Override
@@ -524,8 +587,11 @@ public class Provider  implements Serializable {
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    gender: ").append(toIndentedString(gender)).append("\n");
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
+    sb.append("    hiosIds: ").append(toIndentedString(hiosIds)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
+    sb.append("    latitude: ").append(toIndentedString(latitude)).append("\n");
+    sb.append("    longitude: ").append(toIndentedString(longitude)).append("\n");
     sb.append("    middleName: ").append(toIndentedString(middleName)).append("\n");
     sb.append("    personalPhone: ").append(toIndentedString(personalPhone)).append("\n");
     sb.append("    phone: ").append(toIndentedString(phone)).append("\n");

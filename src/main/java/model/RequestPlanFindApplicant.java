@@ -10,45 +10,26 @@ import java.io.Serializable;
 
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
-public class ZipCode  implements Serializable {
+public class RequestPlanFindApplicant  implements Serializable {
   
-  private String code = null;
-  private Integer id = null;
+  private Integer age = null;
 
   
   /**
-   * 5 digit code (e.g. 11215)
+   * Age of applicant to search for
    **/
-  public ZipCode code(String code) {
-    this.code = code;
+  public RequestPlanFindApplicant age(Integer age) {
+    this.age = age;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "5 digit code (e.g. 11215)")
-  @JsonProperty("code")
-  public String getCode() {
-    return code;
+  @ApiModelProperty(example = "null", value = "Age of applicant to search for")
+  @JsonProperty("age")
+  public Integer getAge() {
+    return age;
   }
-  public void setCode(String code) {
-    this.code = code;
-  }
-
-
-  /**
-   * Primary key
-   **/
-  public ZipCode id(Integer id) {
-    this.id = id;
-    return this;
-  }
-  
-  @ApiModelProperty(example = "null", value = "Primary key")
-  @JsonProperty("id")
-  public Integer getId() {
-    return id;
-  }
-  public void setId(Integer id) {
-    this.id = id;
+  public void setAge(Integer age) {
+    this.age = age;
   }
 
 
@@ -60,23 +41,21 @@ public class ZipCode  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ZipCode zipCode = (ZipCode) o;
-    return Objects.equals(this.code, zipCode.code) &&
-        Objects.equals(this.id, zipCode.id);
+    RequestPlanFindApplicant requestPlanFindApplicant = (RequestPlanFindApplicant) o;
+    return Objects.equals(this.age, requestPlanFindApplicant.age);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, id);
+    return Objects.hash(age);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ZipCode {\n");
+    sb.append("class RequestPlanFindApplicant {\n");
     
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    age: ").append(toIndentedString(age)).append("\n");
     sb.append("}");
     return sb.toString();
   }
