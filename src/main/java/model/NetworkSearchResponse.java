@@ -6,26 +6,24 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import model.Drug;
 import model.Meta;
-import model.Plan;
+import model.Network;
 
 import java.io.Serializable;
 
 
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-31T08:54:42.900-04:00")
-public class PlanSearchResponse  implements Serializable {
+public class NetworkSearchResponse  implements Serializable {
   
   private Meta meta = null;
-  private List<Plan> plans = new ArrayList<Plan>();
-  private List<Drug> coverages = new ArrayList<Drug>();
+  private List<Network> networks = new ArrayList<Network>();
 
   
   /**
    * Metadata for query
    **/
-  public PlanSearchResponse meta(Meta meta) {
+  public NetworkSearchResponse meta(Meta meta) {
     this.meta = meta;
     return this;
   }
@@ -41,38 +39,20 @@ public class PlanSearchResponse  implements Serializable {
 
 
   /**
-   * Plan search results
+   * Networks that fit the requested criterion.
    **/
-  public PlanSearchResponse plans(List<Plan> plans) {
-    this.plans = plans;
+  public NetworkSearchResponse networks(List<Network> networks) {
+    this.networks = networks;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "Plan search results")
-  @JsonProperty("plans")
-  public List<Plan> getPlans() {
-    return plans;
+  @ApiModelProperty(example = "null", value = "Networks that fit the requested criterion.")
+  @JsonProperty("networks")
+  public List<Network> getNetworks() {
+    return networks;
   }
-  public void setPlans(List<Plan> plans) {
-    this.plans = plans;
-  }
-
-
-  /**
-   * null
-   **/
-  public PlanSearchResponse coverages(List<Drug> coverages) {
-    this.coverages = coverages;
-    return this;
-  }
-  
-  @ApiModelProperty(example = "null", value = "null")
-  @JsonProperty("coverages")
-  public List<Drug> getCoverages() {
-    return coverages;
-  }
-  public void setCoverages(List<Drug> coverages) {
-    this.coverages = coverages;
+  public void setNetworks(List<Network> networks) {
+    this.networks = networks;
   }
 
 
@@ -84,25 +64,23 @@ public class PlanSearchResponse  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PlanSearchResponse planSearchResponse = (PlanSearchResponse) o;
-    return Objects.equals(this.meta, planSearchResponse.meta) &&
-        Objects.equals(this.plans, planSearchResponse.plans) &&
-        Objects.equals(this.coverages, planSearchResponse.coverages);
+    NetworkSearchResponse networkSearchResponse = (NetworkSearchResponse) o;
+    return Objects.equals(this.meta, networkSearchResponse.meta) &&
+        Objects.equals(this.networks, networkSearchResponse.networks);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(meta, plans, coverages);
+    return Objects.hash(meta, networks);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PlanSearchResponse {\n");
+    sb.append("class NetworkSearchResponse {\n");
     
     sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
-    sb.append("    plans: ").append(toIndentedString(plans)).append("\n");
-    sb.append("    coverages: ").append(toIndentedString(coverages)).append("\n");
+    sb.append("    networks: ").append(toIndentedString(networks)).append("\n");
     sb.append("}");
     return sb.toString();
   }

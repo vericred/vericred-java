@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-31T08:54:42.900-04:00")
 public class Provider  implements Serializable {
   
   private Boolean acceptingChangeOfPayorPatients = null;
@@ -30,6 +30,7 @@ public class Provider  implements Serializable {
   private BigDecimal latitude = null;
   private BigDecimal longitude = null;
   private String middleName = null;
+  private List<Integer> networkIds = new ArrayList<Integer>();
   private String personalPhone = null;
   private String phone = null;
   private String presentationName = null;
@@ -315,6 +316,24 @@ public class Provider  implements Serializable {
 
 
   /**
+   * Array of network ids
+   **/
+  public Provider networkIds(List<Integer> networkIds) {
+    this.networkIds = networkIds;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Array of network ids")
+  @JsonProperty("network_ids")
+  public List<Integer> getNetworkIds() {
+    return networkIds;
+  }
+  public void setNetworkIds(List<Integer> networkIds) {
+    this.networkIds = networkIds;
+  }
+
+
+  /**
    * Personal contact phone for the provider.
    **/
   public Provider personalPhone(String personalPhone) {
@@ -554,6 +573,7 @@ public class Provider  implements Serializable {
         Objects.equals(this.latitude, provider.latitude) &&
         Objects.equals(this.longitude, provider.longitude) &&
         Objects.equals(this.middleName, provider.middleName) &&
+        Objects.equals(this.networkIds, provider.networkIds) &&
         Objects.equals(this.personalPhone, provider.personalPhone) &&
         Objects.equals(this.phone, provider.phone) &&
         Objects.equals(this.presentationName, provider.presentationName) &&
@@ -570,7 +590,7 @@ public class Provider  implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(acceptingChangeOfPayorPatients, acceptingMedicaidPatients, acceptingMedicarePatients, acceptingPrivatePatients, acceptingReferralPatients, city, email, gender, firstName, hiosIds, id, lastName, latitude, longitude, middleName, personalPhone, phone, presentationName, specialty, state, stateId, streetLine1, streetLine2, suffix, title, type, zipCode);
+    return Objects.hash(acceptingChangeOfPayorPatients, acceptingMedicaidPatients, acceptingMedicarePatients, acceptingPrivatePatients, acceptingReferralPatients, city, email, gender, firstName, hiosIds, id, lastName, latitude, longitude, middleName, networkIds, personalPhone, phone, presentationName, specialty, state, stateId, streetLine1, streetLine2, suffix, title, type, zipCode);
   }
 
   @Override
@@ -593,6 +613,7 @@ public class Provider  implements Serializable {
     sb.append("    latitude: ").append(toIndentedString(latitude)).append("\n");
     sb.append("    longitude: ").append(toIndentedString(longitude)).append("\n");
     sb.append("    middleName: ").append(toIndentedString(middleName)).append("\n");
+    sb.append("    networkIds: ").append(toIndentedString(networkIds)).append("\n");
     sb.append("    personalPhone: ").append(toIndentedString(personalPhone)).append("\n");
     sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
     sb.append("    presentationName: ").append(toIndentedString(presentationName)).append("\n");
