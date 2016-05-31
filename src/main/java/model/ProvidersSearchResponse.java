@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-31T08:54:42.900-04:00")
 public class ProvidersSearchResponse  implements Serializable {
   
   private Meta meta = null;
@@ -23,14 +23,14 @@ public class ProvidersSearchResponse  implements Serializable {
 
   
   /**
-   * Meta-data about the response.
+   * Metadata for query
    **/
   public ProvidersSearchResponse meta(Meta meta) {
     this.meta = meta;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "Meta-data about the response.")
+  @ApiModelProperty(example = "null", value = "Metadata for query")
   @JsonProperty("meta")
   public Meta getMeta() {
     return meta;

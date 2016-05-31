@@ -11,13 +11,15 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-23T16:44:52.285-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-31T08:54:42.900-04:00")
 public interface DrugsApi extends ApiClient.Api {
 
 
   /**
    * Search for DrugCoverages
-   * Drug Coverages are the specific tier level, quantity limit, prior authorization and step therapy for a given Drug/Plan combination. This endpoint returns all DrugCoverages for a given Drug
+   * Drug Coverages are the specific tier level, quantity limit, prior
+authorization and step therapy for a given Drug/Plan combination. This endpoint
+returns all DrugCoverages for a given Drug
    * @param ndcPackageCode NDC package code (required)
    * @param audience Two-character state code (required)
    * @param stateCode Two-character state code (required)

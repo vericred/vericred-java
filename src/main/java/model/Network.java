@@ -10,34 +10,16 @@ import java.io.Serializable;
 
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-31T08:54:42.900-04:00")
-public class ZipCode  implements Serializable {
+public class Network  implements Serializable {
   
-  private String code = null;
   private Integer id = null;
+  private String name = null;
 
   
-  /**
-   * 5 digit code (e.g. 11215)
-   **/
-  public ZipCode code(String code) {
-    this.code = code;
-    return this;
-  }
-  
-  @ApiModelProperty(example = "null", value = "5 digit code (e.g. 11215)")
-  @JsonProperty("code")
-  public String getCode() {
-    return code;
-  }
-  public void setCode(String code) {
-    this.code = code;
-  }
-
-
   /**
    * Primary key
    **/
-  public ZipCode id(Integer id) {
+  public Network id(Integer id) {
     this.id = id;
     return this;
   }
@@ -52,6 +34,24 @@ public class ZipCode  implements Serializable {
   }
 
 
+  /**
+   * Carrier name
+   **/
+  public Network name(String name) {
+    this.name = name;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Carrier name")
+  @JsonProperty("name")
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
+  }
+
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -60,23 +60,23 @@ public class ZipCode  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ZipCode zipCode = (ZipCode) o;
-    return Objects.equals(this.code, zipCode.code) &&
-        Objects.equals(this.id, zipCode.id);
+    Network network = (Network) o;
+    return Objects.equals(this.id, network.id) &&
+        Objects.equals(this.name, network.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, id);
+    return Objects.hash(id, name);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ZipCode {\n");
+    sb.append("class Network {\n");
     
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();
   }
