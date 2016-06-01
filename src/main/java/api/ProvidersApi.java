@@ -2,7 +2,7 @@ package api;
 
 import vericred.ApiClient;
 
-import model.Provider;
+import model.ProviderShowResponse;
 import model.RequestProvidersSearch;
 import model.ProvidersSearchResponse;
 
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-31T08:54:42.900-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-01T14:02:42.021-04:00")
 public interface ProvidersApi extends ApiClient.Api {
 
 
@@ -21,7 +21,7 @@ public interface ProvidersApi extends ApiClient.Api {
    * To retrieve a specific provider, just perform a GET using his NPI number
    * @param npi NPI number (required)
    * @param vericredApiKey API Key (optional)
-   * @return Provider
+   * @return ProviderShowResponse
    */
   @RequestLine("GET /providers/{npi}")
   @Headers({
@@ -29,7 +29,7 @@ public interface ProvidersApi extends ApiClient.Api {
     "Accepts: application/json",
     "vericredApiKey: {vericredApiKey}"
   })
-  Provider getProvider(@Param("npi") String npi, @Param("vericredApiKey") String vericredApiKey);
+  ProviderShowResponse getProvider(@Param("npi") String npi, @Param("vericredApiKey") String vericredApiKey);
 
   /**
    * Find Providers
