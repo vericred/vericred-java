@@ -18,7 +18,7 @@ import feign.slf4j.Slf4jLogger;
 import vericred.auth.*;
 import vericred.auth.OAuth.AccessTokenListener;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-01T14:02:42.021-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-27T13:45:11.284-04:00")
 public class ApiClient {
   public interface Api {}
 
@@ -39,7 +39,13 @@ public class ApiClient {
   public ApiClient(String[] authNames) {
     this();
     for(String authName : authNames) { 
-      throw new RuntimeException("auth name \"" + authName + "\" not found in available auth names");
+      RequestInterceptor auth;
+      if (authName == "Vericred-Api-Key") { 
+        auth = new ApiKeyAuth("header", "Vericred-Api-Key");
+      } else {
+        throw new RuntimeException("auth name \"" + authName + "\" not found in available auth names");
+      }
+      addAuthorization(authName, auth);
     }
   }
 

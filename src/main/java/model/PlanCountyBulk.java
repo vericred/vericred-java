@@ -9,32 +9,13 @@ import java.io.Serializable;
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-01T14:02:42.021-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-27T13:45:11.284-04:00")
 public class PlanCountyBulk  implements Serializable {
   
-  private Integer id = null;
   private Integer planId = null;
   private Integer countyId = null;
 
   
-  /**
-   * Primary key
-   **/
-  public PlanCountyBulk id(Integer id) {
-    this.id = id;
-    return this;
-  }
-  
-  @ApiModelProperty(example = "null", value = "Primary key")
-  @JsonProperty("id")
-  public Integer getId() {
-    return id;
-  }
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-
   /**
    * Foreign key to plan
    **/
@@ -80,14 +61,13 @@ public class PlanCountyBulk  implements Serializable {
       return false;
     }
     PlanCountyBulk planCountyBulk = (PlanCountyBulk) o;
-    return Objects.equals(this.id, planCountyBulk.id) &&
-        Objects.equals(this.planId, planCountyBulk.planId) &&
+    return Objects.equals(this.planId, planCountyBulk.planId) &&
         Objects.equals(this.countyId, planCountyBulk.countyId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, planId, countyId);
+    return Objects.hash(planId, countyId);
   }
 
   @Override
@@ -95,7 +75,6 @@ public class PlanCountyBulk  implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class PlanCountyBulk {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    planId: ").append(toIndentedString(planId)).append("\n");
     sb.append("    countyId: ").append(toIndentedString(countyId)).append("\n");
     sb.append("}");

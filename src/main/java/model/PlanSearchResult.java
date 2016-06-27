@@ -12,10 +12,11 @@ import java.io.Serializable;
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-01T14:02:42.021-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-27T13:45:11.284-04:00")
 public class PlanSearchResult  implements Serializable {
   
   private Boolean adultDental = null;
+  private Boolean age29Rider = null;
   private String ambulance = null;
   private String benefitsSummaryUrl = null;
   private String buyLink = null;
@@ -26,6 +27,7 @@ public class PlanSearchResult  implements Serializable {
   private String customerServicePhoneNumber = null;
   private String durableMedicalEquipment = null;
   private String diagnosticTest = null;
+  private Boolean dpRider = null;
   private String drugFormularyUrl = null;
   private String effectiveDate = null;
   private String expirationDate = null;
@@ -34,6 +36,7 @@ public class PlanSearchResult  implements Serializable {
   private String familyDrugMoop = null;
   private String familyMedicalDeductible = null;
   private String familyMedicalMoop = null;
+  private Boolean fpRider = null;
   private String genericDrugs = null;
   private String habilitationServices = null;
   private String hiosIssuerId = null;
@@ -97,6 +100,24 @@ public class PlanSearchResult  implements Serializable {
   }
   public void setAdultDental(Boolean adultDental) {
     this.adultDental = adultDental;
+  }
+
+
+  /**
+   * 
+   **/
+  public PlanSearchResult age29Rider(Boolean age29Rider) {
+    this.age29Rider = age29Rider;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("age29_rider")
+  public Boolean getAge29Rider() {
+    return age29Rider;
+  }
+  public void setAge29Rider(Boolean age29Rider) {
+    this.age29Rider = age29Rider;
   }
 
 
@@ -281,6 +302,24 @@ public class PlanSearchResult  implements Serializable {
 
 
   /**
+   * Is this a domestic plan?
+   **/
+  public PlanSearchResult dpRider(Boolean dpRider) {
+    this.dpRider = dpRider;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Is this a domestic plan?")
+  @JsonProperty("dp_rider")
+  public Boolean getDpRider() {
+    return dpRider;
+  }
+  public void setDpRider(Boolean dpRider) {
+    this.dpRider = dpRider;
+  }
+
+
+  /**
    * Link to the summary of drug benefits for the plan
    **/
   public PlanSearchResult drugFormularyUrl(String drugFormularyUrl) {
@@ -421,6 +460,24 @@ public class PlanSearchResult  implements Serializable {
   }
   public void setFamilyMedicalMoop(String familyMedicalMoop) {
     this.familyMedicalMoop = familyMedicalMoop;
+  }
+
+
+  /**
+   * Is this a family plan?
+   **/
+  public PlanSearchResult fpRider(Boolean fpRider) {
+    this.fpRider = fpRider;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Is this a family plan?")
+  @JsonProperty("fp_rider")
+  public Boolean getFpRider() {
+    return fpRider;
+  }
+  public void setFpRider(Boolean fpRider) {
+    this.fpRider = fpRider;
   }
 
 
@@ -1262,6 +1319,7 @@ public class PlanSearchResult  implements Serializable {
     }
     PlanSearchResult planSearchResult = (PlanSearchResult) o;
     return Objects.equals(this.adultDental, planSearchResult.adultDental) &&
+        Objects.equals(this.age29Rider, planSearchResult.age29Rider) &&
         Objects.equals(this.ambulance, planSearchResult.ambulance) &&
         Objects.equals(this.benefitsSummaryUrl, planSearchResult.benefitsSummaryUrl) &&
         Objects.equals(this.buyLink, planSearchResult.buyLink) &&
@@ -1272,6 +1330,7 @@ public class PlanSearchResult  implements Serializable {
         Objects.equals(this.customerServicePhoneNumber, planSearchResult.customerServicePhoneNumber) &&
         Objects.equals(this.durableMedicalEquipment, planSearchResult.durableMedicalEquipment) &&
         Objects.equals(this.diagnosticTest, planSearchResult.diagnosticTest) &&
+        Objects.equals(this.dpRider, planSearchResult.dpRider) &&
         Objects.equals(this.drugFormularyUrl, planSearchResult.drugFormularyUrl) &&
         Objects.equals(this.effectiveDate, planSearchResult.effectiveDate) &&
         Objects.equals(this.expirationDate, planSearchResult.expirationDate) &&
@@ -1280,6 +1339,7 @@ public class PlanSearchResult  implements Serializable {
         Objects.equals(this.familyDrugMoop, planSearchResult.familyDrugMoop) &&
         Objects.equals(this.familyMedicalDeductible, planSearchResult.familyMedicalDeductible) &&
         Objects.equals(this.familyMedicalMoop, planSearchResult.familyMedicalMoop) &&
+        Objects.equals(this.fpRider, planSearchResult.fpRider) &&
         Objects.equals(this.genericDrugs, planSearchResult.genericDrugs) &&
         Objects.equals(this.habilitationServices, planSearchResult.habilitationServices) &&
         Objects.equals(this.hiosIssuerId, planSearchResult.hiosIssuerId) &&
@@ -1330,7 +1390,7 @@ public class PlanSearchResult  implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(adultDental, ambulance, benefitsSummaryUrl, buyLink, carrierName, childDental, childEyewear, childEyeExam, customerServicePhoneNumber, durableMedicalEquipment, diagnosticTest, drugFormularyUrl, effectiveDate, expirationDate, emergencyRoom, familyDrugDeductible, familyDrugMoop, familyMedicalDeductible, familyMedicalMoop, genericDrugs, habilitationServices, hiosIssuerId, homeHealthCare, hospiceService, id, imaging, inNetworkIds, individualDrugDeductible, individualDrugMoop, individualMedicalDeductible, individualMedicalMoop, inpatientBirth, inpatientFacility, inpatientMentalHealth, inpatientPhysician, inpatientSubstance, level, logoUrl, name, nonPreferredBrandDrugs, onMarket, offMarket, outOfNetworkCoverage, outOfNetworkIds, outpatientFacility, outpatientMentalHealth, outpatientPhysician, outpatientSubstance, planMarket, planType, preferredBrandDrugs, prenatalPostnatalCare, preventativeCare, premiumSubsidized, premium, primaryCarePhysician, rehabilitationServices, skilledNursing, specialist, specialtyDrugs, urgentCare, matchPercentage, perfectMatchPercentage, employeePremium, dependentPremium);
+    return Objects.hash(adultDental, age29Rider, ambulance, benefitsSummaryUrl, buyLink, carrierName, childDental, childEyewear, childEyeExam, customerServicePhoneNumber, durableMedicalEquipment, diagnosticTest, dpRider, drugFormularyUrl, effectiveDate, expirationDate, emergencyRoom, familyDrugDeductible, familyDrugMoop, familyMedicalDeductible, familyMedicalMoop, fpRider, genericDrugs, habilitationServices, hiosIssuerId, homeHealthCare, hospiceService, id, imaging, inNetworkIds, individualDrugDeductible, individualDrugMoop, individualMedicalDeductible, individualMedicalMoop, inpatientBirth, inpatientFacility, inpatientMentalHealth, inpatientPhysician, inpatientSubstance, level, logoUrl, name, nonPreferredBrandDrugs, onMarket, offMarket, outOfNetworkCoverage, outOfNetworkIds, outpatientFacility, outpatientMentalHealth, outpatientPhysician, outpatientSubstance, planMarket, planType, preferredBrandDrugs, prenatalPostnatalCare, preventativeCare, premiumSubsidized, premium, primaryCarePhysician, rehabilitationServices, skilledNursing, specialist, specialtyDrugs, urgentCare, matchPercentage, perfectMatchPercentage, employeePremium, dependentPremium);
   }
 
   @Override
@@ -1339,6 +1399,7 @@ public class PlanSearchResult  implements Serializable {
     sb.append("class PlanSearchResult {\n");
     
     sb.append("    adultDental: ").append(toIndentedString(adultDental)).append("\n");
+    sb.append("    age29Rider: ").append(toIndentedString(age29Rider)).append("\n");
     sb.append("    ambulance: ").append(toIndentedString(ambulance)).append("\n");
     sb.append("    benefitsSummaryUrl: ").append(toIndentedString(benefitsSummaryUrl)).append("\n");
     sb.append("    buyLink: ").append(toIndentedString(buyLink)).append("\n");
@@ -1349,6 +1410,7 @@ public class PlanSearchResult  implements Serializable {
     sb.append("    customerServicePhoneNumber: ").append(toIndentedString(customerServicePhoneNumber)).append("\n");
     sb.append("    durableMedicalEquipment: ").append(toIndentedString(durableMedicalEquipment)).append("\n");
     sb.append("    diagnosticTest: ").append(toIndentedString(diagnosticTest)).append("\n");
+    sb.append("    dpRider: ").append(toIndentedString(dpRider)).append("\n");
     sb.append("    drugFormularyUrl: ").append(toIndentedString(drugFormularyUrl)).append("\n");
     sb.append("    effectiveDate: ").append(toIndentedString(effectiveDate)).append("\n");
     sb.append("    expirationDate: ").append(toIndentedString(expirationDate)).append("\n");
@@ -1357,6 +1419,7 @@ public class PlanSearchResult  implements Serializable {
     sb.append("    familyDrugMoop: ").append(toIndentedString(familyDrugMoop)).append("\n");
     sb.append("    familyMedicalDeductible: ").append(toIndentedString(familyMedicalDeductible)).append("\n");
     sb.append("    familyMedicalMoop: ").append(toIndentedString(familyMedicalMoop)).append("\n");
+    sb.append("    fpRider: ").append(toIndentedString(fpRider)).append("\n");
     sb.append("    genericDrugs: ").append(toIndentedString(genericDrugs)).append("\n");
     sb.append("    habilitationServices: ").append(toIndentedString(habilitationServices)).append("\n");
     sb.append("    hiosIssuerId: ").append(toIndentedString(hiosIssuerId)).append("\n");
