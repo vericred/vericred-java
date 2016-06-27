@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-01T14:02:42.021-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-27T13:45:11.284-04:00")
 public interface PlansApi extends ApiClient.Api {
 
 
@@ -21,7 +21,7 @@ public interface PlansApi extends ApiClient.Api {
 
 Searching for a set of plans requires a &#x60;zip_code&#x60; and &#x60;fips_code&#x60;
 code.  These are used to determine pricing and availabity
-of health plans.
+of health plans. This endpoint is paginated.
 
 Optionally, you may provide a list of Applicants or Providers
 
@@ -77,6 +77,14 @@ and return it for each plan.  If no values are provided, the
 &#x60;subsidized_premium&#x60; will be the same as the &#x60;premium&#x60;
 
 &#x60;GET /plans?zip_code&#x3D;07451&amp;fips_code&#x3D;33025&amp;household_size&#x3D;4&amp;household_income&#x3D;40000&#x60;
+
+
+### Sorting
+
+Plans can be sorted by the &#x60;premium&#x60;, &#x60;carrier_name&#x60;, &#x60;level&#x60;, and &#x60;plan_type&#x60; fields,
+by either ascending (as &#x60;asc&#x60;) or descending (as &#x60;dsc) sort under the &#x60;sort&#x60; field.
+
+For example, to sort plans by level, the sort parameter would be &#x60;level:asc&#x60;.
 
    * @param body  (optional)
    * @return PlanSearchResponse

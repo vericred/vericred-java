@@ -10,16 +10,17 @@ import java.io.Serializable;
 
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-27T13:45:11.284-04:00")
-public class PlanCounty  implements Serializable {
+public class PlanZipCounty  implements Serializable {
   
   private Integer planId = null;
   private Integer countyId = null;
+  private Integer zipCodeId = null;
 
   
   /**
    * Foreign key to plan
    **/
-  public PlanCounty planId(Integer planId) {
+  public PlanZipCounty planId(Integer planId) {
     this.planId = planId;
     return this;
   }
@@ -37,7 +38,7 @@ public class PlanCounty  implements Serializable {
   /**
    * Foreign key to county
    **/
-  public PlanCounty countyId(Integer countyId) {
+  public PlanZipCounty countyId(Integer countyId) {
     this.countyId = countyId;
     return this;
   }
@@ -52,6 +53,24 @@ public class PlanCounty  implements Serializable {
   }
 
 
+  /**
+   * Foreign key to zip code
+   **/
+  public PlanZipCounty zipCodeId(Integer zipCodeId) {
+    this.zipCodeId = zipCodeId;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Foreign key to zip code")
+  @JsonProperty("zip_code_id")
+  public Integer getZipCodeId() {
+    return zipCodeId;
+  }
+  public void setZipCodeId(Integer zipCodeId) {
+    this.zipCodeId = zipCodeId;
+  }
+
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -60,23 +79,25 @@ public class PlanCounty  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PlanCounty planCounty = (PlanCounty) o;
-    return Objects.equals(this.planId, planCounty.planId) &&
-        Objects.equals(this.countyId, planCounty.countyId);
+    PlanZipCounty planZipCounty = (PlanZipCounty) o;
+    return Objects.equals(this.planId, planZipCounty.planId) &&
+        Objects.equals(this.countyId, planZipCounty.countyId) &&
+        Objects.equals(this.zipCodeId, planZipCounty.zipCodeId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(planId, countyId);
+    return Objects.hash(planId, countyId, zipCodeId);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PlanCounty {\n");
+    sb.append("class PlanZipCounty {\n");
     
     sb.append("    planId: ").append(toIndentedString(planId)).append("\n");
     sb.append("    countyId: ").append(toIndentedString(countyId)).append("\n");
+    sb.append("    zipCodeId: ").append(toIndentedString(zipCodeId)).append("\n");
     sb.append("}");
     return sb.toString();
   }
