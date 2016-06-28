@@ -9,6 +9,7 @@ import org.apache.oltu.oauth2.client.request.OAuthClientRequest.TokenRequestBuil
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import feign.Feign;
 import feign.RequestInterceptor;
@@ -18,11 +19,11 @@ import feign.slf4j.Slf4jLogger;
 import vericred.auth.*;
 import vericred.auth.OAuth.AccessTokenListener;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-01T14:02:42.021-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-28T10:14:26.235-04:00")
 public class ApiClient {
   public interface Api {}
 
-  private ObjectMapper objectMapper;
+  protected ObjectMapper objectMapper;
   private String basePath = "https://api.vericred.com/";
   private Map<String, RequestInterceptor> apiAuthorizations;
   private Feign.Builder feignBuilder;
@@ -39,7 +40,13 @@ public class ApiClient {
   public ApiClient(String[] authNames) {
     this();
     for(String authName : authNames) { 
-      throw new RuntimeException("auth name \"" + authName + "\" not found in available auth names");
+      RequestInterceptor auth;
+      if (authName == "Vericred-Api-Key") { 
+        auth = new ApiKeyAuth("header", "Vericred-Api-Key");
+      } else {
+        throw new RuntimeException("auth name \"" + authName + "\" not found in available auth names");
+      }
+      addAuthorization(authName, auth);
     }
   }
 
@@ -119,6 +126,13 @@ public class ApiClient {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
     objectMapper.enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);
+    objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+    objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    objectMapper.registerModule(new JavaTimeModule());
+    return objectMapper;
+  }
+
+  public ObjectMapper getObjectMapper(){
     return objectMapper;
   }
 

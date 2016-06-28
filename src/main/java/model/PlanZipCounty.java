@@ -8,25 +8,43 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 /**
- * ZipCounty
+ * PlanZipCounty
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-28T10:14:26.235-04:00")
-public class ZipCounty  implements Serializable {
+public class PlanZipCounty  implements Serializable {
   
+  private Integer planId = null;
   private Integer countyId = null;
-  private Integer id = null;
   private Integer zipCodeId = null;
 
   
   /**
-   * ID of the parent County in Vericred's API
+   * Foreign key to plan
    **/
-  public ZipCounty countyId(Integer countyId) {
+  public PlanZipCounty planId(Integer planId) {
+    this.planId = planId;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Foreign key to plan")
+  @JsonProperty("plan_id")
+  public Integer getPlanId() {
+    return planId;
+  }
+  public void setPlanId(Integer planId) {
+    this.planId = planId;
+  }
+
+
+  /**
+   * Foreign key to county
+   **/
+  public PlanZipCounty countyId(Integer countyId) {
     this.countyId = countyId;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "ID of the parent County in Vericred's API")
+  @ApiModelProperty(example = "null", value = "Foreign key to county")
   @JsonProperty("county_id")
   public Integer getCountyId() {
     return countyId;
@@ -37,32 +55,14 @@ public class ZipCounty  implements Serializable {
 
 
   /**
-   * Primary key
+   * Foreign key to zip code
    **/
-  public ZipCounty id(Integer id) {
-    this.id = id;
-    return this;
-  }
-  
-  @ApiModelProperty(example = "null", value = "Primary key")
-  @JsonProperty("id")
-  public Integer getId() {
-    return id;
-  }
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-
-  /**
-   * ID of the parent Zip Code in Vericred's API
-   **/
-  public ZipCounty zipCodeId(Integer zipCodeId) {
+  public PlanZipCounty zipCodeId(Integer zipCodeId) {
     this.zipCodeId = zipCodeId;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "ID of the parent Zip Code in Vericred's API")
+  @ApiModelProperty(example = "null", value = "Foreign key to zip code")
   @JsonProperty("zip_code_id")
   public Integer getZipCodeId() {
     return zipCodeId;
@@ -80,24 +80,24 @@ public class ZipCounty  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ZipCounty zipCounty = (ZipCounty) o;
-    return Objects.equals(this.countyId, zipCounty.countyId) &&
-        Objects.equals(this.id, zipCounty.id) &&
-        Objects.equals(this.zipCodeId, zipCounty.zipCodeId);
+    PlanZipCounty planZipCounty = (PlanZipCounty) o;
+    return Objects.equals(this.planId, planZipCounty.planId) &&
+        Objects.equals(this.countyId, planZipCounty.countyId) &&
+        Objects.equals(this.zipCodeId, planZipCounty.zipCodeId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(countyId, id, zipCodeId);
+    return Objects.hash(planId, countyId, zipCodeId);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ZipCounty {\n");
+    sb.append("class PlanZipCounty {\n");
     
+    sb.append("    planId: ").append(toIndentedString(planId)).append("\n");
     sb.append("    countyId: ").append(toIndentedString(countyId)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    zipCodeId: ").append(toIndentedString(zipCodeId)).append("\n");
     sb.append("}");
     return sb.toString();

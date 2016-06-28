@@ -1,5 +1,6 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
@@ -11,10 +12,10 @@ import model.RequestPlanFindApplicant;
 import model.RequestPlanFindProvider;
 
 import java.io.Serializable;
-
-
-
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-01T14:02:42.021-04:00")
+/**
+ * RequestPlanFind
+ */
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-28T10:14:26.235-04:00")
 public class RequestPlanFind  implements Serializable {
   
   private List<RequestPlanFindApplicant> applicants = new ArrayList<RequestPlanFindApplicant>();
@@ -25,6 +26,9 @@ public class RequestPlanFind  implements Serializable {
   private Integer householdSize = null;
   private String market = null;
   private List<RequestPlanFindProvider> providers = new ArrayList<RequestPlanFindProvider>();
+  private Integer page = null;
+  private Integer perPage = null;
+  private String sort = null;
   private String zipCode = null;
 
   
@@ -173,6 +177,60 @@ public class RequestPlanFind  implements Serializable {
 
 
   /**
+   * Selected page of paginated response.
+   **/
+  public RequestPlanFind page(Integer page) {
+    this.page = page;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Selected page of paginated response.")
+  @JsonProperty("page")
+  public Integer getPage() {
+    return page;
+  }
+  public void setPage(Integer page) {
+    this.page = page;
+  }
+
+
+  /**
+   * Results per page of response.
+   **/
+  public RequestPlanFind perPage(Integer perPage) {
+    this.perPage = perPage;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Results per page of response.")
+  @JsonProperty("per_page")
+  public Integer getPerPage() {
+    return perPage;
+  }
+  public void setPerPage(Integer perPage) {
+    this.perPage = perPage;
+  }
+
+
+  /**
+   * Sort responses by plan field.
+   **/
+  public RequestPlanFind sort(String sort) {
+    this.sort = sort;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Sort responses by plan field.")
+  @JsonProperty("sort")
+  public String getSort() {
+    return sort;
+  }
+  public void setSort(String sort) {
+    this.sort = sort;
+  }
+
+
+  /**
    * 5-digit zip code - this helps determine pricing.
    **/
   public RequestPlanFind zipCode(String zipCode) {
@@ -207,12 +265,15 @@ public class RequestPlanFind  implements Serializable {
         Objects.equals(this.householdSize, requestPlanFind.householdSize) &&
         Objects.equals(this.market, requestPlanFind.market) &&
         Objects.equals(this.providers, requestPlanFind.providers) &&
+        Objects.equals(this.page, requestPlanFind.page) &&
+        Objects.equals(this.perPage, requestPlanFind.perPage) &&
+        Objects.equals(this.sort, requestPlanFind.sort) &&
         Objects.equals(this.zipCode, requestPlanFind.zipCode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(applicants, enrollmentDate, drugPackages, fipsCode, householdIncome, householdSize, market, providers, zipCode);
+    return Objects.hash(applicants, enrollmentDate, drugPackages, fipsCode, householdIncome, householdSize, market, providers, page, perPage, sort, zipCode);
   }
 
   @Override
@@ -228,6 +289,9 @@ public class RequestPlanFind  implements Serializable {
     sb.append("    householdSize: ").append(toIndentedString(householdSize)).append("\n");
     sb.append("    market: ").append(toIndentedString(market)).append("\n");
     sb.append("    providers: ").append(toIndentedString(providers)).append("\n");
+    sb.append("    page: ").append(toIndentedString(page)).append("\n");
+    sb.append("    perPage: ").append(toIndentedString(perPage)).append("\n");
+    sb.append("    sort: ").append(toIndentedString(sort)).append("\n");
     sb.append("    zipCode: ").append(toIndentedString(zipCode)).append("\n");
     sb.append("}");
     return sb.toString();
