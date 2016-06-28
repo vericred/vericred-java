@@ -1,19 +1,21 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
-
-
-
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-01T14:02:42.021-04:00")
+/**
+ * CarrierSubsidiary
+ */
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-28T10:14:26.235-04:00")
 public class CarrierSubsidiary  implements Serializable {
   
   private Integer id = null;
   private String name = null;
+  private String alternateName = null;
 
   
   /**
@@ -52,6 +54,24 @@ public class CarrierSubsidiary  implements Serializable {
   }
 
 
+  /**
+   * Parent Carrier Name
+   **/
+  public CarrierSubsidiary alternateName(String alternateName) {
+    this.alternateName = alternateName;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "Parent Carrier Name")
+  @JsonProperty("alternate_name")
+  public String getAlternateName() {
+    return alternateName;
+  }
+  public void setAlternateName(String alternateName) {
+    this.alternateName = alternateName;
+  }
+
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -62,12 +82,13 @@ public class CarrierSubsidiary  implements Serializable {
     }
     CarrierSubsidiary carrierSubsidiary = (CarrierSubsidiary) o;
     return Objects.equals(this.id, carrierSubsidiary.id) &&
-        Objects.equals(this.name, carrierSubsidiary.name);
+        Objects.equals(this.name, carrierSubsidiary.name) &&
+        Objects.equals(this.alternateName, carrierSubsidiary.alternateName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name);
+    return Objects.hash(id, name, alternateName);
   }
 
   @Override
@@ -77,6 +98,7 @@ public class CarrierSubsidiary  implements Serializable {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    alternateName: ").append(toIndentedString(alternateName)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -1,40 +1,22 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
-
-
-
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-01T14:02:42.021-04:00")
+/**
+ * PlanCounty
+ */
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-28T10:14:26.235-04:00")
 public class PlanCounty  implements Serializable {
   
-  private Integer id = null;
   private Integer planId = null;
   private Integer countyId = null;
 
   
-  /**
-   * Primary key
-   **/
-  public PlanCounty id(Integer id) {
-    this.id = id;
-    return this;
-  }
-  
-  @ApiModelProperty(example = "null", value = "Primary key")
-  @JsonProperty("id")
-  public Integer getId() {
-    return id;
-  }
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-
   /**
    * Foreign key to plan
    **/
@@ -80,14 +62,13 @@ public class PlanCounty  implements Serializable {
       return false;
     }
     PlanCounty planCounty = (PlanCounty) o;
-    return Objects.equals(this.id, planCounty.id) &&
-        Objects.equals(this.planId, planCounty.planId) &&
+    return Objects.equals(this.planId, planCounty.planId) &&
         Objects.equals(this.countyId, planCounty.countyId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, planId, countyId);
+    return Objects.hash(planId, countyId);
   }
 
   @Override
@@ -95,7 +76,6 @@ public class PlanCounty  implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class PlanCounty {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    planId: ").append(toIndentedString(planId)).append("\n");
     sb.append("    countyId: ").append(toIndentedString(countyId)).append("\n");
     sb.append("}");

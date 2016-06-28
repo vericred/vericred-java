@@ -1,5 +1,6 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
@@ -8,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.io.Serializable;
-
-
-
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-01T14:02:42.021-04:00")
+/**
+ * RequestProvidersSearch
+ */
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-28T10:14:26.235-04:00")
 public class RequestProvidersSearch  implements Serializable {
   
   private Boolean acceptsInsurance = null;
@@ -25,14 +26,14 @@ public class RequestProvidersSearch  implements Serializable {
 
   
   /**
-   * Limit results to Providers who accept at least one insurance        plan.  Note that the inverse of this filter is not supported and        any value will evaluate to true
+   * Limit results to Providers who accept at least one insurance         plan.  Note that the inverse of this filter is not supported and         any value will evaluate to true
    **/
   public RequestProvidersSearch acceptsInsurance(Boolean acceptsInsurance) {
     this.acceptsInsurance = acceptsInsurance;
     return this;
   }
   
-  @ApiModelProperty(example = "null", value = "Limit results to Providers who accept at least one insurance        plan.  Note that the inverse of this filter is not supported and        any value will evaluate to true")
+  @ApiModelProperty(example = "null", value = "Limit results to Providers who accept at least one insurance         plan.  Note that the inverse of this filter is not supported and         any value will evaluate to true")
   @JsonProperty("accepts_insurance")
   public Boolean getAcceptsInsurance() {
     return acceptsInsurance;
