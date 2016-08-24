@@ -33,7 +33,9 @@ public class ProvidersApiTest {
     @Test
     public void getProviderTest() {
         String npi = null;
-        // ProviderShowResponse response = api.getProvider(npi);
+        String year = null;
+        String state = null;
+        // ProviderShowResponse response = api.getProvider(npi, year, state);
 
         // TODO: test validations
     }

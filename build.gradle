@@ -2,7 +2,7 @@ apply plugin: 'idea'
 apply plugin: 'eclipse'
 
 group = 'com.vericred.api'
-version = '0.0.5'
+version = '0.0.6'
 
 buildscript {
     repositories {
@@ -94,9 +94,9 @@ if(hasProperty('target') && target == 'android') {
 }
 
 ext {
-    swagger_annotations_version = "1.5.8"
+    swagger_annotations_version = "1.5.9"
     jackson_version = "2.7.5"
-    feign_version = "8.16.0"
+    feign_version = "8.17.0"
     junit_version = "4.12"
     oltu_version = "1.0.1"
 }
