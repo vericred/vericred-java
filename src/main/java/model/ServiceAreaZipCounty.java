@@ -137,159 +137,74 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.LocalDate;
 
 import java.io.Serializable;
 /**
- * Applicant
+ * ServiceAreaZipCounty
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-08-24T12:43:20.125-04:00")
-public class Applicant  implements Serializable {
-  @JsonProperty("id")
-  private Integer id = null;
+public class ServiceAreaZipCounty  implements Serializable {
+  @JsonProperty("county_id")
+  private String countyId = null;
 
-  @JsonProperty("dob")
-  private LocalDate dob = null;
+  @JsonProperty("service_area_id")
+  private String serviceAreaId = null;
 
-  @JsonProperty("member_id")
-  private String memberId = null;
+  @JsonProperty("zip_code_id")
+  private String zipCodeId = null;
 
-  @JsonProperty("name")
-  private String name = null;
-
-  @JsonProperty("relationship")
-  private String relationship = null;
-
-  @JsonProperty("smoker")
-  private Boolean smoker = null;
-
-  @JsonProperty("ssn")
-  private String ssn = null;
-
-  public Applicant id(Integer id) {
-    this.id = id;
+  public ServiceAreaZipCounty countyId(String countyId) {
+    this.countyId = countyId;
     return this;
   }
 
    /**
-   * Primary key
-   * @return id
+   * Foreign key to county
+   * @return countyId
   **/
-  @ApiModelProperty(example = "null", value = "Primary key")
-  public Integer getId() {
-    return id;
+  @ApiModelProperty(example = "null", value = "Foreign key to county")
+  public String getCountyId() {
+    return countyId;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
+  public void setCountyId(String countyId) {
+    this.countyId = countyId;
   }
 
-  public Applicant dob(LocalDate dob) {
-    this.dob = dob;
+  public ServiceAreaZipCounty serviceAreaId(String serviceAreaId) {
+    this.serviceAreaId = serviceAreaId;
     return this;
   }
 
    /**
-   * Date of Birth
-   * @return dob
+   * Foreign key to service area
+   * @return serviceAreaId
   **/
-  @ApiModelProperty(example = "null", value = "Date of Birth")
-  public LocalDate getDob() {
-    return dob;
+  @ApiModelProperty(example = "null", value = "Foreign key to service area")
+  public String getServiceAreaId() {
+    return serviceAreaId;
   }
 
-  public void setDob(LocalDate dob) {
-    this.dob = dob;
+  public void setServiceAreaId(String serviceAreaId) {
+    this.serviceAreaId = serviceAreaId;
   }
 
-  public Applicant memberId(String memberId) {
-    this.memberId = memberId;
+  public ServiceAreaZipCounty zipCodeId(String zipCodeId) {
+    this.zipCodeId = zipCodeId;
     return this;
   }
 
    /**
-   * Member token
-   * @return memberId
+   * Foreign key to zip code
+   * @return zipCodeId
   **/
-  @ApiModelProperty(example = "null", value = "Member token")
-  public String getMemberId() {
-    return memberId;
+  @ApiModelProperty(example = "null", value = "Foreign key to zip code")
+  public String getZipCodeId() {
+    return zipCodeId;
   }
 
-  public void setMemberId(String memberId) {
-    this.memberId = memberId;
-  }
-
-  public Applicant name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Full name of the Applicant
-   * @return name
-  **/
-  @ApiModelProperty(example = "null", value = "Full name of the Applicant")
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public Applicant relationship(String relationship) {
-    this.relationship = relationship;
-    return this;
-  }
-
-   /**
-   * Relationship of the Applicant to the Member
-   * @return relationship
-  **/
-  @ApiModelProperty(example = "null", value = "Relationship of the Applicant to the Member")
-  public String getRelationship() {
-    return relationship;
-  }
-
-  public void setRelationship(String relationship) {
-    this.relationship = relationship;
-  }
-
-  public Applicant smoker(Boolean smoker) {
-    this.smoker = smoker;
-    return this;
-  }
-
-   /**
-   * Does the Applicant smoke?
-   * @return smoker
-  **/
-  @ApiModelProperty(example = "null", value = "Does the Applicant smoke?")
-  public Boolean getSmoker() {
-    return smoker;
-  }
-
-  public void setSmoker(Boolean smoker) {
-    this.smoker = smoker;
-  }
-
-  public Applicant ssn(String ssn) {
-    this.ssn = ssn;
-    return this;
-  }
-
-   /**
-   * Applicant's Social Security Number
-   * @return ssn
-  **/
-  @ApiModelProperty(example = "null", value = "Applicant's Social Security Number")
-  public String getSsn() {
-    return ssn;
-  }
-
-  public void setSsn(String ssn) {
-    this.ssn = ssn;
+  public void setZipCodeId(String zipCodeId) {
+    this.zipCodeId = zipCodeId;
   }
 
 
@@ -301,33 +216,25 @@ public class Applicant  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Applicant applicant = (Applicant) o;
-    return Objects.equals(this.id, applicant.id) &&
-        Objects.equals(this.dob, applicant.dob) &&
-        Objects.equals(this.memberId, applicant.memberId) &&
-        Objects.equals(this.name, applicant.name) &&
-        Objects.equals(this.relationship, applicant.relationship) &&
-        Objects.equals(this.smoker, applicant.smoker) &&
-        Objects.equals(this.ssn, applicant.ssn);
+    ServiceAreaZipCounty serviceAreaZipCounty = (ServiceAreaZipCounty) o;
+    return Objects.equals(this.countyId, serviceAreaZipCounty.countyId) &&
+        Objects.equals(this.serviceAreaId, serviceAreaZipCounty.serviceAreaId) &&
+        Objects.equals(this.zipCodeId, serviceAreaZipCounty.zipCodeId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, dob, memberId, name, relationship, smoker, ssn);
+    return Objects.hash(countyId, serviceAreaId, zipCodeId);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Applicant {\n");
+    sb.append("class ServiceAreaZipCounty {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    dob: ").append(toIndentedString(dob)).append("\n");
-    sb.append("    memberId: ").append(toIndentedString(memberId)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    relationship: ").append(toIndentedString(relationship)).append("\n");
-    sb.append("    smoker: ").append(toIndentedString(smoker)).append("\n");
-    sb.append("    ssn: ").append(toIndentedString(ssn)).append("\n");
+    sb.append("    countyId: ").append(toIndentedString(countyId)).append("\n");
+    sb.append("    serviceAreaId: ").append(toIndentedString(serviceAreaId)).append("\n");
+    sb.append("    zipCodeId: ").append(toIndentedString(zipCodeId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

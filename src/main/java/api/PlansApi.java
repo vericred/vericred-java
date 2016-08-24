@@ -4,6 +4,7 @@ import vericred.ApiClient;
 
 import model.PlanSearchResponse;
 import model.RequestPlanFind;
+import model.PlanShowResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-28T10:14:26.235-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-08-24T12:43:20.125-04:00")
 public interface PlansApi extends ApiClient.Api {
 
 
@@ -27,4 +28,17 @@ public interface PlansApi extends ApiClient.Api {
     "Accept: application/json",
   })
   PlanSearchResponse findPlans(RequestPlanFind body);
+
+  /**
+   * Show Plan
+   * Show the details of an individual Plan.  This includes deductibles, maximums out of pocket, and co-pay/coinsurance for benefits
+   * @param year Plan year (defaults to current year) (optional)
+   * @return PlanShowResponse
+   */
+  @RequestLine("GET /plans/{id}?year={year}")
+  @Headers({
+    "Content-type: application/json",
+    "Accept: application/json",
+  })
+  PlanShowResponse showPlan(@Param("year") Integer year);
 }

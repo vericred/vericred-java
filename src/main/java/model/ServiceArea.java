@@ -137,36 +137,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.LocalDate;
 
 import java.io.Serializable;
 /**
- * Applicant
+ * ServiceArea
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-08-24T12:43:20.125-04:00")
-public class Applicant  implements Serializable {
+public class ServiceArea  implements Serializable {
   @JsonProperty("id")
-  private Integer id = null;
+  private String id = null;
 
-  @JsonProperty("dob")
-  private LocalDate dob = null;
-
-  @JsonProperty("member_id")
-  private String memberId = null;
+  @JsonProperty("issuer_id")
+  private String issuerId = null;
 
   @JsonProperty("name")
   private String name = null;
 
-  @JsonProperty("relationship")
-  private String relationship = null;
-
-  @JsonProperty("smoker")
-  private Boolean smoker = null;
-
-  @JsonProperty("ssn")
-  private String ssn = null;
-
-  public Applicant id(Integer id) {
+  public ServiceArea id(String id) {
     this.id = id;
     return this;
   }
@@ -176,120 +163,48 @@ public class Applicant  implements Serializable {
    * @return id
   **/
   @ApiModelProperty(example = "null", value = "Primary key")
-  public Integer getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 
-  public Applicant dob(LocalDate dob) {
-    this.dob = dob;
+  public ServiceArea issuerId(String issuerId) {
+    this.issuerId = issuerId;
     return this;
   }
 
    /**
-   * Date of Birth
-   * @return dob
+   * Issuer foreign key
+   * @return issuerId
   **/
-  @ApiModelProperty(example = "null", value = "Date of Birth")
-  public LocalDate getDob() {
-    return dob;
+  @ApiModelProperty(example = "null", value = "Issuer foreign key")
+  public String getIssuerId() {
+    return issuerId;
   }
 
-  public void setDob(LocalDate dob) {
-    this.dob = dob;
+  public void setIssuerId(String issuerId) {
+    this.issuerId = issuerId;
   }
 
-  public Applicant memberId(String memberId) {
-    this.memberId = memberId;
-    return this;
-  }
-
-   /**
-   * Member token
-   * @return memberId
-  **/
-  @ApiModelProperty(example = "null", value = "Member token")
-  public String getMemberId() {
-    return memberId;
-  }
-
-  public void setMemberId(String memberId) {
-    this.memberId = memberId;
-  }
-
-  public Applicant name(String name) {
+  public ServiceArea name(String name) {
     this.name = name;
     return this;
   }
 
    /**
-   * Full name of the Applicant
+   * Name of the Service Area
    * @return name
   **/
-  @ApiModelProperty(example = "null", value = "Full name of the Applicant")
+  @ApiModelProperty(example = "null", value = "Name of the Service Area")
   public String getName() {
     return name;
   }
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public Applicant relationship(String relationship) {
-    this.relationship = relationship;
-    return this;
-  }
-
-   /**
-   * Relationship of the Applicant to the Member
-   * @return relationship
-  **/
-  @ApiModelProperty(example = "null", value = "Relationship of the Applicant to the Member")
-  public String getRelationship() {
-    return relationship;
-  }
-
-  public void setRelationship(String relationship) {
-    this.relationship = relationship;
-  }
-
-  public Applicant smoker(Boolean smoker) {
-    this.smoker = smoker;
-    return this;
-  }
-
-   /**
-   * Does the Applicant smoke?
-   * @return smoker
-  **/
-  @ApiModelProperty(example = "null", value = "Does the Applicant smoke?")
-  public Boolean getSmoker() {
-    return smoker;
-  }
-
-  public void setSmoker(Boolean smoker) {
-    this.smoker = smoker;
-  }
-
-  public Applicant ssn(String ssn) {
-    this.ssn = ssn;
-    return this;
-  }
-
-   /**
-   * Applicant's Social Security Number
-   * @return ssn
-  **/
-  @ApiModelProperty(example = "null", value = "Applicant's Social Security Number")
-  public String getSsn() {
-    return ssn;
-  }
-
-  public void setSsn(String ssn) {
-    this.ssn = ssn;
   }
 
 
@@ -301,33 +216,25 @@ public class Applicant  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Applicant applicant = (Applicant) o;
-    return Objects.equals(this.id, applicant.id) &&
-        Objects.equals(this.dob, applicant.dob) &&
-        Objects.equals(this.memberId, applicant.memberId) &&
-        Objects.equals(this.name, applicant.name) &&
-        Objects.equals(this.relationship, applicant.relationship) &&
-        Objects.equals(this.smoker, applicant.smoker) &&
-        Objects.equals(this.ssn, applicant.ssn);
+    ServiceArea serviceArea = (ServiceArea) o;
+    return Objects.equals(this.id, serviceArea.id) &&
+        Objects.equals(this.issuerId, serviceArea.issuerId) &&
+        Objects.equals(this.name, serviceArea.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, dob, memberId, name, relationship, smoker, ssn);
+    return Objects.hash(id, issuerId, name);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Applicant {\n");
+    sb.append("class ServiceArea {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    dob: ").append(toIndentedString(dob)).append("\n");
-    sb.append("    memberId: ").append(toIndentedString(memberId)).append("\n");
+    sb.append("    issuerId: ").append(toIndentedString(issuerId)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    relationship: ").append(toIndentedString(relationship)).append("\n");
-    sb.append("    smoker: ").append(toIndentedString(smoker)).append("\n");
-    sb.append("    ssn: ").append(toIndentedString(ssn)).append("\n");
     sb.append("}");
     return sb.toString();
   }

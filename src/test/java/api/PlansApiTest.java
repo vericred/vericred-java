@@ -3,6 +3,7 @@ package api;
 import vericred.ApiClient;
 import model.PlanSearchResponse;
 import model.RequestPlanFind;
+import model.PlanShowResponse;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,6 +34,19 @@ public class PlansApiTest {
     public void findPlansTest() {
         RequestPlanFind body = null;
         // PlanSearchResponse response = api.findPlans(body);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * Show Plan
+     *
+     * Show the details of an individual Plan.  This includes deductibles, maximums out of pocket, and co-pay/coinsurance for benefits
+     */
+    @Test
+    public void showPlanTest() {
+        Integer year = null;
+        // PlanShowResponse response = api.showPlan(year);
 
         // TODO: test validations
     }

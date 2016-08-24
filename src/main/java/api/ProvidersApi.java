@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-06-28T10:14:26.235-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-08-24T12:43:20.125-04:00")
 public interface ProvidersApi extends ApiClient.Api {
 
 
@@ -20,14 +20,16 @@ public interface ProvidersApi extends ApiClient.Api {
    * Find a Provider
    * To retrieve a specific provider, just perform a GET using his NPI number
    * @param npi NPI number (required)
+   * @param year Only show plan ids for the given year (optional)
+   * @param state Only show plan ids for the given state (optional)
    * @return ProviderShowResponse
    */
-  @RequestLine("GET /providers/{npi}")
+  @RequestLine("GET /providers/{npi}?year={year}&state={state}")
   @Headers({
     "Content-type: application/json",
     "Accept: application/json",
   })
-  ProviderShowResponse getProvider(@Param("npi") String npi);
+  ProviderShowResponse getProvider(@Param("npi") String npi, @Param("year") String year, @Param("state") String state);
 
   /**
    * Find Providers
