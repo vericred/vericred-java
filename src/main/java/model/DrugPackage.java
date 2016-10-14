@@ -1,4 +1,4 @@
-/**
+/*
  * Vericred API
  * Vericred's API allows you to search for Health Plans that a specific doctor
 accepts.
@@ -142,13 +142,16 @@ import java.io.Serializable;
 /**
  * DrugPackage
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-08-24T12:43:20.125-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-14T13:33:39.716-04:00")
 public class DrugPackage  implements Serializable {
   @JsonProperty("id")
   private String id = null;
 
   @JsonProperty("description")
   private String description = null;
+
+  @JsonProperty("med_id")
+  private Integer medId = null;
 
   public DrugPackage id(String id) {
     this.id = id;
@@ -186,6 +189,24 @@ public class DrugPackage  implements Serializable {
     this.description = description;
   }
 
+  public DrugPackage medId(Integer medId) {
+    this.medId = medId;
+    return this;
+  }
+
+   /**
+   * Med ID
+   * @return medId
+  **/
+  @ApiModelProperty(example = "null", value = "Med ID")
+  public Integer getMedId() {
+    return medId;
+  }
+
+  public void setMedId(Integer medId) {
+    this.medId = medId;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -197,12 +218,13 @@ public class DrugPackage  implements Serializable {
     }
     DrugPackage drugPackage = (DrugPackage) o;
     return Objects.equals(this.id, drugPackage.id) &&
-        Objects.equals(this.description, drugPackage.description);
+        Objects.equals(this.description, drugPackage.description) &&
+        Objects.equals(this.medId, drugPackage.medId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, description);
+    return Objects.hash(id, description, medId);
   }
 
   @Override
@@ -212,6 +234,7 @@ public class DrugPackage  implements Serializable {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    medId: ").append(toIndentedString(medId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

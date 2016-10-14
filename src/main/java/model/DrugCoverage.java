@@ -1,4 +1,4 @@
-/**
+/*
  * Vericred API
  * Vericred's API allows you to search for Health Plans that a specific doctor
 accepts.
@@ -142,7 +142,7 @@ import java.io.Serializable;
 /**
  * DrugCoverage
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-08-24T12:43:20.125-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-14T13:33:39.716-04:00")
 public class DrugCoverage  implements Serializable {
   @JsonProperty("plan_id")
   private String planId = null;
@@ -150,8 +150,8 @@ public class DrugCoverage  implements Serializable {
   @JsonProperty("drug_package_id")
   private String drugPackageId = null;
 
-  @JsonProperty("tier")
-  private String tier = null;
+  @JsonProperty("med_id")
+  private Integer medId = null;
 
   @JsonProperty("quantity_limit")
   private Boolean quantityLimit = null;
@@ -161,6 +161,9 @@ public class DrugCoverage  implements Serializable {
 
   @JsonProperty("step_therapy")
   private Boolean stepTherapy = null;
+
+  @JsonProperty("tier")
+  private String tier = null;
 
   public DrugCoverage planId(String planId) {
     this.planId = planId;
@@ -198,22 +201,22 @@ public class DrugCoverage  implements Serializable {
     this.drugPackageId = drugPackageId;
   }
 
-  public DrugCoverage tier(String tier) {
-    this.tier = tier;
+  public DrugCoverage medId(Integer medId) {
+    this.medId = medId;
     return this;
   }
 
    /**
-   * Tier Name
-   * @return tier
+   * Med ID
+   * @return medId
   **/
-  @ApiModelProperty(example = "null", value = "Tier Name")
-  public String getTier() {
-    return tier;
+  @ApiModelProperty(example = "null", value = "Med ID")
+  public Integer getMedId() {
+    return medId;
   }
 
-  public void setTier(String tier) {
-    this.tier = tier;
+  public void setMedId(Integer medId) {
+    this.medId = medId;
   }
 
   public DrugCoverage quantityLimit(Boolean quantityLimit) {
@@ -270,6 +273,24 @@ public class DrugCoverage  implements Serializable {
     this.stepTherapy = stepTherapy;
   }
 
+  public DrugCoverage tier(String tier) {
+    this.tier = tier;
+    return this;
+  }
+
+   /**
+   * Tier Name
+   * @return tier
+  **/
+  @ApiModelProperty(example = "null", value = "Tier Name")
+  public String getTier() {
+    return tier;
+  }
+
+  public void setTier(String tier) {
+    this.tier = tier;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -282,15 +303,16 @@ public class DrugCoverage  implements Serializable {
     DrugCoverage drugCoverage = (DrugCoverage) o;
     return Objects.equals(this.planId, drugCoverage.planId) &&
         Objects.equals(this.drugPackageId, drugCoverage.drugPackageId) &&
-        Objects.equals(this.tier, drugCoverage.tier) &&
+        Objects.equals(this.medId, drugCoverage.medId) &&
         Objects.equals(this.quantityLimit, drugCoverage.quantityLimit) &&
         Objects.equals(this.priorAuthorization, drugCoverage.priorAuthorization) &&
-        Objects.equals(this.stepTherapy, drugCoverage.stepTherapy);
+        Objects.equals(this.stepTherapy, drugCoverage.stepTherapy) &&
+        Objects.equals(this.tier, drugCoverage.tier);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(planId, drugPackageId, tier, quantityLimit, priorAuthorization, stepTherapy);
+    return Objects.hash(planId, drugPackageId, medId, quantityLimit, priorAuthorization, stepTherapy, tier);
   }
 
   @Override
@@ -300,10 +322,11 @@ public class DrugCoverage  implements Serializable {
     
     sb.append("    planId: ").append(toIndentedString(planId)).append("\n");
     sb.append("    drugPackageId: ").append(toIndentedString(drugPackageId)).append("\n");
-    sb.append("    tier: ").append(toIndentedString(tier)).append("\n");
+    sb.append("    medId: ").append(toIndentedString(medId)).append("\n");
     sb.append("    quantityLimit: ").append(toIndentedString(quantityLimit)).append("\n");
     sb.append("    priorAuthorization: ").append(toIndentedString(priorAuthorization)).append("\n");
     sb.append("    stepTherapy: ").append(toIndentedString(stepTherapy)).append("\n");
+    sb.append("    tier: ").append(toIndentedString(tier)).append("\n");
     sb.append("}");
     return sb.toString();
   }

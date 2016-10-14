@@ -1,4 +1,4 @@
-/**
+/*
  * Vericred API
  * Vericred's API allows you to search for Health Plans that a specific doctor
 accepts.
@@ -143,7 +143,7 @@ import java.io.Serializable;
 /**
  * ProviderShowResponse
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-08-24T12:43:20.125-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-14T13:33:39.716-04:00")
 public class ProviderShowResponse  implements Serializable {
   @JsonProperty("provider")
   private Provider provider = null;

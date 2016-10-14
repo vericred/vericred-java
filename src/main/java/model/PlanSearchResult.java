@@ -1,4 +1,4 @@
-/**
+/*
  * Vericred API
  * Vericred's API allows you to search for Health Plans that a specific doctor
 accepts.
@@ -145,7 +145,7 @@ import java.io.Serializable;
 /**
  * PlanSearchResult
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-08-24T12:43:20.125-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-14T13:33:39.716-04:00")
 public class PlanSearchResult  implements Serializable {
   @JsonProperty("adult_dental")
   private Boolean adultDental = null;
@@ -327,6 +327,9 @@ public class PlanSearchResult  implements Serializable {
   @JsonProperty("premium")
   private BigDecimal premium = null;
 
+  @JsonProperty("premium_source")
+  private String premiumSource = null;
+
   @JsonProperty("primary_care_physician")
   private String primaryCarePhysician = null;
 
@@ -384,10 +387,10 @@ public class PlanSearchResult  implements Serializable {
   }
 
    /**
-   * 
+   * True if the plan allows dependents up to age 29
    * @return age29Rider
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(example = "null", value = "True if the plan allows dependents up to age 29")
   public Boolean getAge29Rider() {
     return age29Rider;
   }
@@ -600,10 +603,10 @@ public class PlanSearchResult  implements Serializable {
   }
 
    /**
-   * Is this a domestic plan?
+   * True if plan does not cover domestic partners
    * @return dpRider
   **/
-  @ApiModelProperty(example = "null", value = "Is this a domestic plan?")
+  @ApiModelProperty(example = "null", value = "True if plan does not cover domestic partners")
   public Boolean getDpRider() {
     return dpRider;
   }
@@ -762,10 +765,10 @@ public class PlanSearchResult  implements Serializable {
   }
 
    /**
-   * Is this a family plan?
+   * True if plan does not cover family planning
    * @return fpRider
   **/
-  @ApiModelProperty(example = "null", value = "Is this a family plan?")
+  @ApiModelProperty(example = "null", value = "True if plan does not cover family planning")
   public Boolean getFpRider() {
     return fpRider;
   }
@@ -1450,6 +1453,24 @@ public class PlanSearchResult  implements Serializable {
     this.premium = premium;
   }
 
+  public PlanSearchResult premiumSource(String premiumSource) {
+    this.premiumSource = premiumSource;
+    return this;
+  }
+
+   /**
+   * Source of the base pricing data
+   * @return premiumSource
+  **/
+  @ApiModelProperty(example = "null", value = "Source of the base pricing data")
+  public String getPremiumSource() {
+    return premiumSource;
+  }
+
+  public void setPremiumSource(String premiumSource) {
+    this.premiumSource = premiumSource;
+  }
+
   public PlanSearchResult primaryCarePhysician(String primaryCarePhysician) {
     this.primaryCarePhysician = primaryCarePhysician;
     return this;
@@ -1718,6 +1739,7 @@ public class PlanSearchResult  implements Serializable {
         Objects.equals(this.preventativeCare, planSearchResult.preventativeCare) &&
         Objects.equals(this.premiumSubsidized, planSearchResult.premiumSubsidized) &&
         Objects.equals(this.premium, planSearchResult.premium) &&
+        Objects.equals(this.premiumSource, planSearchResult.premiumSource) &&
         Objects.equals(this.primaryCarePhysician, planSearchResult.primaryCarePhysician) &&
         Objects.equals(this.rehabilitationServices, planSearchResult.rehabilitationServices) &&
         Objects.equals(this.serviceAreaId, planSearchResult.serviceAreaId) &&
@@ -1733,7 +1755,7 @@ public class PlanSearchResult  implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(adultDental, age29Rider, ambulance, benefitsSummaryUrl, buyLink, carrierName, childDental, childEyewear, childEyeExam, customerServicePhoneNumber, durableMedicalEquipment, diagnosticTest, displayName, dpRider, drugFormularyUrl, effectiveDate, expirationDate, emergencyRoom, familyDrugDeductible, familyDrugMoop, familyMedicalDeductible, familyMedicalMoop, fpRider, genericDrugs, habilitationServices, hiosIssuerId, homeHealthCare, hospiceService, hsaEligible, id, imaging, inNetworkIds, individualDrugDeductible, individualDrugMoop, individualMedicalDeductible, individualMedicalMoop, inpatientBirth, inpatientFacility, inpatientMentalHealth, inpatientPhysician, inpatientSubstance, level, logoUrl, name, nonPreferredBrandDrugs, onMarket, offMarket, outOfNetworkCoverage, outOfNetworkIds, outpatientFacility, outpatientMentalHealth, outpatientPhysician, outpatientSubstance, planMarket, planType, preferredBrandDrugs, prenatalPostnatalCare, preventativeCare, premiumSubsidized, premium, primaryCarePhysician, rehabilitationServices, serviceAreaId, skilledNursing, specialist, specialtyDrugs, urgentCare, matchPercentage, perfectMatchPercentage, employeePremium, dependentPremium);
+    return Objects.hash(adultDental, age29Rider, ambulance, benefitsSummaryUrl, buyLink, carrierName, childDental, childEyewear, childEyeExam, customerServicePhoneNumber, durableMedicalEquipment, diagnosticTest, displayName, dpRider, drugFormularyUrl, effectiveDate, expirationDate, emergencyRoom, familyDrugDeductible, familyDrugMoop, familyMedicalDeductible, familyMedicalMoop, fpRider, genericDrugs, habilitationServices, hiosIssuerId, homeHealthCare, hospiceService, hsaEligible, id, imaging, inNetworkIds, individualDrugDeductible, individualDrugMoop, individualMedicalDeductible, individualMedicalMoop, inpatientBirth, inpatientFacility, inpatientMentalHealth, inpatientPhysician, inpatientSubstance, level, logoUrl, name, nonPreferredBrandDrugs, onMarket, offMarket, outOfNetworkCoverage, outOfNetworkIds, outpatientFacility, outpatientMentalHealth, outpatientPhysician, outpatientSubstance, planMarket, planType, preferredBrandDrugs, prenatalPostnatalCare, preventativeCare, premiumSubsidized, premium, premiumSource, primaryCarePhysician, rehabilitationServices, serviceAreaId, skilledNursing, specialist, specialtyDrugs, urgentCare, matchPercentage, perfectMatchPercentage, employeePremium, dependentPremium);
   }
 
   @Override
@@ -1801,6 +1823,7 @@ public class PlanSearchResult  implements Serializable {
     sb.append("    preventativeCare: ").append(toIndentedString(preventativeCare)).append("\n");
     sb.append("    premiumSubsidized: ").append(toIndentedString(premiumSubsidized)).append("\n");
     sb.append("    premium: ").append(toIndentedString(premium)).append("\n");
+    sb.append("    premiumSource: ").append(toIndentedString(premiumSource)).append("\n");
     sb.append("    primaryCarePhysician: ").append(toIndentedString(primaryCarePhysician)).append("\n");
     sb.append("    rehabilitationServices: ").append(toIndentedString(rehabilitationServices)).append("\n");
     sb.append("    serviceAreaId: ").append(toIndentedString(serviceAreaId)).append("\n");

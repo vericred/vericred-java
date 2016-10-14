@@ -1,4 +1,4 @@
-/**
+/*
  * Vericred API
  * Vericred's API allows you to search for Health Plans that a specific doctor
 accepts.
@@ -145,7 +145,7 @@ import java.io.Serializable;
 /**
  * RequestProvidersSearch
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-08-24T12:43:20.125-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-14T13:33:39.716-04:00")
 public class RequestProvidersSearch  implements Serializable {
   @JsonProperty("accepts_insurance")
   private Boolean acceptsInsurance = null;
@@ -155,6 +155,9 @@ public class RequestProvidersSearch  implements Serializable {
 
   @JsonProperty("min_score")
   private BigDecimal minScore = null;
+
+  @JsonProperty("network_ids")
+  private List<Integer> networkIds = new ArrayList<Integer>();
 
   @JsonProperty("page")
   private Integer page = null;
@@ -231,6 +234,29 @@ public class RequestProvidersSearch  implements Serializable {
 
   public void setMinScore(BigDecimal minScore) {
     this.minScore = minScore;
+  }
+
+  public RequestProvidersSearch networkIds(List<Integer> networkIds) {
+    this.networkIds = networkIds;
+    return this;
+  }
+
+  public RequestProvidersSearch addNetworkIdsItem(Integer networkIdsItem) {
+    this.networkIds.add(networkIdsItem);
+    return this;
+  }
+
+   /**
+   * List of Vericred network ids
+   * @return networkIds
+  **/
+  @ApiModelProperty(example = "null", value = "List of Vericred network ids")
+  public List<Integer> getNetworkIds() {
+    return networkIds;
+  }
+
+  public void setNetworkIds(List<Integer> networkIds) {
+    this.networkIds = networkIds;
   }
 
   public RequestProvidersSearch page(Integer page) {
@@ -354,6 +380,7 @@ public class RequestProvidersSearch  implements Serializable {
     return Objects.equals(this.acceptsInsurance, requestProvidersSearch.acceptsInsurance) &&
         Objects.equals(this.hiosIds, requestProvidersSearch.hiosIds) &&
         Objects.equals(this.minScore, requestProvidersSearch.minScore) &&
+        Objects.equals(this.networkIds, requestProvidersSearch.networkIds) &&
         Objects.equals(this.page, requestProvidersSearch.page) &&
         Objects.equals(this.perPage, requestProvidersSearch.perPage) &&
         Objects.equals(this.radius, requestProvidersSearch.radius) &&
@@ -364,7 +391,7 @@ public class RequestProvidersSearch  implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(acceptsInsurance, hiosIds, minScore, page, perPage, radius, searchTerm, zipCode, type);
+    return Objects.hash(acceptsInsurance, hiosIds, minScore, networkIds, page, perPage, radius, searchTerm, zipCode, type);
   }
 
   @Override
@@ -375,6 +402,7 @@ public class RequestProvidersSearch  implements Serializable {
     sb.append("    acceptsInsurance: ").append(toIndentedString(acceptsInsurance)).append("\n");
     sb.append("    hiosIds: ").append(toIndentedString(hiosIds)).append("\n");
     sb.append("    minScore: ").append(toIndentedString(minScore)).append("\n");
+    sb.append("    networkIds: ").append(toIndentedString(networkIds)).append("\n");
     sb.append("    page: ").append(toIndentedString(page)).append("\n");
     sb.append("    perPage: ").append(toIndentedString(perPage)).append("\n");
     sb.append("    radius: ").append(toIndentedString(radius)).append("\n");

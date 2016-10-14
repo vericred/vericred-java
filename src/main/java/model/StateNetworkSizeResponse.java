@@ -137,53 +137,62 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
+import model.Meta;
+import model.NetworkSize;
 
 import java.io.Serializable;
 /**
- * ZipCode
+ * StateNetworkSizeResponse
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-14T13:33:39.716-04:00")
-public class ZipCode  implements Serializable {
-  @JsonProperty("code")
-  private String code = null;
+public class StateNetworkSizeResponse  implements Serializable {
+  @JsonProperty("meta")
+  private Meta meta = null;
 
-  @JsonProperty("id")
-  private Integer id = null;
+  @JsonProperty("network_sizes")
+  private List<NetworkSize> networkSizes = new ArrayList<NetworkSize>();
 
-  public ZipCode code(String code) {
-    this.code = code;
+  public StateNetworkSizeResponse meta(Meta meta) {
+    this.meta = meta;
     return this;
   }
 
    /**
-   * 5 digit code (e.g. 11215)
-   * @return code
+   * Meta-data
+   * @return meta
   **/
-  @ApiModelProperty(example = "null", value = "5 digit code (e.g. 11215)")
-  public String getCode() {
-    return code;
+  @ApiModelProperty(example = "null", value = "Meta-data")
+  public Meta getMeta() {
+    return meta;
   }
 
-  public void setCode(String code) {
-    this.code = code;
+  public void setMeta(Meta meta) {
+    this.meta = meta;
   }
 
-  public ZipCode id(Integer id) {
-    this.id = id;
+  public StateNetworkSizeResponse networkSizes(List<NetworkSize> networkSizes) {
+    this.networkSizes = networkSizes;
+    return this;
+  }
+
+  public StateNetworkSizeResponse addNetworkSizesItem(NetworkSize networkSizesItem) {
+    this.networkSizes.add(networkSizesItem);
     return this;
   }
 
    /**
-   * Primary key
-   * @return id
+   * Network Sizes
+   * @return networkSizes
   **/
-  @ApiModelProperty(example = "null", value = "Primary key")
-  public Integer getId() {
-    return id;
+  @ApiModelProperty(example = "null", value = "Network Sizes")
+  public List<NetworkSize> getNetworkSizes() {
+    return networkSizes;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
+  public void setNetworkSizes(List<NetworkSize> networkSizes) {
+    this.networkSizes = networkSizes;
   }
 
 
@@ -195,23 +204,23 @@ public class ZipCode  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ZipCode zipCode = (ZipCode) o;
-    return Objects.equals(this.code, zipCode.code) &&
-        Objects.equals(this.id, zipCode.id);
+    StateNetworkSizeResponse stateNetworkSizeResponse = (StateNetworkSizeResponse) o;
+    return Objects.equals(this.meta, stateNetworkSizeResponse.meta) &&
+        Objects.equals(this.networkSizes, stateNetworkSizeResponse.networkSizes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, id);
+    return Objects.hash(meta, networkSizes);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ZipCode {\n");
+    sb.append("class StateNetworkSizeResponse {\n");
     
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
+    sb.append("    networkSizes: ").append(toIndentedString(networkSizes)).append("\n");
     sb.append("}");
     return sb.toString();
   }

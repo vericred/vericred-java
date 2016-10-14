@@ -1,4 +1,4 @@
-/**
+/*
  * Vericred API
  * Vericred's API allows you to search for Health Plans that a specific doctor
 accepts.
@@ -144,10 +144,13 @@ import java.io.Serializable;
 /**
  * Drug
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-08-24T12:43:20.125-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-14T13:33:39.716-04:00")
 public class Drug  implements Serializable {
   @JsonProperty("id")
   private String id = null;
+
+  @JsonProperty("active_ingredient_strength")
+  private String activeIngredientStrength = null;
 
   @JsonProperty("proprietary_name")
   private String proprietaryName = null;
@@ -174,6 +177,24 @@ public class Drug  implements Serializable {
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  public Drug activeIngredientStrength(String activeIngredientStrength) {
+    this.activeIngredientStrength = activeIngredientStrength;
+    return this;
+  }
+
+   /**
+   * Active Ingredient Strength information
+   * @return activeIngredientStrength
+  **/
+  @ApiModelProperty(example = "null", value = "Active Ingredient Strength information")
+  public String getActiveIngredientStrength() {
+    return activeIngredientStrength;
+  }
+
+  public void setActiveIngredientStrength(String activeIngredientStrength) {
+    this.activeIngredientStrength = activeIngredientStrength;
   }
 
   public Drug proprietaryName(String proprietaryName) {
@@ -246,6 +267,7 @@ public class Drug  implements Serializable {
     }
     Drug drug = (Drug) o;
     return Objects.equals(this.id, drug.id) &&
+        Objects.equals(this.activeIngredientStrength, drug.activeIngredientStrength) &&
         Objects.equals(this.proprietaryName, drug.proprietaryName) &&
         Objects.equals(this.nonProprietaryName, drug.nonProprietaryName) &&
         Objects.equals(this.drugPackageIds, drug.drugPackageIds);
@@ -253,7 +275,7 @@ public class Drug  implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, proprietaryName, nonProprietaryName, drugPackageIds);
+    return Objects.hash(id, activeIngredientStrength, proprietaryName, nonProprietaryName, drugPackageIds);
   }
 
   @Override
@@ -262,6 +284,7 @@ public class Drug  implements Serializable {
     sb.append("class Drug {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    activeIngredientStrength: ").append(toIndentedString(activeIngredientStrength)).append("\n");
     sb.append("    proprietaryName: ").append(toIndentedString(proprietaryName)).append("\n");
     sb.append("    nonProprietaryName: ").append(toIndentedString(nonProprietaryName)).append("\n");
     sb.append("    drugPackageIds: ").append(toIndentedString(drugPackageIds)).append("\n");

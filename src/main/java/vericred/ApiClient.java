@@ -19,7 +19,7 @@ import feign.slf4j.Slf4jLogger;
 import vericred.auth.*;
 import vericred.auth.OAuth.AccessTokenListener;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-08-24T12:43:20.125-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-14T13:33:39.716-04:00")
 public class ApiClient {
   public interface Api {}
 

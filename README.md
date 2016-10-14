@@ -26,7 +26,7 @@ After the client library is installed/deployed, you can use it in your Maven pro
 <dependency>
     <groupId>com.vericred.api</groupId>
     <artifactId>client</artifactId>
-    <version>0.0.6</version>
+    <version>0.0.7</version>
     <scope>compile</scope>
 </dependency>
 
@@ -34,7 +34,7 @@ After the client library is installed/deployed, you can use it in your Maven pro
 
 ## Recommendation
 
-It's recommended to create an instance of `ApiClient` per thread in a multithreaded environment to avoid any potential issue.
+It's recommended to create an instance of `ApiClient` per thread in a multithreaded environment to avoid any potential issues.
 
 ## Author
 

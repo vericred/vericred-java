@@ -1,4 +1,4 @@
-/**
+/*
  * Vericred API
  * Vericred's API allows you to search for Health Plans that a specific doctor
 accepts.
@@ -144,7 +144,7 @@ import java.io.Serializable;
 /**
  * Pricing
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-08-24T12:43:20.125-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-14T13:33:39.716-04:00")
 public class Pricing  implements Serializable {
   @JsonProperty("age")
   private Integer age = null;
@@ -178,6 +178,12 @@ public class Pricing  implements Serializable {
 
   @JsonProperty("rating_area_id")
   private String ratingAreaId = null;
+
+  @JsonProperty("premium_source")
+  private String premiumSource = null;
+
+  @JsonProperty("updated_at")
+  private String updatedAt = null;
 
   public Pricing age(Integer age) {
     this.age = age;
@@ -377,6 +383,42 @@ public class Pricing  implements Serializable {
     this.ratingAreaId = ratingAreaId;
   }
 
+  public Pricing premiumSource(String premiumSource) {
+    this.premiumSource = premiumSource;
+    return this;
+  }
+
+   /**
+   * Where was this pricing data extracted from?
+   * @return premiumSource
+  **/
+  @ApiModelProperty(example = "null", value = "Where was this pricing data extracted from?")
+  public String getPremiumSource() {
+    return premiumSource;
+  }
+
+  public void setPremiumSource(String premiumSource) {
+    this.premiumSource = premiumSource;
+  }
+
+  public Pricing updatedAt(String updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * Time when pricing was last updated
+   * @return updatedAt
+  **/
+  @ApiModelProperty(example = "null", value = "Time when pricing was last updated")
+  public String getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(String updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -397,12 +439,14 @@ public class Pricing  implements Serializable {
         Objects.equals(this.premiumSingleAndChildren, pricing.premiumSingleAndChildren) &&
         Objects.equals(this.premiumSingleAndSpouse, pricing.premiumSingleAndSpouse) &&
         Objects.equals(this.premiumSingleSmoker, pricing.premiumSingleSmoker) &&
-        Objects.equals(this.ratingAreaId, pricing.ratingAreaId);
+        Objects.equals(this.ratingAreaId, pricing.ratingAreaId) &&
+        Objects.equals(this.premiumSource, pricing.premiumSource) &&
+        Objects.equals(this.updatedAt, pricing.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(age, effectiveDate, expirationDate, planId, premiumChildOnly, premiumFamily, premiumSingle, premiumSingleAndChildren, premiumSingleAndSpouse, premiumSingleSmoker, ratingAreaId);
+    return Objects.hash(age, effectiveDate, expirationDate, planId, premiumChildOnly, premiumFamily, premiumSingle, premiumSingleAndChildren, premiumSingleAndSpouse, premiumSingleSmoker, ratingAreaId, premiumSource, updatedAt);
   }
 
   @Override
@@ -421,6 +465,8 @@ public class Pricing  implements Serializable {
     sb.append("    premiumSingleAndSpouse: ").append(toIndentedString(premiumSingleAndSpouse)).append("\n");
     sb.append("    premiumSingleSmoker: ").append(toIndentedString(premiumSingleSmoker)).append("\n");
     sb.append("    ratingAreaId: ").append(toIndentedString(ratingAreaId)).append("\n");
+    sb.append("    premiumSource: ").append(toIndentedString(premiumSource)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }
