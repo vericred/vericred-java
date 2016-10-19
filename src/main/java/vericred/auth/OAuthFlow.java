@@ -1,4 +1,4 @@
-/**
+/*
  * Vericred API
  * Vericred's API allows you to search for Health Plans that a specific doctor
 accepts.

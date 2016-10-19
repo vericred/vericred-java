@@ -137,53 +137,77 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import model.DrugCoverage;
+import model.DrugPackage;
+import model.Formulary;
 
 import java.io.Serializable;
 /**
- * ZipCode
+ * FormularyDrugPackageResponse
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-14T13:33:39.716-04:00")
-public class ZipCode  implements Serializable {
-  @JsonProperty("code")
-  private String code = null;
+public class FormularyDrugPackageResponse  implements Serializable {
+  @JsonProperty("coverage")
+  private DrugCoverage coverage = null;
 
-  @JsonProperty("id")
-  private Integer id = null;
+  @JsonProperty("drug_package")
+  private DrugPackage drugPackage = null;
 
-  public ZipCode code(String code) {
-    this.code = code;
+  @JsonProperty("formulary")
+  private Formulary formulary = null;
+
+  public FormularyDrugPackageResponse coverage(DrugCoverage coverage) {
+    this.coverage = coverage;
     return this;
   }
 
    /**
-   * 5 digit code (e.g. 11215)
-   * @return code
+   * DrugCoverage
+   * @return coverage
   **/
-  @ApiModelProperty(example = "null", value = "5 digit code (e.g. 11215)")
-  public String getCode() {
-    return code;
+  @ApiModelProperty(example = "null", value = "DrugCoverage")
+  public DrugCoverage getCoverage() {
+    return coverage;
   }
 
-  public void setCode(String code) {
-    this.code = code;
+  public void setCoverage(DrugCoverage coverage) {
+    this.coverage = coverage;
   }
 
-  public ZipCode id(Integer id) {
-    this.id = id;
+  public FormularyDrugPackageResponse drugPackage(DrugPackage drugPackage) {
+    this.drugPackage = drugPackage;
     return this;
   }
 
    /**
-   * Primary key
-   * @return id
+   * DrugPackage
+   * @return drugPackage
   **/
-  @ApiModelProperty(example = "null", value = "Primary key")
-  public Integer getId() {
-    return id;
+  @ApiModelProperty(example = "null", value = "DrugPackage")
+  public DrugPackage getDrugPackage() {
+    return drugPackage;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
+  public void setDrugPackage(DrugPackage drugPackage) {
+    this.drugPackage = drugPackage;
+  }
+
+  public FormularyDrugPackageResponse formulary(Formulary formulary) {
+    this.formulary = formulary;
+    return this;
+  }
+
+   /**
+   * Formulary
+   * @return formulary
+  **/
+  @ApiModelProperty(example = "null", value = "Formulary")
+  public Formulary getFormulary() {
+    return formulary;
+  }
+
+  public void setFormulary(Formulary formulary) {
+    this.formulary = formulary;
   }
 
 
@@ -195,23 +219,25 @@ public class ZipCode  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ZipCode zipCode = (ZipCode) o;
-    return Objects.equals(this.code, zipCode.code) &&
-        Objects.equals(this.id, zipCode.id);
+    FormularyDrugPackageResponse formularyDrugPackageResponse = (FormularyDrugPackageResponse) o;
+    return Objects.equals(this.coverage, formularyDrugPackageResponse.coverage) &&
+        Objects.equals(this.drugPackage, formularyDrugPackageResponse.drugPackage) &&
+        Objects.equals(this.formulary, formularyDrugPackageResponse.formulary);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, id);
+    return Objects.hash(coverage, drugPackage, formulary);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ZipCode {\n");
+    sb.append("class FormularyDrugPackageResponse {\n");
     
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    coverage: ").append(toIndentedString(coverage)).append("\n");
+    sb.append("    drugPackage: ").append(toIndentedString(drugPackage)).append("\n");
+    sb.append("    formulary: ").append(toIndentedString(formulary)).append("\n");
     sb.append("}");
     return sb.toString();
   }

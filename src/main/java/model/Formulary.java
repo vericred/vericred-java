@@ -140,35 +140,17 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 /**
- * ZipCode
+ * Formulary
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-14T13:33:39.716-04:00")
-public class ZipCode  implements Serializable {
-  @JsonProperty("code")
-  private String code = null;
-
+public class Formulary  implements Serializable {
   @JsonProperty("id")
   private Integer id = null;
 
-  public ZipCode code(String code) {
-    this.code = code;
-    return this;
-  }
+  @JsonProperty("name")
+  private String name = null;
 
-   /**
-   * 5 digit code (e.g. 11215)
-   * @return code
-  **/
-  @ApiModelProperty(example = "null", value = "5 digit code (e.g. 11215)")
-  public String getCode() {
-    return code;
-  }
-
-  public void setCode(String code) {
-    this.code = code;
-  }
-
-  public ZipCode id(Integer id) {
+  public Formulary id(Integer id) {
     this.id = id;
     return this;
   }
@@ -186,6 +168,24 @@ public class ZipCode  implements Serializable {
     this.id = id;
   }
 
+  public Formulary name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * Name of the Formulary
+   * @return name
+  **/
+  @ApiModelProperty(example = "null", value = "Name of the Formulary")
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -195,23 +195,23 @@ public class ZipCode  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ZipCode zipCode = (ZipCode) o;
-    return Objects.equals(this.code, zipCode.code) &&
-        Objects.equals(this.id, zipCode.id);
+    Formulary formulary = (Formulary) o;
+    return Objects.equals(this.id, formulary.id) &&
+        Objects.equals(this.name, formulary.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, id);
+    return Objects.hash(id, name);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ZipCode {\n");
+    sb.append("class Formulary {\n");
     
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();
   }

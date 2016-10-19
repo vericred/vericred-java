@@ -143,10 +143,10 @@ import java.util.List;
 
 import java.io.Serializable;
 /**
- * Provider
+ * ProviderDetails
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-14T13:33:39.716-04:00")
-public class Provider  implements Serializable {
+public class ProviderDetails  implements Serializable {
   @JsonProperty("accepting_change_of_payor_patients")
   private Boolean acceptingChangeOfPayorPatients = null;
 
@@ -231,7 +231,10 @@ public class Provider  implements Serializable {
   @JsonProperty("zip_code")
   private String zipCode = null;
 
-  public Provider acceptingChangeOfPayorPatients(Boolean acceptingChangeOfPayorPatients) {
+  @JsonProperty("hios_ids")
+  private List<String> hiosIds = new ArrayList<String>();
+
+  public ProviderDetails acceptingChangeOfPayorPatients(Boolean acceptingChangeOfPayorPatients) {
     this.acceptingChangeOfPayorPatients = acceptingChangeOfPayorPatients;
     return this;
   }
@@ -249,7 +252,7 @@ public class Provider  implements Serializable {
     this.acceptingChangeOfPayorPatients = acceptingChangeOfPayorPatients;
   }
 
-  public Provider acceptingMedicaidPatients(Boolean acceptingMedicaidPatients) {
+  public ProviderDetails acceptingMedicaidPatients(Boolean acceptingMedicaidPatients) {
     this.acceptingMedicaidPatients = acceptingMedicaidPatients;
     return this;
   }
@@ -267,7 +270,7 @@ public class Provider  implements Serializable {
     this.acceptingMedicaidPatients = acceptingMedicaidPatients;
   }
 
-  public Provider acceptingMedicarePatients(Boolean acceptingMedicarePatients) {
+  public ProviderDetails acceptingMedicarePatients(Boolean acceptingMedicarePatients) {
     this.acceptingMedicarePatients = acceptingMedicarePatients;
     return this;
   }
@@ -285,7 +288,7 @@ public class Provider  implements Serializable {
     this.acceptingMedicarePatients = acceptingMedicarePatients;
   }
 
-  public Provider acceptingPrivatePatients(Boolean acceptingPrivatePatients) {
+  public ProviderDetails acceptingPrivatePatients(Boolean acceptingPrivatePatients) {
     this.acceptingPrivatePatients = acceptingPrivatePatients;
     return this;
   }
@@ -303,7 +306,7 @@ public class Provider  implements Serializable {
     this.acceptingPrivatePatients = acceptingPrivatePatients;
   }
 
-  public Provider acceptingReferralPatients(Boolean acceptingReferralPatients) {
+  public ProviderDetails acceptingReferralPatients(Boolean acceptingReferralPatients) {
     this.acceptingReferralPatients = acceptingReferralPatients;
     return this;
   }
@@ -321,7 +324,7 @@ public class Provider  implements Serializable {
     this.acceptingReferralPatients = acceptingReferralPatients;
   }
 
-  public Provider city(String city) {
+  public ProviderDetails city(String city) {
     this.city = city;
     return this;
   }
@@ -339,7 +342,7 @@ public class Provider  implements Serializable {
     this.city = city;
   }
 
-  public Provider email(String email) {
+  public ProviderDetails email(String email) {
     this.email = email;
     return this;
   }
@@ -357,7 +360,7 @@ public class Provider  implements Serializable {
     this.email = email;
   }
 
-  public Provider gender(String gender) {
+  public ProviderDetails gender(String gender) {
     this.gender = gender;
     return this;
   }
@@ -375,7 +378,7 @@ public class Provider  implements Serializable {
     this.gender = gender;
   }
 
-  public Provider firstName(String firstName) {
+  public ProviderDetails firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -393,7 +396,7 @@ public class Provider  implements Serializable {
     this.firstName = firstName;
   }
 
-  public Provider id(Integer id) {
+  public ProviderDetails id(Integer id) {
     this.id = id;
     return this;
   }
@@ -411,7 +414,7 @@ public class Provider  implements Serializable {
     this.id = id;
   }
 
-  public Provider lastName(String lastName) {
+  public ProviderDetails lastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
@@ -429,7 +432,7 @@ public class Provider  implements Serializable {
     this.lastName = lastName;
   }
 
-  public Provider latitude(BigDecimal latitude) {
+  public ProviderDetails latitude(BigDecimal latitude) {
     this.latitude = latitude;
     return this;
   }
@@ -447,7 +450,7 @@ public class Provider  implements Serializable {
     this.latitude = latitude;
   }
 
-  public Provider longitude(BigDecimal longitude) {
+  public ProviderDetails longitude(BigDecimal longitude) {
     this.longitude = longitude;
     return this;
   }
@@ -465,7 +468,7 @@ public class Provider  implements Serializable {
     this.longitude = longitude;
   }
 
-  public Provider middleName(String middleName) {
+  public ProviderDetails middleName(String middleName) {
     this.middleName = middleName;
     return this;
   }
@@ -483,12 +486,12 @@ public class Provider  implements Serializable {
     this.middleName = middleName;
   }
 
-  public Provider networkIds(List<Integer> networkIds) {
+  public ProviderDetails networkIds(List<Integer> networkIds) {
     this.networkIds = networkIds;
     return this;
   }
 
-  public Provider addNetworkIdsItem(Integer networkIdsItem) {
+  public ProviderDetails addNetworkIdsItem(Integer networkIdsItem) {
     this.networkIds.add(networkIdsItem);
     return this;
   }
@@ -506,7 +509,7 @@ public class Provider  implements Serializable {
     this.networkIds = networkIds;
   }
 
-  public Provider organizationName(String organizationName) {
+  public ProviderDetails organizationName(String organizationName) {
     this.organizationName = organizationName;
     return this;
   }
@@ -524,7 +527,7 @@ public class Provider  implements Serializable {
     this.organizationName = organizationName;
   }
 
-  public Provider personalPhone(String personalPhone) {
+  public ProviderDetails personalPhone(String personalPhone) {
     this.personalPhone = personalPhone;
     return this;
   }
@@ -542,7 +545,7 @@ public class Provider  implements Serializable {
     this.personalPhone = personalPhone;
   }
 
-  public Provider phone(String phone) {
+  public ProviderDetails phone(String phone) {
     this.phone = phone;
     return this;
   }
@@ -560,7 +563,7 @@ public class Provider  implements Serializable {
     this.phone = phone;
   }
 
-  public Provider presentationName(String presentationName) {
+  public ProviderDetails presentationName(String presentationName) {
     this.presentationName = presentationName;
     return this;
   }
@@ -578,7 +581,7 @@ public class Provider  implements Serializable {
     this.presentationName = presentationName;
   }
 
-  public Provider specialty(String specialty) {
+  public ProviderDetails specialty(String specialty) {
     this.specialty = specialty;
     return this;
   }
@@ -596,7 +599,7 @@ public class Provider  implements Serializable {
     this.specialty = specialty;
   }
 
-  public Provider state(String state) {
+  public ProviderDetails state(String state) {
     this.state = state;
     return this;
   }
@@ -614,7 +617,7 @@ public class Provider  implements Serializable {
     this.state = state;
   }
 
-  public Provider stateId(Integer stateId) {
+  public ProviderDetails stateId(Integer stateId) {
     this.stateId = stateId;
     return this;
   }
@@ -632,7 +635,7 @@ public class Provider  implements Serializable {
     this.stateId = stateId;
   }
 
-  public Provider streetLine1(String streetLine1) {
+  public ProviderDetails streetLine1(String streetLine1) {
     this.streetLine1 = streetLine1;
     return this;
   }
@@ -650,7 +653,7 @@ public class Provider  implements Serializable {
     this.streetLine1 = streetLine1;
   }
 
-  public Provider streetLine2(String streetLine2) {
+  public ProviderDetails streetLine2(String streetLine2) {
     this.streetLine2 = streetLine2;
     return this;
   }
@@ -668,7 +671,7 @@ public class Provider  implements Serializable {
     this.streetLine2 = streetLine2;
   }
 
-  public Provider suffix(String suffix) {
+  public ProviderDetails suffix(String suffix) {
     this.suffix = suffix;
     return this;
   }
@@ -686,7 +689,7 @@ public class Provider  implements Serializable {
     this.suffix = suffix;
   }
 
-  public Provider title(String title) {
+  public ProviderDetails title(String title) {
     this.title = title;
     return this;
   }
@@ -704,7 +707,7 @@ public class Provider  implements Serializable {
     this.title = title;
   }
 
-  public Provider type(String type) {
+  public ProviderDetails type(String type) {
     this.type = type;
     return this;
   }
@@ -722,7 +725,7 @@ public class Provider  implements Serializable {
     this.type = type;
   }
 
-  public Provider zipCode(String zipCode) {
+  public ProviderDetails zipCode(String zipCode) {
     this.zipCode = zipCode;
     return this;
   }
@@ -740,6 +743,29 @@ public class Provider  implements Serializable {
     this.zipCode = zipCode;
   }
 
+  public ProviderDetails hiosIds(List<String> hiosIds) {
+    this.hiosIds = hiosIds;
+    return this;
+  }
+
+  public ProviderDetails addHiosIdsItem(String hiosIdsItem) {
+    this.hiosIds.add(hiosIdsItem);
+    return this;
+  }
+
+   /**
+   * List of HIOS ids for this provider
+   * @return hiosIds
+  **/
+  @ApiModelProperty(example = "null", value = "List of HIOS ids for this provider")
+  public List<String> getHiosIds() {
+    return hiosIds;
+  }
+
+  public void setHiosIds(List<String> hiosIds) {
+    this.hiosIds = hiosIds;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -749,46 +775,47 @@ public class Provider  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Provider provider = (Provider) o;
-    return Objects.equals(this.acceptingChangeOfPayorPatients, provider.acceptingChangeOfPayorPatients) &&
-        Objects.equals(this.acceptingMedicaidPatients, provider.acceptingMedicaidPatients) &&
-        Objects.equals(this.acceptingMedicarePatients, provider.acceptingMedicarePatients) &&
-        Objects.equals(this.acceptingPrivatePatients, provider.acceptingPrivatePatients) &&
-        Objects.equals(this.acceptingReferralPatients, provider.acceptingReferralPatients) &&
-        Objects.equals(this.city, provider.city) &&
-        Objects.equals(this.email, provider.email) &&
-        Objects.equals(this.gender, provider.gender) &&
-        Objects.equals(this.firstName, provider.firstName) &&
-        Objects.equals(this.id, provider.id) &&
-        Objects.equals(this.lastName, provider.lastName) &&
-        Objects.equals(this.latitude, provider.latitude) &&
-        Objects.equals(this.longitude, provider.longitude) &&
-        Objects.equals(this.middleName, provider.middleName) &&
-        Objects.equals(this.networkIds, provider.networkIds) &&
-        Objects.equals(this.organizationName, provider.organizationName) &&
-        Objects.equals(this.personalPhone, provider.personalPhone) &&
-        Objects.equals(this.phone, provider.phone) &&
-        Objects.equals(this.presentationName, provider.presentationName) &&
-        Objects.equals(this.specialty, provider.specialty) &&
-        Objects.equals(this.state, provider.state) &&
-        Objects.equals(this.stateId, provider.stateId) &&
-        Objects.equals(this.streetLine1, provider.streetLine1) &&
-        Objects.equals(this.streetLine2, provider.streetLine2) &&
-        Objects.equals(this.suffix, provider.suffix) &&
-        Objects.equals(this.title, provider.title) &&
-        Objects.equals(this.type, provider.type) &&
-        Objects.equals(this.zipCode, provider.zipCode);
+    ProviderDetails providerDetails = (ProviderDetails) o;
+    return Objects.equals(this.acceptingChangeOfPayorPatients, providerDetails.acceptingChangeOfPayorPatients) &&
+        Objects.equals(this.acceptingMedicaidPatients, providerDetails.acceptingMedicaidPatients) &&
+        Objects.equals(this.acceptingMedicarePatients, providerDetails.acceptingMedicarePatients) &&
+        Objects.equals(this.acceptingPrivatePatients, providerDetails.acceptingPrivatePatients) &&
+        Objects.equals(this.acceptingReferralPatients, providerDetails.acceptingReferralPatients) &&
+        Objects.equals(this.city, providerDetails.city) &&
+        Objects.equals(this.email, providerDetails.email) &&
+        Objects.equals(this.gender, providerDetails.gender) &&
+        Objects.equals(this.firstName, providerDetails.firstName) &&
+        Objects.equals(this.id, providerDetails.id) &&
+        Objects.equals(this.lastName, providerDetails.lastName) &&
+        Objects.equals(this.latitude, providerDetails.latitude) &&
+        Objects.equals(this.longitude, providerDetails.longitude) &&
+        Objects.equals(this.middleName, providerDetails.middleName) &&
+        Objects.equals(this.networkIds, providerDetails.networkIds) &&
+        Objects.equals(this.organizationName, providerDetails.organizationName) &&
+        Objects.equals(this.personalPhone, providerDetails.personalPhone) &&
+        Objects.equals(this.phone, providerDetails.phone) &&
+        Objects.equals(this.presentationName, providerDetails.presentationName) &&
+        Objects.equals(this.specialty, providerDetails.specialty) &&
+        Objects.equals(this.state, providerDetails.state) &&
+        Objects.equals(this.stateId, providerDetails.stateId) &&
+        Objects.equals(this.streetLine1, providerDetails.streetLine1) &&
+        Objects.equals(this.streetLine2, providerDetails.streetLine2) &&
+        Objects.equals(this.suffix, providerDetails.suffix) &&
+        Objects.equals(this.title, providerDetails.title) &&
+        Objects.equals(this.type, providerDetails.type) &&
+        Objects.equals(this.zipCode, providerDetails.zipCode) &&
+        Objects.equals(this.hiosIds, providerDetails.hiosIds);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(acceptingChangeOfPayorPatients, acceptingMedicaidPatients, acceptingMedicarePatients, acceptingPrivatePatients, acceptingReferralPatients, city, email, gender, firstName, id, lastName, latitude, longitude, middleName, networkIds, organizationName, personalPhone, phone, presentationName, specialty, state, stateId, streetLine1, streetLine2, suffix, title, type, zipCode);
+    return Objects.hash(acceptingChangeOfPayorPatients, acceptingMedicaidPatients, acceptingMedicarePatients, acceptingPrivatePatients, acceptingReferralPatients, city, email, gender, firstName, id, lastName, latitude, longitude, middleName, networkIds, organizationName, personalPhone, phone, presentationName, specialty, state, stateId, streetLine1, streetLine2, suffix, title, type, zipCode, hiosIds);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Provider {\n");
+    sb.append("class ProviderDetails {\n");
     
     sb.append("    acceptingChangeOfPayorPatients: ").append(toIndentedString(acceptingChangeOfPayorPatients)).append("\n");
     sb.append("    acceptingMedicaidPatients: ").append(toIndentedString(acceptingMedicaidPatients)).append("\n");
@@ -818,6 +845,7 @@ public class Provider  implements Serializable {
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    zipCode: ").append(toIndentedString(zipCode)).append("\n");
+    sb.append("    hiosIds: ").append(toIndentedString(hiosIds)).append("\n");
     sb.append("}");
     return sb.toString();
   }

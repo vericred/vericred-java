@@ -140,50 +140,71 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 /**
- * ZipCode
+ * NetworkSize
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-14T13:33:39.716-04:00")
-public class ZipCode  implements Serializable {
-  @JsonProperty("code")
-  private String code = null;
+public class NetworkSize  implements Serializable {
+  @JsonProperty("network_id")
+  private Integer networkId = null;
 
-  @JsonProperty("id")
-  private Integer id = null;
+  @JsonProperty("count")
+  private Integer count = null;
 
-  public ZipCode code(String code) {
-    this.code = code;
+  @JsonProperty("state_id")
+  private String stateId = null;
+
+  public NetworkSize networkId(Integer networkId) {
+    this.networkId = networkId;
     return this;
   }
 
    /**
-   * 5 digit code (e.g. 11215)
-   * @return code
+   * Foreign key to Network
+   * @return networkId
   **/
-  @ApiModelProperty(example = "null", value = "5 digit code (e.g. 11215)")
-  public String getCode() {
-    return code;
+  @ApiModelProperty(example = "null", value = "Foreign key to Network")
+  public Integer getNetworkId() {
+    return networkId;
   }
 
-  public void setCode(String code) {
-    this.code = code;
+  public void setNetworkId(Integer networkId) {
+    this.networkId = networkId;
   }
 
-  public ZipCode id(Integer id) {
-    this.id = id;
+  public NetworkSize count(Integer count) {
+    this.count = count;
     return this;
   }
 
    /**
-   * Primary key
-   * @return id
+   * Number of Providers in-network in this State
+   * @return count
   **/
-  @ApiModelProperty(example = "null", value = "Primary key")
-  public Integer getId() {
-    return id;
+  @ApiModelProperty(example = "null", value = "Number of Providers in-network in this State")
+  public Integer getCount() {
+    return count;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
+  public void setCount(Integer count) {
+    this.count = count;
+  }
+
+  public NetworkSize stateId(String stateId) {
+    this.stateId = stateId;
+    return this;
+  }
+
+   /**
+   * Foreign key to State
+   * @return stateId
+  **/
+  @ApiModelProperty(example = "null", value = "Foreign key to State")
+  public String getStateId() {
+    return stateId;
+  }
+
+  public void setStateId(String stateId) {
+    this.stateId = stateId;
   }
 
 
@@ -195,23 +216,25 @@ public class ZipCode  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ZipCode zipCode = (ZipCode) o;
-    return Objects.equals(this.code, zipCode.code) &&
-        Objects.equals(this.id, zipCode.id);
+    NetworkSize networkSize = (NetworkSize) o;
+    return Objects.equals(this.networkId, networkSize.networkId) &&
+        Objects.equals(this.count, networkSize.count) &&
+        Objects.equals(this.stateId, networkSize.stateId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, id);
+    return Objects.hash(networkId, count, stateId);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ZipCode {\n");
+    sb.append("class NetworkSize {\n");
     
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    networkId: ").append(toIndentedString(networkId)).append("\n");
+    sb.append("    count: ").append(toIndentedString(count)).append("\n");
+    sb.append("    stateId: ").append(toIndentedString(stateId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -1,4 +1,4 @@
-/**
+/*
  * Vericred API
  * Vericred's API allows you to search for Health Plans that a specific doctor
 accepts.
@@ -139,7 +139,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import model.Drug;
+import model.DrugCoverage;
 import model.Meta;
 import model.Plan;
 
@@ -147,7 +147,7 @@ import java.io.Serializable;
 /**
  * PlanSearchResponse
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-08-24T12:43:20.125-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-14T13:33:39.716-04:00")
 public class PlanSearchResponse  implements Serializable {
   @JsonProperty("meta")
   private Meta meta = null;
@@ -156,7 +156,7 @@ public class PlanSearchResponse  implements Serializable {
   private List<Plan> plans = new ArrayList<Plan>();
 
   @JsonProperty("coverages")
-  private List<Drug> coverages = new ArrayList<Drug>();
+  private List<DrugCoverage> coverages = new ArrayList<DrugCoverage>();
 
   public PlanSearchResponse meta(Meta meta) {
     this.meta = meta;
@@ -164,10 +164,10 @@ public class PlanSearchResponse  implements Serializable {
   }
 
    /**
-   * Metadata for query
+   * Meta-data
    * @return meta
   **/
-  @ApiModelProperty(example = "null", value = "Metadata for query")
+  @ApiModelProperty(example = "null", value = "Meta-data")
   public Meta getMeta() {
     return meta;
   }
@@ -199,26 +199,26 @@ public class PlanSearchResponse  implements Serializable {
     this.plans = plans;
   }
 
-  public PlanSearchResponse coverages(List<Drug> coverages) {
+  public PlanSearchResponse coverages(List<DrugCoverage> coverages) {
     this.coverages = coverages;
     return this;
   }
 
-  public PlanSearchResponse addCoveragesItem(Drug coveragesItem) {
+  public PlanSearchResponse addCoveragesItem(DrugCoverage coveragesItem) {
     this.coverages.add(coveragesItem);
     return this;
   }
 
    /**
-   * null
+   * Coverages associated with the plan.
    * @return coverages
   **/
-  @ApiModelProperty(example = "null", value = "null")
-  public List<Drug> getCoverages() {
+  @ApiModelProperty(example = "null", value = "Coverages associated with the plan.")
+  public List<DrugCoverage> getCoverages() {
     return coverages;
   }
 
-  public void setCoverages(List<Drug> coverages) {
+  public void setCoverages(List<DrugCoverage> coverages) {
     this.coverages = coverages;
   }
 
