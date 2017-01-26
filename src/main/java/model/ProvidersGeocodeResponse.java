@@ -196,24 +196,20 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Meta;
 import model.Provider;
-import model.State;
 
 import java.io.Serializable;
 /**
- * ProvidersSearchResponse
+ * ProvidersGeocodeResponse
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-01-26T16:00:18.173-05:00")
-public class ProvidersSearchResponse  implements Serializable {
+public class ProvidersGeocodeResponse  implements Serializable {
   @JsonProperty("meta")
   private Meta meta = null;
 
   @JsonProperty("providers")
   private List<Provider> providers = new ArrayList<Provider>();
 
-  @JsonProperty("states")
-  private List<State> states = new ArrayList<State>();
-
-  public ProvidersSearchResponse meta(Meta meta) {
+  public ProvidersGeocodeResponse meta(Meta meta) {
     this.meta = meta;
     return this;
   }
@@ -231,12 +227,12 @@ public class ProvidersSearchResponse  implements Serializable {
     this.meta = meta;
   }
 
-  public ProvidersSearchResponse providers(List<Provider> providers) {
+  public ProvidersGeocodeResponse providers(List<Provider> providers) {
     this.providers = providers;
     return this;
   }
 
-  public ProvidersSearchResponse addProvidersItem(Provider providersItem) {
+  public ProvidersGeocodeResponse addProvidersItem(Provider providersItem) {
     this.providers.add(providersItem);
     return this;
   }
@@ -254,29 +250,6 @@ public class ProvidersSearchResponse  implements Serializable {
     this.providers = providers;
   }
 
-  public ProvidersSearchResponse states(List<State> states) {
-    this.states = states;
-    return this;
-  }
-
-  public ProvidersSearchResponse addStatesItem(State statesItem) {
-    this.states.add(statesItem);
-    return this;
-  }
-
-   /**
-   * States that fit the requested criterion.
-   * @return states
-  **/
-  @ApiModelProperty(example = "null", value = "States that fit the requested criterion.")
-  public List<State> getStates() {
-    return states;
-  }
-
-  public void setStates(List<State> states) {
-    this.states = states;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -286,25 +259,23 @@ public class ProvidersSearchResponse  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ProvidersSearchResponse providersSearchResponse = (ProvidersSearchResponse) o;
-    return Objects.equals(this.meta, providersSearchResponse.meta) &&
-        Objects.equals(this.providers, providersSearchResponse.providers) &&
-        Objects.equals(this.states, providersSearchResponse.states);
+    ProvidersGeocodeResponse providersGeocodeResponse = (ProvidersGeocodeResponse) o;
+    return Objects.equals(this.meta, providersGeocodeResponse.meta) &&
+        Objects.equals(this.providers, providersGeocodeResponse.providers);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(meta, providers, states);
+    return Objects.hash(meta, providers);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ProvidersSearchResponse {\n");
+    sb.append("class ProvidersGeocodeResponse {\n");
     
     sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("    providers: ").append(toIndentedString(providers)).append("\n");
-    sb.append("    states: ").append(toIndentedString(states)).append("\n");
     sb.append("}");
     return sb.toString();
   }

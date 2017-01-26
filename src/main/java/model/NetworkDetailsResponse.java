@@ -192,89 +192,33 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
-import model.Meta;
-import model.Provider;
-import model.State;
+import model.NetworkDetails;
 
 import java.io.Serializable;
 /**
- * ProvidersSearchResponse
+ * NetworkDetailsResponse
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-01-26T16:00:18.173-05:00")
-public class ProvidersSearchResponse  implements Serializable {
-  @JsonProperty("meta")
-  private Meta meta = null;
+public class NetworkDetailsResponse  implements Serializable {
+  @JsonProperty("network")
+  private NetworkDetails network = null;
 
-  @JsonProperty("providers")
-  private List<Provider> providers = new ArrayList<Provider>();
-
-  @JsonProperty("states")
-  private List<State> states = new ArrayList<State>();
-
-  public ProvidersSearchResponse meta(Meta meta) {
-    this.meta = meta;
+  public NetworkDetailsResponse network(NetworkDetails network) {
+    this.network = network;
     return this;
   }
 
    /**
-   * Meta-data
-   * @return meta
+   * Network details
+   * @return network
   **/
-  @ApiModelProperty(example = "null", value = "Meta-data")
-  public Meta getMeta() {
-    return meta;
+  @ApiModelProperty(example = "null", value = "Network details")
+  public NetworkDetails getNetwork() {
+    return network;
   }
 
-  public void setMeta(Meta meta) {
-    this.meta = meta;
-  }
-
-  public ProvidersSearchResponse providers(List<Provider> providers) {
-    this.providers = providers;
-    return this;
-  }
-
-  public ProvidersSearchResponse addProvidersItem(Provider providersItem) {
-    this.providers.add(providersItem);
-    return this;
-  }
-
-   /**
-   * Providers that fit the requested criterion.
-   * @return providers
-  **/
-  @ApiModelProperty(example = "null", value = "Providers that fit the requested criterion.")
-  public List<Provider> getProviders() {
-    return providers;
-  }
-
-  public void setProviders(List<Provider> providers) {
-    this.providers = providers;
-  }
-
-  public ProvidersSearchResponse states(List<State> states) {
-    this.states = states;
-    return this;
-  }
-
-  public ProvidersSearchResponse addStatesItem(State statesItem) {
-    this.states.add(statesItem);
-    return this;
-  }
-
-   /**
-   * States that fit the requested criterion.
-   * @return states
-  **/
-  @ApiModelProperty(example = "null", value = "States that fit the requested criterion.")
-  public List<State> getStates() {
-    return states;
-  }
-
-  public void setStates(List<State> states) {
-    this.states = states;
+  public void setNetwork(NetworkDetails network) {
+    this.network = network;
   }
 
 
@@ -286,25 +230,21 @@ public class ProvidersSearchResponse  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ProvidersSearchResponse providersSearchResponse = (ProvidersSearchResponse) o;
-    return Objects.equals(this.meta, providersSearchResponse.meta) &&
-        Objects.equals(this.providers, providersSearchResponse.providers) &&
-        Objects.equals(this.states, providersSearchResponse.states);
+    NetworkDetailsResponse networkDetailsResponse = (NetworkDetailsResponse) o;
+    return Objects.equals(this.network, networkDetailsResponse.network);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(meta, providers, states);
+    return Objects.hash(network);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ProvidersSearchResponse {\n");
+    sb.append("class NetworkDetailsResponse {\n");
     
-    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
-    sb.append("    providers: ").append(toIndentedString(providers)).append("\n");
-    sb.append("    states: ").append(toIndentedString(states)).append("\n");
+    sb.append("    network: ").append(toIndentedString(network)).append("\n");
     sb.append("}");
     return sb.toString();
   }

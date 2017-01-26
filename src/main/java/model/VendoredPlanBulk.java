@@ -198,10 +198,10 @@ import java.util.List;
 
 import java.io.Serializable;
 /**
- * PlanSearchResult
+ * VendoredPlanBulk
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-01-26T16:00:18.173-05:00")
-public class PlanSearchResult  implements Serializable {
+public class VendoredPlanBulk  implements Serializable {
   @JsonProperty("adult_dental")
   private Boolean adultDental = null;
 
@@ -334,6 +334,9 @@ public class PlanSearchResult  implements Serializable {
   @JsonProperty("name")
   private String name = null;
 
+  @JsonProperty("network_size")
+  private Integer networkSize = null;
+
   @JsonProperty("non_preferred_brand_drugs")
   private String nonPreferredBrandDrugs = null;
 
@@ -406,19 +409,10 @@ public class PlanSearchResult  implements Serializable {
   @JsonProperty("urgent_care")
   private String urgentCare = null;
 
-  @JsonProperty("match_percentage")
-  private Integer matchPercentage = null;
+  @JsonProperty("vendor_id")
+  private String vendorId = null;
 
-  @JsonProperty("perfect_match_percentage")
-  private Integer perfectMatchPercentage = null;
-
-  @JsonProperty("employee_premium")
-  private BigDecimal employeePremium = null;
-
-  @JsonProperty("dependent_premium")
-  private BigDecimal dependentPremium = null;
-
-  public PlanSearchResult adultDental(Boolean adultDental) {
+  public VendoredPlanBulk adultDental(Boolean adultDental) {
     this.adultDental = adultDental;
     return this;
   }
@@ -436,7 +430,7 @@ public class PlanSearchResult  implements Serializable {
     this.adultDental = adultDental;
   }
 
-  public PlanSearchResult age29Rider(Boolean age29Rider) {
+  public VendoredPlanBulk age29Rider(Boolean age29Rider) {
     this.age29Rider = age29Rider;
     return this;
   }
@@ -454,7 +448,7 @@ public class PlanSearchResult  implements Serializable {
     this.age29Rider = age29Rider;
   }
 
-  public PlanSearchResult ambulance(String ambulance) {
+  public VendoredPlanBulk ambulance(String ambulance) {
     this.ambulance = ambulance;
     return this;
   }
@@ -472,7 +466,7 @@ public class PlanSearchResult  implements Serializable {
     this.ambulance = ambulance;
   }
 
-  public PlanSearchResult benefitsSummaryUrl(String benefitsSummaryUrl) {
+  public VendoredPlanBulk benefitsSummaryUrl(String benefitsSummaryUrl) {
     this.benefitsSummaryUrl = benefitsSummaryUrl;
     return this;
   }
@@ -490,7 +484,7 @@ public class PlanSearchResult  implements Serializable {
     this.benefitsSummaryUrl = benefitsSummaryUrl;
   }
 
-  public PlanSearchResult buyLink(String buyLink) {
+  public VendoredPlanBulk buyLink(String buyLink) {
     this.buyLink = buyLink;
     return this;
   }
@@ -508,7 +502,7 @@ public class PlanSearchResult  implements Serializable {
     this.buyLink = buyLink;
   }
 
-  public PlanSearchResult carrierName(String carrierName) {
+  public VendoredPlanBulk carrierName(String carrierName) {
     this.carrierName = carrierName;
     return this;
   }
@@ -526,7 +520,7 @@ public class PlanSearchResult  implements Serializable {
     this.carrierName = carrierName;
   }
 
-  public PlanSearchResult childDental(Boolean childDental) {
+  public VendoredPlanBulk childDental(Boolean childDental) {
     this.childDental = childDental;
     return this;
   }
@@ -544,7 +538,7 @@ public class PlanSearchResult  implements Serializable {
     this.childDental = childDental;
   }
 
-  public PlanSearchResult childEyewear(String childEyewear) {
+  public VendoredPlanBulk childEyewear(String childEyewear) {
     this.childEyewear = childEyewear;
     return this;
   }
@@ -562,7 +556,7 @@ public class PlanSearchResult  implements Serializable {
     this.childEyewear = childEyewear;
   }
 
-  public PlanSearchResult childEyeExam(String childEyeExam) {
+  public VendoredPlanBulk childEyeExam(String childEyeExam) {
     this.childEyeExam = childEyeExam;
     return this;
   }
@@ -580,7 +574,7 @@ public class PlanSearchResult  implements Serializable {
     this.childEyeExam = childEyeExam;
   }
 
-  public PlanSearchResult customerServicePhoneNumber(String customerServicePhoneNumber) {
+  public VendoredPlanBulk customerServicePhoneNumber(String customerServicePhoneNumber) {
     this.customerServicePhoneNumber = customerServicePhoneNumber;
     return this;
   }
@@ -598,7 +592,7 @@ public class PlanSearchResult  implements Serializable {
     this.customerServicePhoneNumber = customerServicePhoneNumber;
   }
 
-  public PlanSearchResult durableMedicalEquipment(String durableMedicalEquipment) {
+  public VendoredPlanBulk durableMedicalEquipment(String durableMedicalEquipment) {
     this.durableMedicalEquipment = durableMedicalEquipment;
     return this;
   }
@@ -616,7 +610,7 @@ public class PlanSearchResult  implements Serializable {
     this.durableMedicalEquipment = durableMedicalEquipment;
   }
 
-  public PlanSearchResult diagnosticTest(String diagnosticTest) {
+  public VendoredPlanBulk diagnosticTest(String diagnosticTest) {
     this.diagnosticTest = diagnosticTest;
     return this;
   }
@@ -634,7 +628,7 @@ public class PlanSearchResult  implements Serializable {
     this.diagnosticTest = diagnosticTest;
   }
 
-  public PlanSearchResult displayName(String displayName) {
+  public VendoredPlanBulk displayName(String displayName) {
     this.displayName = displayName;
     return this;
   }
@@ -652,7 +646,7 @@ public class PlanSearchResult  implements Serializable {
     this.displayName = displayName;
   }
 
-  public PlanSearchResult dpRider(Boolean dpRider) {
+  public VendoredPlanBulk dpRider(Boolean dpRider) {
     this.dpRider = dpRider;
     return this;
   }
@@ -670,7 +664,7 @@ public class PlanSearchResult  implements Serializable {
     this.dpRider = dpRider;
   }
 
-  public PlanSearchResult drugFormularyUrl(String drugFormularyUrl) {
+  public VendoredPlanBulk drugFormularyUrl(String drugFormularyUrl) {
     this.drugFormularyUrl = drugFormularyUrl;
     return this;
   }
@@ -688,7 +682,7 @@ public class PlanSearchResult  implements Serializable {
     this.drugFormularyUrl = drugFormularyUrl;
   }
 
-  public PlanSearchResult effectiveDate(String effectiveDate) {
+  public VendoredPlanBulk effectiveDate(String effectiveDate) {
     this.effectiveDate = effectiveDate;
     return this;
   }
@@ -706,7 +700,7 @@ public class PlanSearchResult  implements Serializable {
     this.effectiveDate = effectiveDate;
   }
 
-  public PlanSearchResult expirationDate(String expirationDate) {
+  public VendoredPlanBulk expirationDate(String expirationDate) {
     this.expirationDate = expirationDate;
     return this;
   }
@@ -724,7 +718,7 @@ public class PlanSearchResult  implements Serializable {
     this.expirationDate = expirationDate;
   }
 
-  public PlanSearchResult emergencyRoom(String emergencyRoom) {
+  public VendoredPlanBulk emergencyRoom(String emergencyRoom) {
     this.emergencyRoom = emergencyRoom;
     return this;
   }
@@ -742,7 +736,7 @@ public class PlanSearchResult  implements Serializable {
     this.emergencyRoom = emergencyRoom;
   }
 
-  public PlanSearchResult familyDrugDeductible(String familyDrugDeductible) {
+  public VendoredPlanBulk familyDrugDeductible(String familyDrugDeductible) {
     this.familyDrugDeductible = familyDrugDeductible;
     return this;
   }
@@ -760,7 +754,7 @@ public class PlanSearchResult  implements Serializable {
     this.familyDrugDeductible = familyDrugDeductible;
   }
 
-  public PlanSearchResult familyDrugMoop(String familyDrugMoop) {
+  public VendoredPlanBulk familyDrugMoop(String familyDrugMoop) {
     this.familyDrugMoop = familyDrugMoop;
     return this;
   }
@@ -778,7 +772,7 @@ public class PlanSearchResult  implements Serializable {
     this.familyDrugMoop = familyDrugMoop;
   }
 
-  public PlanSearchResult familyMedicalDeductible(String familyMedicalDeductible) {
+  public VendoredPlanBulk familyMedicalDeductible(String familyMedicalDeductible) {
     this.familyMedicalDeductible = familyMedicalDeductible;
     return this;
   }
@@ -796,7 +790,7 @@ public class PlanSearchResult  implements Serializable {
     this.familyMedicalDeductible = familyMedicalDeductible;
   }
 
-  public PlanSearchResult familyMedicalMoop(String familyMedicalMoop) {
+  public VendoredPlanBulk familyMedicalMoop(String familyMedicalMoop) {
     this.familyMedicalMoop = familyMedicalMoop;
     return this;
   }
@@ -814,7 +808,7 @@ public class PlanSearchResult  implements Serializable {
     this.familyMedicalMoop = familyMedicalMoop;
   }
 
-  public PlanSearchResult fpRider(Boolean fpRider) {
+  public VendoredPlanBulk fpRider(Boolean fpRider) {
     this.fpRider = fpRider;
     return this;
   }
@@ -832,7 +826,7 @@ public class PlanSearchResult  implements Serializable {
     this.fpRider = fpRider;
   }
 
-  public PlanSearchResult genericDrugs(String genericDrugs) {
+  public VendoredPlanBulk genericDrugs(String genericDrugs) {
     this.genericDrugs = genericDrugs;
     return this;
   }
@@ -850,7 +844,7 @@ public class PlanSearchResult  implements Serializable {
     this.genericDrugs = genericDrugs;
   }
 
-  public PlanSearchResult habilitationServices(String habilitationServices) {
+  public VendoredPlanBulk habilitationServices(String habilitationServices) {
     this.habilitationServices = habilitationServices;
     return this;
   }
@@ -868,7 +862,7 @@ public class PlanSearchResult  implements Serializable {
     this.habilitationServices = habilitationServices;
   }
 
-  public PlanSearchResult hiosIssuerId(String hiosIssuerId) {
+  public VendoredPlanBulk hiosIssuerId(String hiosIssuerId) {
     this.hiosIssuerId = hiosIssuerId;
     return this;
   }
@@ -886,7 +880,7 @@ public class PlanSearchResult  implements Serializable {
     this.hiosIssuerId = hiosIssuerId;
   }
 
-  public PlanSearchResult homeHealthCare(String homeHealthCare) {
+  public VendoredPlanBulk homeHealthCare(String homeHealthCare) {
     this.homeHealthCare = homeHealthCare;
     return this;
   }
@@ -904,7 +898,7 @@ public class PlanSearchResult  implements Serializable {
     this.homeHealthCare = homeHealthCare;
   }
 
-  public PlanSearchResult hospiceService(String hospiceService) {
+  public VendoredPlanBulk hospiceService(String hospiceService) {
     this.hospiceService = hospiceService;
     return this;
   }
@@ -922,7 +916,7 @@ public class PlanSearchResult  implements Serializable {
     this.hospiceService = hospiceService;
   }
 
-  public PlanSearchResult hsaEligible(Boolean hsaEligible) {
+  public VendoredPlanBulk hsaEligible(Boolean hsaEligible) {
     this.hsaEligible = hsaEligible;
     return this;
   }
@@ -940,7 +934,7 @@ public class PlanSearchResult  implements Serializable {
     this.hsaEligible = hsaEligible;
   }
 
-  public PlanSearchResult id(String id) {
+  public VendoredPlanBulk id(String id) {
     this.id = id;
     return this;
   }
@@ -958,7 +952,7 @@ public class PlanSearchResult  implements Serializable {
     this.id = id;
   }
 
-  public PlanSearchResult imaging(String imaging) {
+  public VendoredPlanBulk imaging(String imaging) {
     this.imaging = imaging;
     return this;
   }
@@ -976,12 +970,12 @@ public class PlanSearchResult  implements Serializable {
     this.imaging = imaging;
   }
 
-  public PlanSearchResult inNetworkIds(List<Integer> inNetworkIds) {
+  public VendoredPlanBulk inNetworkIds(List<Integer> inNetworkIds) {
     this.inNetworkIds = inNetworkIds;
     return this;
   }
 
-  public PlanSearchResult addInNetworkIdsItem(Integer inNetworkIdsItem) {
+  public VendoredPlanBulk addInNetworkIdsItem(Integer inNetworkIdsItem) {
     this.inNetworkIds.add(inNetworkIdsItem);
     return this;
   }
@@ -999,7 +993,7 @@ public class PlanSearchResult  implements Serializable {
     this.inNetworkIds = inNetworkIds;
   }
 
-  public PlanSearchResult individualDrugDeductible(String individualDrugDeductible) {
+  public VendoredPlanBulk individualDrugDeductible(String individualDrugDeductible) {
     this.individualDrugDeductible = individualDrugDeductible;
     return this;
   }
@@ -1017,7 +1011,7 @@ public class PlanSearchResult  implements Serializable {
     this.individualDrugDeductible = individualDrugDeductible;
   }
 
-  public PlanSearchResult individualDrugMoop(String individualDrugMoop) {
+  public VendoredPlanBulk individualDrugMoop(String individualDrugMoop) {
     this.individualDrugMoop = individualDrugMoop;
     return this;
   }
@@ -1035,7 +1029,7 @@ public class PlanSearchResult  implements Serializable {
     this.individualDrugMoop = individualDrugMoop;
   }
 
-  public PlanSearchResult individualMedicalDeductible(String individualMedicalDeductible) {
+  public VendoredPlanBulk individualMedicalDeductible(String individualMedicalDeductible) {
     this.individualMedicalDeductible = individualMedicalDeductible;
     return this;
   }
@@ -1053,7 +1047,7 @@ public class PlanSearchResult  implements Serializable {
     this.individualMedicalDeductible = individualMedicalDeductible;
   }
 
-  public PlanSearchResult individualMedicalMoop(String individualMedicalMoop) {
+  public VendoredPlanBulk individualMedicalMoop(String individualMedicalMoop) {
     this.individualMedicalMoop = individualMedicalMoop;
     return this;
   }
@@ -1071,7 +1065,7 @@ public class PlanSearchResult  implements Serializable {
     this.individualMedicalMoop = individualMedicalMoop;
   }
 
-  public PlanSearchResult inpatientBirth(String inpatientBirth) {
+  public VendoredPlanBulk inpatientBirth(String inpatientBirth) {
     this.inpatientBirth = inpatientBirth;
     return this;
   }
@@ -1089,7 +1083,7 @@ public class PlanSearchResult  implements Serializable {
     this.inpatientBirth = inpatientBirth;
   }
 
-  public PlanSearchResult inpatientFacility(String inpatientFacility) {
+  public VendoredPlanBulk inpatientFacility(String inpatientFacility) {
     this.inpatientFacility = inpatientFacility;
     return this;
   }
@@ -1107,7 +1101,7 @@ public class PlanSearchResult  implements Serializable {
     this.inpatientFacility = inpatientFacility;
   }
 
-  public PlanSearchResult inpatientMentalHealth(String inpatientMentalHealth) {
+  public VendoredPlanBulk inpatientMentalHealth(String inpatientMentalHealth) {
     this.inpatientMentalHealth = inpatientMentalHealth;
     return this;
   }
@@ -1125,7 +1119,7 @@ public class PlanSearchResult  implements Serializable {
     this.inpatientMentalHealth = inpatientMentalHealth;
   }
 
-  public PlanSearchResult inpatientPhysician(String inpatientPhysician) {
+  public VendoredPlanBulk inpatientPhysician(String inpatientPhysician) {
     this.inpatientPhysician = inpatientPhysician;
     return this;
   }
@@ -1143,7 +1137,7 @@ public class PlanSearchResult  implements Serializable {
     this.inpatientPhysician = inpatientPhysician;
   }
 
-  public PlanSearchResult inpatientSubstance(String inpatientSubstance) {
+  public VendoredPlanBulk inpatientSubstance(String inpatientSubstance) {
     this.inpatientSubstance = inpatientSubstance;
     return this;
   }
@@ -1161,7 +1155,7 @@ public class PlanSearchResult  implements Serializable {
     this.inpatientSubstance = inpatientSubstance;
   }
 
-  public PlanSearchResult level(String level) {
+  public VendoredPlanBulk level(String level) {
     this.level = level;
     return this;
   }
@@ -1179,7 +1173,7 @@ public class PlanSearchResult  implements Serializable {
     this.level = level;
   }
 
-  public PlanSearchResult logoUrl(String logoUrl) {
+  public VendoredPlanBulk logoUrl(String logoUrl) {
     this.logoUrl = logoUrl;
     return this;
   }
@@ -1197,7 +1191,7 @@ public class PlanSearchResult  implements Serializable {
     this.logoUrl = logoUrl;
   }
 
-  public PlanSearchResult name(String name) {
+  public VendoredPlanBulk name(String name) {
     this.name = name;
     return this;
   }
@@ -1215,7 +1209,25 @@ public class PlanSearchResult  implements Serializable {
     this.name = name;
   }
 
-  public PlanSearchResult nonPreferredBrandDrugs(String nonPreferredBrandDrugs) {
+  public VendoredPlanBulk networkSize(Integer networkSize) {
+    this.networkSize = networkSize;
+    return this;
+  }
+
+   /**
+   * Total number of Providers in network
+   * @return networkSize
+  **/
+  @ApiModelProperty(example = "null", value = "Total number of Providers in network")
+  public Integer getNetworkSize() {
+    return networkSize;
+  }
+
+  public void setNetworkSize(Integer networkSize) {
+    this.networkSize = networkSize;
+  }
+
+  public VendoredPlanBulk nonPreferredBrandDrugs(String nonPreferredBrandDrugs) {
     this.nonPreferredBrandDrugs = nonPreferredBrandDrugs;
     return this;
   }
@@ -1233,7 +1245,7 @@ public class PlanSearchResult  implements Serializable {
     this.nonPreferredBrandDrugs = nonPreferredBrandDrugs;
   }
 
-  public PlanSearchResult onMarket(Boolean onMarket) {
+  public VendoredPlanBulk onMarket(Boolean onMarket) {
     this.onMarket = onMarket;
     return this;
   }
@@ -1251,7 +1263,7 @@ public class PlanSearchResult  implements Serializable {
     this.onMarket = onMarket;
   }
 
-  public PlanSearchResult offMarket(Boolean offMarket) {
+  public VendoredPlanBulk offMarket(Boolean offMarket) {
     this.offMarket = offMarket;
     return this;
   }
@@ -1269,7 +1281,7 @@ public class PlanSearchResult  implements Serializable {
     this.offMarket = offMarket;
   }
 
-  public PlanSearchResult outOfNetworkCoverage(Boolean outOfNetworkCoverage) {
+  public VendoredPlanBulk outOfNetworkCoverage(Boolean outOfNetworkCoverage) {
     this.outOfNetworkCoverage = outOfNetworkCoverage;
     return this;
   }
@@ -1287,12 +1299,12 @@ public class PlanSearchResult  implements Serializable {
     this.outOfNetworkCoverage = outOfNetworkCoverage;
   }
 
-  public PlanSearchResult outOfNetworkIds(List<Integer> outOfNetworkIds) {
+  public VendoredPlanBulk outOfNetworkIds(List<Integer> outOfNetworkIds) {
     this.outOfNetworkIds = outOfNetworkIds;
     return this;
   }
 
-  public PlanSearchResult addOutOfNetworkIdsItem(Integer outOfNetworkIdsItem) {
+  public VendoredPlanBulk addOutOfNetworkIdsItem(Integer outOfNetworkIdsItem) {
     this.outOfNetworkIds.add(outOfNetworkIdsItem);
     return this;
   }
@@ -1310,7 +1322,7 @@ public class PlanSearchResult  implements Serializable {
     this.outOfNetworkIds = outOfNetworkIds;
   }
 
-  public PlanSearchResult outpatientFacility(String outpatientFacility) {
+  public VendoredPlanBulk outpatientFacility(String outpatientFacility) {
     this.outpatientFacility = outpatientFacility;
     return this;
   }
@@ -1328,7 +1340,7 @@ public class PlanSearchResult  implements Serializable {
     this.outpatientFacility = outpatientFacility;
   }
 
-  public PlanSearchResult outpatientMentalHealth(String outpatientMentalHealth) {
+  public VendoredPlanBulk outpatientMentalHealth(String outpatientMentalHealth) {
     this.outpatientMentalHealth = outpatientMentalHealth;
     return this;
   }
@@ -1346,7 +1358,7 @@ public class PlanSearchResult  implements Serializable {
     this.outpatientMentalHealth = outpatientMentalHealth;
   }
 
-  public PlanSearchResult outpatientPhysician(String outpatientPhysician) {
+  public VendoredPlanBulk outpatientPhysician(String outpatientPhysician) {
     this.outpatientPhysician = outpatientPhysician;
     return this;
   }
@@ -1364,7 +1376,7 @@ public class PlanSearchResult  implements Serializable {
     this.outpatientPhysician = outpatientPhysician;
   }
 
-  public PlanSearchResult outpatientSubstance(String outpatientSubstance) {
+  public VendoredPlanBulk outpatientSubstance(String outpatientSubstance) {
     this.outpatientSubstance = outpatientSubstance;
     return this;
   }
@@ -1382,7 +1394,7 @@ public class PlanSearchResult  implements Serializable {
     this.outpatientSubstance = outpatientSubstance;
   }
 
-  public PlanSearchResult planMarket(String planMarket) {
+  public VendoredPlanBulk planMarket(String planMarket) {
     this.planMarket = planMarket;
     return this;
   }
@@ -1400,7 +1412,7 @@ public class PlanSearchResult  implements Serializable {
     this.planMarket = planMarket;
   }
 
-  public PlanSearchResult planType(String planType) {
+  public VendoredPlanBulk planType(String planType) {
     this.planType = planType;
     return this;
   }
@@ -1418,7 +1430,7 @@ public class PlanSearchResult  implements Serializable {
     this.planType = planType;
   }
 
-  public PlanSearchResult preferredBrandDrugs(String preferredBrandDrugs) {
+  public VendoredPlanBulk preferredBrandDrugs(String preferredBrandDrugs) {
     this.preferredBrandDrugs = preferredBrandDrugs;
     return this;
   }
@@ -1436,7 +1448,7 @@ public class PlanSearchResult  implements Serializable {
     this.preferredBrandDrugs = preferredBrandDrugs;
   }
 
-  public PlanSearchResult prenatalPostnatalCare(String prenatalPostnatalCare) {
+  public VendoredPlanBulk prenatalPostnatalCare(String prenatalPostnatalCare) {
     this.prenatalPostnatalCare = prenatalPostnatalCare;
     return this;
   }
@@ -1454,7 +1466,7 @@ public class PlanSearchResult  implements Serializable {
     this.prenatalPostnatalCare = prenatalPostnatalCare;
   }
 
-  public PlanSearchResult preventativeCare(String preventativeCare) {
+  public VendoredPlanBulk preventativeCare(String preventativeCare) {
     this.preventativeCare = preventativeCare;
     return this;
   }
@@ -1472,7 +1484,7 @@ public class PlanSearchResult  implements Serializable {
     this.preventativeCare = preventativeCare;
   }
 
-  public PlanSearchResult premiumSubsidized(BigDecimal premiumSubsidized) {
+  public VendoredPlanBulk premiumSubsidized(BigDecimal premiumSubsidized) {
     this.premiumSubsidized = premiumSubsidized;
     return this;
   }
@@ -1490,7 +1502,7 @@ public class PlanSearchResult  implements Serializable {
     this.premiumSubsidized = premiumSubsidized;
   }
 
-  public PlanSearchResult premium(BigDecimal premium) {
+  public VendoredPlanBulk premium(BigDecimal premium) {
     this.premium = premium;
     return this;
   }
@@ -1508,7 +1520,7 @@ public class PlanSearchResult  implements Serializable {
     this.premium = premium;
   }
 
-  public PlanSearchResult premiumSource(String premiumSource) {
+  public VendoredPlanBulk premiumSource(String premiumSource) {
     this.premiumSource = premiumSource;
     return this;
   }
@@ -1526,7 +1538,7 @@ public class PlanSearchResult  implements Serializable {
     this.premiumSource = premiumSource;
   }
 
-  public PlanSearchResult primaryCarePhysician(String primaryCarePhysician) {
+  public VendoredPlanBulk primaryCarePhysician(String primaryCarePhysician) {
     this.primaryCarePhysician = primaryCarePhysician;
     return this;
   }
@@ -1544,7 +1556,7 @@ public class PlanSearchResult  implements Serializable {
     this.primaryCarePhysician = primaryCarePhysician;
   }
 
-  public PlanSearchResult rehabilitationServices(String rehabilitationServices) {
+  public VendoredPlanBulk rehabilitationServices(String rehabilitationServices) {
     this.rehabilitationServices = rehabilitationServices;
     return this;
   }
@@ -1562,7 +1574,7 @@ public class PlanSearchResult  implements Serializable {
     this.rehabilitationServices = rehabilitationServices;
   }
 
-  public PlanSearchResult serviceAreaId(String serviceAreaId) {
+  public VendoredPlanBulk serviceAreaId(String serviceAreaId) {
     this.serviceAreaId = serviceAreaId;
     return this;
   }
@@ -1580,7 +1592,7 @@ public class PlanSearchResult  implements Serializable {
     this.serviceAreaId = serviceAreaId;
   }
 
-  public PlanSearchResult skilledNursing(String skilledNursing) {
+  public VendoredPlanBulk skilledNursing(String skilledNursing) {
     this.skilledNursing = skilledNursing;
     return this;
   }
@@ -1598,7 +1610,7 @@ public class PlanSearchResult  implements Serializable {
     this.skilledNursing = skilledNursing;
   }
 
-  public PlanSearchResult specialist(String specialist) {
+  public VendoredPlanBulk specialist(String specialist) {
     this.specialist = specialist;
     return this;
   }
@@ -1616,7 +1628,7 @@ public class PlanSearchResult  implements Serializable {
     this.specialist = specialist;
   }
 
-  public PlanSearchResult specialtyDrugs(String specialtyDrugs) {
+  public VendoredPlanBulk specialtyDrugs(String specialtyDrugs) {
     this.specialtyDrugs = specialtyDrugs;
     return this;
   }
@@ -1634,7 +1646,7 @@ public class PlanSearchResult  implements Serializable {
     this.specialtyDrugs = specialtyDrugs;
   }
 
-  public PlanSearchResult urgentCare(String urgentCare) {
+  public VendoredPlanBulk urgentCare(String urgentCare) {
     this.urgentCare = urgentCare;
     return this;
   }
@@ -1652,76 +1664,22 @@ public class PlanSearchResult  implements Serializable {
     this.urgentCare = urgentCare;
   }
 
-  public PlanSearchResult matchPercentage(Integer matchPercentage) {
-    this.matchPercentage = matchPercentage;
+  public VendoredPlanBulk vendorId(String vendorId) {
+    this.vendorId = vendorId;
     return this;
   }
 
    /**
-   * Percentage of doctors who matched this Plan
-   * @return matchPercentage
+   * Vendor-specific ID
+   * @return vendorId
   **/
-  @ApiModelProperty(example = "null", value = "Percentage of doctors who matched this Plan")
-  public Integer getMatchPercentage() {
-    return matchPercentage;
+  @ApiModelProperty(example = "null", value = "Vendor-specific ID")
+  public String getVendorId() {
+    return vendorId;
   }
 
-  public void setMatchPercentage(Integer matchPercentage) {
-    this.matchPercentage = matchPercentage;
-  }
-
-  public PlanSearchResult perfectMatchPercentage(Integer perfectMatchPercentage) {
-    this.perfectMatchPercentage = perfectMatchPercentage;
-    return this;
-  }
-
-   /**
-   * Percentage of employees with 100% match
-   * @return perfectMatchPercentage
-  **/
-  @ApiModelProperty(example = "null", value = "Percentage of employees with 100% match")
-  public Integer getPerfectMatchPercentage() {
-    return perfectMatchPercentage;
-  }
-
-  public void setPerfectMatchPercentage(Integer perfectMatchPercentage) {
-    this.perfectMatchPercentage = perfectMatchPercentage;
-  }
-
-  public PlanSearchResult employeePremium(BigDecimal employeePremium) {
-    this.employeePremium = employeePremium;
-    return this;
-  }
-
-   /**
-   * Cumulative premium amount for employees
-   * @return employeePremium
-  **/
-  @ApiModelProperty(example = "null", value = "Cumulative premium amount for employees")
-  public BigDecimal getEmployeePremium() {
-    return employeePremium;
-  }
-
-  public void setEmployeePremium(BigDecimal employeePremium) {
-    this.employeePremium = employeePremium;
-  }
-
-  public PlanSearchResult dependentPremium(BigDecimal dependentPremium) {
-    this.dependentPremium = dependentPremium;
-    return this;
-  }
-
-   /**
-   * Cumulative premium amount for dependents
-   * @return dependentPremium
-  **/
-  @ApiModelProperty(example = "null", value = "Cumulative premium amount for dependents")
-  public BigDecimal getDependentPremium() {
-    return dependentPremium;
-  }
-
-  public void setDependentPremium(BigDecimal dependentPremium) {
-    this.dependentPremium = dependentPremium;
+  public void setVendorId(String vendorId) {
+    this.vendorId = vendorId;
   }
 
 
@@ -1733,90 +1691,88 @@ public class PlanSearchResult  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PlanSearchResult planSearchResult = (PlanSearchResult) o;
-    return Objects.equals(this.adultDental, planSearchResult.adultDental) &&
-        Objects.equals(this.age29Rider, planSearchResult.age29Rider) &&
-        Objects.equals(this.ambulance, planSearchResult.ambulance) &&
-        Objects.equals(this.benefitsSummaryUrl, planSearchResult.benefitsSummaryUrl) &&
-        Objects.equals(this.buyLink, planSearchResult.buyLink) &&
-        Objects.equals(this.carrierName, planSearchResult.carrierName) &&
-        Objects.equals(this.childDental, planSearchResult.childDental) &&
-        Objects.equals(this.childEyewear, planSearchResult.childEyewear) &&
-        Objects.equals(this.childEyeExam, planSearchResult.childEyeExam) &&
-        Objects.equals(this.customerServicePhoneNumber, planSearchResult.customerServicePhoneNumber) &&
-        Objects.equals(this.durableMedicalEquipment, planSearchResult.durableMedicalEquipment) &&
-        Objects.equals(this.diagnosticTest, planSearchResult.diagnosticTest) &&
-        Objects.equals(this.displayName, planSearchResult.displayName) &&
-        Objects.equals(this.dpRider, planSearchResult.dpRider) &&
-        Objects.equals(this.drugFormularyUrl, planSearchResult.drugFormularyUrl) &&
-        Objects.equals(this.effectiveDate, planSearchResult.effectiveDate) &&
-        Objects.equals(this.expirationDate, planSearchResult.expirationDate) &&
-        Objects.equals(this.emergencyRoom, planSearchResult.emergencyRoom) &&
-        Objects.equals(this.familyDrugDeductible, planSearchResult.familyDrugDeductible) &&
-        Objects.equals(this.familyDrugMoop, planSearchResult.familyDrugMoop) &&
-        Objects.equals(this.familyMedicalDeductible, planSearchResult.familyMedicalDeductible) &&
-        Objects.equals(this.familyMedicalMoop, planSearchResult.familyMedicalMoop) &&
-        Objects.equals(this.fpRider, planSearchResult.fpRider) &&
-        Objects.equals(this.genericDrugs, planSearchResult.genericDrugs) &&
-        Objects.equals(this.habilitationServices, planSearchResult.habilitationServices) &&
-        Objects.equals(this.hiosIssuerId, planSearchResult.hiosIssuerId) &&
-        Objects.equals(this.homeHealthCare, planSearchResult.homeHealthCare) &&
-        Objects.equals(this.hospiceService, planSearchResult.hospiceService) &&
-        Objects.equals(this.hsaEligible, planSearchResult.hsaEligible) &&
-        Objects.equals(this.id, planSearchResult.id) &&
-        Objects.equals(this.imaging, planSearchResult.imaging) &&
-        Objects.equals(this.inNetworkIds, planSearchResult.inNetworkIds) &&
-        Objects.equals(this.individualDrugDeductible, planSearchResult.individualDrugDeductible) &&
-        Objects.equals(this.individualDrugMoop, planSearchResult.individualDrugMoop) &&
-        Objects.equals(this.individualMedicalDeductible, planSearchResult.individualMedicalDeductible) &&
-        Objects.equals(this.individualMedicalMoop, planSearchResult.individualMedicalMoop) &&
-        Objects.equals(this.inpatientBirth, planSearchResult.inpatientBirth) &&
-        Objects.equals(this.inpatientFacility, planSearchResult.inpatientFacility) &&
-        Objects.equals(this.inpatientMentalHealth, planSearchResult.inpatientMentalHealth) &&
-        Objects.equals(this.inpatientPhysician, planSearchResult.inpatientPhysician) &&
-        Objects.equals(this.inpatientSubstance, planSearchResult.inpatientSubstance) &&
-        Objects.equals(this.level, planSearchResult.level) &&
-        Objects.equals(this.logoUrl, planSearchResult.logoUrl) &&
-        Objects.equals(this.name, planSearchResult.name) &&
-        Objects.equals(this.nonPreferredBrandDrugs, planSearchResult.nonPreferredBrandDrugs) &&
-        Objects.equals(this.onMarket, planSearchResult.onMarket) &&
-        Objects.equals(this.offMarket, planSearchResult.offMarket) &&
-        Objects.equals(this.outOfNetworkCoverage, planSearchResult.outOfNetworkCoverage) &&
-        Objects.equals(this.outOfNetworkIds, planSearchResult.outOfNetworkIds) &&
-        Objects.equals(this.outpatientFacility, planSearchResult.outpatientFacility) &&
-        Objects.equals(this.outpatientMentalHealth, planSearchResult.outpatientMentalHealth) &&
-        Objects.equals(this.outpatientPhysician, planSearchResult.outpatientPhysician) &&
-        Objects.equals(this.outpatientSubstance, planSearchResult.outpatientSubstance) &&
-        Objects.equals(this.planMarket, planSearchResult.planMarket) &&
-        Objects.equals(this.planType, planSearchResult.planType) &&
-        Objects.equals(this.preferredBrandDrugs, planSearchResult.preferredBrandDrugs) &&
-        Objects.equals(this.prenatalPostnatalCare, planSearchResult.prenatalPostnatalCare) &&
-        Objects.equals(this.preventativeCare, planSearchResult.preventativeCare) &&
-        Objects.equals(this.premiumSubsidized, planSearchResult.premiumSubsidized) &&
-        Objects.equals(this.premium, planSearchResult.premium) &&
-        Objects.equals(this.premiumSource, planSearchResult.premiumSource) &&
-        Objects.equals(this.primaryCarePhysician, planSearchResult.primaryCarePhysician) &&
-        Objects.equals(this.rehabilitationServices, planSearchResult.rehabilitationServices) &&
-        Objects.equals(this.serviceAreaId, planSearchResult.serviceAreaId) &&
-        Objects.equals(this.skilledNursing, planSearchResult.skilledNursing) &&
-        Objects.equals(this.specialist, planSearchResult.specialist) &&
-        Objects.equals(this.specialtyDrugs, planSearchResult.specialtyDrugs) &&
-        Objects.equals(this.urgentCare, planSearchResult.urgentCare) &&
-        Objects.equals(this.matchPercentage, planSearchResult.matchPercentage) &&
-        Objects.equals(this.perfectMatchPercentage, planSearchResult.perfectMatchPercentage) &&
-        Objects.equals(this.employeePremium, planSearchResult.employeePremium) &&
-        Objects.equals(this.dependentPremium, planSearchResult.dependentPremium);
+    VendoredPlanBulk vendoredPlanBulk = (VendoredPlanBulk) o;
+    return Objects.equals(this.adultDental, vendoredPlanBulk.adultDental) &&
+        Objects.equals(this.age29Rider, vendoredPlanBulk.age29Rider) &&
+        Objects.equals(this.ambulance, vendoredPlanBulk.ambulance) &&
+        Objects.equals(this.benefitsSummaryUrl, vendoredPlanBulk.benefitsSummaryUrl) &&
+        Objects.equals(this.buyLink, vendoredPlanBulk.buyLink) &&
+        Objects.equals(this.carrierName, vendoredPlanBulk.carrierName) &&
+        Objects.equals(this.childDental, vendoredPlanBulk.childDental) &&
+        Objects.equals(this.childEyewear, vendoredPlanBulk.childEyewear) &&
+        Objects.equals(this.childEyeExam, vendoredPlanBulk.childEyeExam) &&
+        Objects.equals(this.customerServicePhoneNumber, vendoredPlanBulk.customerServicePhoneNumber) &&
+        Objects.equals(this.durableMedicalEquipment, vendoredPlanBulk.durableMedicalEquipment) &&
+        Objects.equals(this.diagnosticTest, vendoredPlanBulk.diagnosticTest) &&
+        Objects.equals(this.displayName, vendoredPlanBulk.displayName) &&
+        Objects.equals(this.dpRider, vendoredPlanBulk.dpRider) &&
+        Objects.equals(this.drugFormularyUrl, vendoredPlanBulk.drugFormularyUrl) &&
+        Objects.equals(this.effectiveDate, vendoredPlanBulk.effectiveDate) &&
+        Objects.equals(this.expirationDate, vendoredPlanBulk.expirationDate) &&
+        Objects.equals(this.emergencyRoom, vendoredPlanBulk.emergencyRoom) &&
+        Objects.equals(this.familyDrugDeductible, vendoredPlanBulk.familyDrugDeductible) &&
+        Objects.equals(this.familyDrugMoop, vendoredPlanBulk.familyDrugMoop) &&
+        Objects.equals(this.familyMedicalDeductible, vendoredPlanBulk.familyMedicalDeductible) &&
+        Objects.equals(this.familyMedicalMoop, vendoredPlanBulk.familyMedicalMoop) &&
+        Objects.equals(this.fpRider, vendoredPlanBulk.fpRider) &&
+        Objects.equals(this.genericDrugs, vendoredPlanBulk.genericDrugs) &&
+        Objects.equals(this.habilitationServices, vendoredPlanBulk.habilitationServices) &&
+        Objects.equals(this.hiosIssuerId, vendoredPlanBulk.hiosIssuerId) &&
+        Objects.equals(this.homeHealthCare, vendoredPlanBulk.homeHealthCare) &&
+        Objects.equals(this.hospiceService, vendoredPlanBulk.hospiceService) &&
+        Objects.equals(this.hsaEligible, vendoredPlanBulk.hsaEligible) &&
+        Objects.equals(this.id, vendoredPlanBulk.id) &&
+        Objects.equals(this.imaging, vendoredPlanBulk.imaging) &&
+        Objects.equals(this.inNetworkIds, vendoredPlanBulk.inNetworkIds) &&
+        Objects.equals(this.individualDrugDeductible, vendoredPlanBulk.individualDrugDeductible) &&
+        Objects.equals(this.individualDrugMoop, vendoredPlanBulk.individualDrugMoop) &&
+        Objects.equals(this.individualMedicalDeductible, vendoredPlanBulk.individualMedicalDeductible) &&
+        Objects.equals(this.individualMedicalMoop, vendoredPlanBulk.individualMedicalMoop) &&
+        Objects.equals(this.inpatientBirth, vendoredPlanBulk.inpatientBirth) &&
+        Objects.equals(this.inpatientFacility, vendoredPlanBulk.inpatientFacility) &&
+        Objects.equals(this.inpatientMentalHealth, vendoredPlanBulk.inpatientMentalHealth) &&
+        Objects.equals(this.inpatientPhysician, vendoredPlanBulk.inpatientPhysician) &&
+        Objects.equals(this.inpatientSubstance, vendoredPlanBulk.inpatientSubstance) &&
+        Objects.equals(this.level, vendoredPlanBulk.level) &&
+        Objects.equals(this.logoUrl, vendoredPlanBulk.logoUrl) &&
+        Objects.equals(this.name, vendoredPlanBulk.name) &&
+        Objects.equals(this.networkSize, vendoredPlanBulk.networkSize) &&
+        Objects.equals(this.nonPreferredBrandDrugs, vendoredPlanBulk.nonPreferredBrandDrugs) &&
+        Objects.equals(this.onMarket, vendoredPlanBulk.onMarket) &&
+        Objects.equals(this.offMarket, vendoredPlanBulk.offMarket) &&
+        Objects.equals(this.outOfNetworkCoverage, vendoredPlanBulk.outOfNetworkCoverage) &&
+        Objects.equals(this.outOfNetworkIds, vendoredPlanBulk.outOfNetworkIds) &&
+        Objects.equals(this.outpatientFacility, vendoredPlanBulk.outpatientFacility) &&
+        Objects.equals(this.outpatientMentalHealth, vendoredPlanBulk.outpatientMentalHealth) &&
+        Objects.equals(this.outpatientPhysician, vendoredPlanBulk.outpatientPhysician) &&
+        Objects.equals(this.outpatientSubstance, vendoredPlanBulk.outpatientSubstance) &&
+        Objects.equals(this.planMarket, vendoredPlanBulk.planMarket) &&
+        Objects.equals(this.planType, vendoredPlanBulk.planType) &&
+        Objects.equals(this.preferredBrandDrugs, vendoredPlanBulk.preferredBrandDrugs) &&
+        Objects.equals(this.prenatalPostnatalCare, vendoredPlanBulk.prenatalPostnatalCare) &&
+        Objects.equals(this.preventativeCare, vendoredPlanBulk.preventativeCare) &&
+        Objects.equals(this.premiumSubsidized, vendoredPlanBulk.premiumSubsidized) &&
+        Objects.equals(this.premium, vendoredPlanBulk.premium) &&
+        Objects.equals(this.premiumSource, vendoredPlanBulk.premiumSource) &&
+        Objects.equals(this.primaryCarePhysician, vendoredPlanBulk.primaryCarePhysician) &&
+        Objects.equals(this.rehabilitationServices, vendoredPlanBulk.rehabilitationServices) &&
+        Objects.equals(this.serviceAreaId, vendoredPlanBulk.serviceAreaId) &&
+        Objects.equals(this.skilledNursing, vendoredPlanBulk.skilledNursing) &&
+        Objects.equals(this.specialist, vendoredPlanBulk.specialist) &&
+        Objects.equals(this.specialtyDrugs, vendoredPlanBulk.specialtyDrugs) &&
+        Objects.equals(this.urgentCare, vendoredPlanBulk.urgentCare) &&
+        Objects.equals(this.vendorId, vendoredPlanBulk.vendorId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(adultDental, age29Rider, ambulance, benefitsSummaryUrl, buyLink, carrierName, childDental, childEyewear, childEyeExam, customerServicePhoneNumber, durableMedicalEquipment, diagnosticTest, displayName, dpRider, drugFormularyUrl, effectiveDate, expirationDate, emergencyRoom, familyDrugDeductible, familyDrugMoop, familyMedicalDeductible, familyMedicalMoop, fpRider, genericDrugs, habilitationServices, hiosIssuerId, homeHealthCare, hospiceService, hsaEligible, id, imaging, inNetworkIds, individualDrugDeductible, individualDrugMoop, individualMedicalDeductible, individualMedicalMoop, inpatientBirth, inpatientFacility, inpatientMentalHealth, inpatientPhysician, inpatientSubstance, level, logoUrl, name, nonPreferredBrandDrugs, onMarket, offMarket, outOfNetworkCoverage, outOfNetworkIds, outpatientFacility, outpatientMentalHealth, outpatientPhysician, outpatientSubstance, planMarket, planType, preferredBrandDrugs, prenatalPostnatalCare, preventativeCare, premiumSubsidized, premium, premiumSource, primaryCarePhysician, rehabilitationServices, serviceAreaId, skilledNursing, specialist, specialtyDrugs, urgentCare, matchPercentage, perfectMatchPercentage, employeePremium, dependentPremium);
+    return Objects.hash(adultDental, age29Rider, ambulance, benefitsSummaryUrl, buyLink, carrierName, childDental, childEyewear, childEyeExam, customerServicePhoneNumber, durableMedicalEquipment, diagnosticTest, displayName, dpRider, drugFormularyUrl, effectiveDate, expirationDate, emergencyRoom, familyDrugDeductible, familyDrugMoop, familyMedicalDeductible, familyMedicalMoop, fpRider, genericDrugs, habilitationServices, hiosIssuerId, homeHealthCare, hospiceService, hsaEligible, id, imaging, inNetworkIds, individualDrugDeductible, individualDrugMoop, individualMedicalDeductible, individualMedicalMoop, inpatientBirth, inpatientFacility, inpatientMentalHealth, inpatientPhysician, inpatientSubstance, level, logoUrl, name, networkSize, nonPreferredBrandDrugs, onMarket, offMarket, outOfNetworkCoverage, outOfNetworkIds, outpatientFacility, outpatientMentalHealth, outpatientPhysician, outpatientSubstance, planMarket, planType, preferredBrandDrugs, prenatalPostnatalCare, preventativeCare, premiumSubsidized, premium, premiumSource, primaryCarePhysician, rehabilitationServices, serviceAreaId, skilledNursing, specialist, specialtyDrugs, urgentCare, vendorId);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PlanSearchResult {\n");
+    sb.append("class VendoredPlanBulk {\n");
     
     sb.append("    adultDental: ").append(toIndentedString(adultDental)).append("\n");
     sb.append("    age29Rider: ").append(toIndentedString(age29Rider)).append("\n");
@@ -1862,6 +1818,7 @@ public class PlanSearchResult  implements Serializable {
     sb.append("    level: ").append(toIndentedString(level)).append("\n");
     sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    networkSize: ").append(toIndentedString(networkSize)).append("\n");
     sb.append("    nonPreferredBrandDrugs: ").append(toIndentedString(nonPreferredBrandDrugs)).append("\n");
     sb.append("    onMarket: ").append(toIndentedString(onMarket)).append("\n");
     sb.append("    offMarket: ").append(toIndentedString(offMarket)).append("\n");
@@ -1886,10 +1843,7 @@ public class PlanSearchResult  implements Serializable {
     sb.append("    specialist: ").append(toIndentedString(specialist)).append("\n");
     sb.append("    specialtyDrugs: ").append(toIndentedString(specialtyDrugs)).append("\n");
     sb.append("    urgentCare: ").append(toIndentedString(urgentCare)).append("\n");
-    sb.append("    matchPercentage: ").append(toIndentedString(matchPercentage)).append("\n");
-    sb.append("    perfectMatchPercentage: ").append(toIndentedString(perfectMatchPercentage)).append("\n");
-    sb.append("    employeePremium: ").append(toIndentedString(employeePremium)).append("\n");
-    sb.append("    dependentPremium: ").append(toIndentedString(dependentPremium)).append("\n");
+    sb.append("    vendorId: ").append(toIndentedString(vendorId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

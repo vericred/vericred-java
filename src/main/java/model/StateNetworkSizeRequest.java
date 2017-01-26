@@ -194,87 +194,63 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import model.Meta;
-import model.Provider;
-import model.State;
 
 import java.io.Serializable;
 /**
- * ProvidersSearchResponse
+ * StateNetworkSizeRequest
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-01-26T16:00:18.173-05:00")
-public class ProvidersSearchResponse  implements Serializable {
-  @JsonProperty("meta")
-  private Meta meta = null;
+public class StateNetworkSizeRequest  implements Serializable {
+  @JsonProperty("network_ids")
+  private List<Integer> networkIds = new ArrayList<Integer>();
 
-  @JsonProperty("providers")
-  private List<Provider> providers = new ArrayList<Provider>();
+  @JsonProperty("state_ids")
+  private List<String> stateIds = new ArrayList<String>();
 
-  @JsonProperty("states")
-  private List<State> states = new ArrayList<State>();
+  public StateNetworkSizeRequest networkIds(List<Integer> networkIds) {
+    this.networkIds = networkIds;
+    return this;
+  }
 
-  public ProvidersSearchResponse meta(Meta meta) {
-    this.meta = meta;
+  public StateNetworkSizeRequest addNetworkIdsItem(Integer networkIdsItem) {
+    this.networkIds.add(networkIdsItem);
     return this;
   }
 
    /**
-   * Meta-data
-   * @return meta
+   * List of Network Ids
+   * @return networkIds
   **/
-  @ApiModelProperty(example = "null", value = "Meta-data")
-  public Meta getMeta() {
-    return meta;
+  @ApiModelProperty(example = "null", value = "List of Network Ids")
+  public List<Integer> getNetworkIds() {
+    return networkIds;
   }
 
-  public void setMeta(Meta meta) {
-    this.meta = meta;
+  public void setNetworkIds(List<Integer> networkIds) {
+    this.networkIds = networkIds;
   }
 
-  public ProvidersSearchResponse providers(List<Provider> providers) {
-    this.providers = providers;
+  public StateNetworkSizeRequest stateIds(List<String> stateIds) {
+    this.stateIds = stateIds;
     return this;
   }
 
-  public ProvidersSearchResponse addProvidersItem(Provider providersItem) {
-    this.providers.add(providersItem);
+  public StateNetworkSizeRequest addStateIdsItem(String stateIdsItem) {
+    this.stateIds.add(stateIdsItem);
     return this;
   }
 
    /**
-   * Providers that fit the requested criterion.
-   * @return providers
+   * List of State Ids
+   * @return stateIds
   **/
-  @ApiModelProperty(example = "null", value = "Providers that fit the requested criterion.")
-  public List<Provider> getProviders() {
-    return providers;
+  @ApiModelProperty(example = "null", value = "List of State Ids")
+  public List<String> getStateIds() {
+    return stateIds;
   }
 
-  public void setProviders(List<Provider> providers) {
-    this.providers = providers;
-  }
-
-  public ProvidersSearchResponse states(List<State> states) {
-    this.states = states;
-    return this;
-  }
-
-  public ProvidersSearchResponse addStatesItem(State statesItem) {
-    this.states.add(statesItem);
-    return this;
-  }
-
-   /**
-   * States that fit the requested criterion.
-   * @return states
-  **/
-  @ApiModelProperty(example = "null", value = "States that fit the requested criterion.")
-  public List<State> getStates() {
-    return states;
-  }
-
-  public void setStates(List<State> states) {
-    this.states = states;
+  public void setStateIds(List<String> stateIds) {
+    this.stateIds = stateIds;
   }
 
 
@@ -286,25 +262,23 @@ public class ProvidersSearchResponse  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ProvidersSearchResponse providersSearchResponse = (ProvidersSearchResponse) o;
-    return Objects.equals(this.meta, providersSearchResponse.meta) &&
-        Objects.equals(this.providers, providersSearchResponse.providers) &&
-        Objects.equals(this.states, providersSearchResponse.states);
+    StateNetworkSizeRequest stateNetworkSizeRequest = (StateNetworkSizeRequest) o;
+    return Objects.equals(this.networkIds, stateNetworkSizeRequest.networkIds) &&
+        Objects.equals(this.stateIds, stateNetworkSizeRequest.stateIds);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(meta, providers, states);
+    return Objects.hash(networkIds, stateIds);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ProvidersSearchResponse {\n");
+    sb.append("class StateNetworkSizeRequest {\n");
     
-    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
-    sb.append("    providers: ").append(toIndentedString(providers)).append("\n");
-    sb.append("    states: ").append(toIndentedString(states)).append("\n");
+    sb.append("    networkIds: ").append(toIndentedString(networkIds)).append("\n");
+    sb.append("    stateIds: ").append(toIndentedString(stateIds)).append("\n");
     sb.append("}");
     return sb.toString();
   }

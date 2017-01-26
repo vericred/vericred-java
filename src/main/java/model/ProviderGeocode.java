@@ -192,89 +192,75 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
-import model.Meta;
-import model.Provider;
-import model.State;
+import java.math.BigDecimal;
 
 import java.io.Serializable;
 /**
- * ProvidersSearchResponse
+ * ProviderGeocode
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-01-26T16:00:18.173-05:00")
-public class ProvidersSearchResponse  implements Serializable {
-  @JsonProperty("meta")
-  private Meta meta = null;
+public class ProviderGeocode  implements Serializable {
+  @JsonProperty("id")
+  private Integer id = null;
 
-  @JsonProperty("providers")
-  private List<Provider> providers = new ArrayList<Provider>();
+  @JsonProperty("latitude")
+  private BigDecimal latitude = null;
 
-  @JsonProperty("states")
-  private List<State> states = new ArrayList<State>();
+  @JsonProperty("longitude")
+  private BigDecimal longitude = null;
 
-  public ProvidersSearchResponse meta(Meta meta) {
-    this.meta = meta;
+  public ProviderGeocode id(Integer id) {
+    this.id = id;
     return this;
   }
 
    /**
-   * Meta-data
-   * @return meta
+   * National Provider Index (NPI) number
+   * @return id
   **/
-  @ApiModelProperty(example = "null", value = "Meta-data")
-  public Meta getMeta() {
-    return meta;
+  @ApiModelProperty(example = "null", value = "National Provider Index (NPI) number")
+  public Integer getId() {
+    return id;
   }
 
-  public void setMeta(Meta meta) {
-    this.meta = meta;
+  public void setId(Integer id) {
+    this.id = id;
   }
 
-  public ProvidersSearchResponse providers(List<Provider> providers) {
-    this.providers = providers;
-    return this;
-  }
-
-  public ProvidersSearchResponse addProvidersItem(Provider providersItem) {
-    this.providers.add(providersItem);
+  public ProviderGeocode latitude(BigDecimal latitude) {
+    this.latitude = latitude;
     return this;
   }
 
    /**
-   * Providers that fit the requested criterion.
-   * @return providers
+   * Latitude of provider
+   * @return latitude
   **/
-  @ApiModelProperty(example = "null", value = "Providers that fit the requested criterion.")
-  public List<Provider> getProviders() {
-    return providers;
+  @ApiModelProperty(example = "null", value = "Latitude of provider")
+  public BigDecimal getLatitude() {
+    return latitude;
   }
 
-  public void setProviders(List<Provider> providers) {
-    this.providers = providers;
+  public void setLatitude(BigDecimal latitude) {
+    this.latitude = latitude;
   }
 
-  public ProvidersSearchResponse states(List<State> states) {
-    this.states = states;
-    return this;
-  }
-
-  public ProvidersSearchResponse addStatesItem(State statesItem) {
-    this.states.add(statesItem);
+  public ProviderGeocode longitude(BigDecimal longitude) {
+    this.longitude = longitude;
     return this;
   }
 
    /**
-   * States that fit the requested criterion.
-   * @return states
+   * Longitude of provider
+   * @return longitude
   **/
-  @ApiModelProperty(example = "null", value = "States that fit the requested criterion.")
-  public List<State> getStates() {
-    return states;
+  @ApiModelProperty(example = "null", value = "Longitude of provider")
+  public BigDecimal getLongitude() {
+    return longitude;
   }
 
-  public void setStates(List<State> states) {
-    this.states = states;
+  public void setLongitude(BigDecimal longitude) {
+    this.longitude = longitude;
   }
 
 
@@ -286,25 +272,25 @@ public class ProvidersSearchResponse  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ProvidersSearchResponse providersSearchResponse = (ProvidersSearchResponse) o;
-    return Objects.equals(this.meta, providersSearchResponse.meta) &&
-        Objects.equals(this.providers, providersSearchResponse.providers) &&
-        Objects.equals(this.states, providersSearchResponse.states);
+    ProviderGeocode providerGeocode = (ProviderGeocode) o;
+    return Objects.equals(this.id, providerGeocode.id) &&
+        Objects.equals(this.latitude, providerGeocode.latitude) &&
+        Objects.equals(this.longitude, providerGeocode.longitude);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(meta, providers, states);
+    return Objects.hash(id, latitude, longitude);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ProvidersSearchResponse {\n");
+    sb.append("class ProviderGeocode {\n");
     
-    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
-    sb.append("    providers: ").append(toIndentedString(providers)).append("\n");
-    sb.append("    states: ").append(toIndentedString(states)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    latitude: ").append(toIndentedString(latitude)).append("\n");
+    sb.append("    longitude: ").append(toIndentedString(longitude)).append("\n");
     sb.append("}");
     return sb.toString();
   }

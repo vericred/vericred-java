@@ -2,6 +2,7 @@ package api;
 
 import vericred.ApiClient;
 import model.StateNetworkSizeResponse;
+import model.StateNetworkSizeRequest;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,6 +35,19 @@ public class NetworkSizesApiTest {
         Integer page = null;
         Integer perPage = null;
         // StateNetworkSizeResponse response = api.listStateNetworkSizes(stateId, page, perPage);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * Network Sizes
+     *
+     * The number of in-network Providers for each network/state combination provided. This data is recalculated nightly.
+     */
+    @Test
+    public void searchNetworkSizesTest() {
+        StateNetworkSizeRequest body = null;
+        // StateNetworkSizeResponse response = api.searchNetworkSizes(body);
 
         // TODO: test validations
     }
