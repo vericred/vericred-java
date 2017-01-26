@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-14T13:33:39.716-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-01-26T16:00:18.173-05:00")
 public interface PlansApi extends ApiClient.Api {
 
 
@@ -31,7 +31,7 @@ public interface PlansApi extends ApiClient.Api {
 
   /**
    * Show Plan
-   * Show the details of an individual Plan.  This includes deductibles, maximums out of pocket, and co-pay/coinsurance for benefits
+   * Show the details of an individual Plan.  This includes deductibles, maximums out of pocket, and co-pay/coinsurance for benefits (See [Benefits summary format](#header-benefits-summary-format) above.)
    * @param id ID of the Plan (required)
    * @param year Plan year (defaults to current year) (optional)
    * @return PlanShowResponse

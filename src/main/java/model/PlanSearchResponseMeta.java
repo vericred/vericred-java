@@ -192,89 +192,53 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
-import model.Meta;
-import model.Provider;
-import model.State;
 
 import java.io.Serializable;
 /**
- * ProvidersSearchResponse
+ * PlanSearchResponseMeta
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-01-26T16:00:18.173-05:00")
-public class ProvidersSearchResponse  implements Serializable {
-  @JsonProperty("meta")
-  private Meta meta = null;
+public class PlanSearchResponseMeta  implements Serializable {
+  @JsonProperty("total")
+  private Integer total = null;
 
-  @JsonProperty("providers")
-  private List<Provider> providers = new ArrayList<Provider>();
+  @JsonProperty("eligible_for_chip_medicaid")
+  private Boolean eligibleForChipMedicaid = null;
 
-  @JsonProperty("states")
-  private List<State> states = new ArrayList<State>();
-
-  public ProvidersSearchResponse meta(Meta meta) {
-    this.meta = meta;
+  public PlanSearchResponseMeta total(Integer total) {
+    this.total = total;
     return this;
   }
 
    /**
-   * Meta-data
-   * @return meta
+   * Number of entities returned
+   * @return total
   **/
-  @ApiModelProperty(example = "null", value = "Meta-data")
-  public Meta getMeta() {
-    return meta;
+  @ApiModelProperty(example = "null", value = "Number of entities returned")
+  public Integer getTotal() {
+    return total;
   }
 
-  public void setMeta(Meta meta) {
-    this.meta = meta;
+  public void setTotal(Integer total) {
+    this.total = total;
   }
 
-  public ProvidersSearchResponse providers(List<Provider> providers) {
-    this.providers = providers;
-    return this;
-  }
-
-  public ProvidersSearchResponse addProvidersItem(Provider providersItem) {
-    this.providers.add(providersItem);
+  public PlanSearchResponseMeta eligibleForChipMedicaid(Boolean eligibleForChipMedicaid) {
+    this.eligibleForChipMedicaid = eligibleForChipMedicaid;
     return this;
   }
 
    /**
-   * Providers that fit the requested criterion.
-   * @return providers
+   * Is this applicant potentially eligible for Chip or Medicaid?
+   * @return eligibleForChipMedicaid
   **/
-  @ApiModelProperty(example = "null", value = "Providers that fit the requested criterion.")
-  public List<Provider> getProviders() {
-    return providers;
+  @ApiModelProperty(example = "null", value = "Is this applicant potentially eligible for Chip or Medicaid?")
+  public Boolean getEligibleForChipMedicaid() {
+    return eligibleForChipMedicaid;
   }
 
-  public void setProviders(List<Provider> providers) {
-    this.providers = providers;
-  }
-
-  public ProvidersSearchResponse states(List<State> states) {
-    this.states = states;
-    return this;
-  }
-
-  public ProvidersSearchResponse addStatesItem(State statesItem) {
-    this.states.add(statesItem);
-    return this;
-  }
-
-   /**
-   * States that fit the requested criterion.
-   * @return states
-  **/
-  @ApiModelProperty(example = "null", value = "States that fit the requested criterion.")
-  public List<State> getStates() {
-    return states;
-  }
-
-  public void setStates(List<State> states) {
-    this.states = states;
+  public void setEligibleForChipMedicaid(Boolean eligibleForChipMedicaid) {
+    this.eligibleForChipMedicaid = eligibleForChipMedicaid;
   }
 
 
@@ -286,25 +250,23 @@ public class ProvidersSearchResponse  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ProvidersSearchResponse providersSearchResponse = (ProvidersSearchResponse) o;
-    return Objects.equals(this.meta, providersSearchResponse.meta) &&
-        Objects.equals(this.providers, providersSearchResponse.providers) &&
-        Objects.equals(this.states, providersSearchResponse.states);
+    PlanSearchResponseMeta planSearchResponseMeta = (PlanSearchResponseMeta) o;
+    return Objects.equals(this.total, planSearchResponseMeta.total) &&
+        Objects.equals(this.eligibleForChipMedicaid, planSearchResponseMeta.eligibleForChipMedicaid);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(meta, providers, states);
+    return Objects.hash(total, eligibleForChipMedicaid);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ProvidersSearchResponse {\n");
+    sb.append("class PlanSearchResponseMeta {\n");
     
-    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
-    sb.append("    providers: ").append(toIndentedString(providers)).append("\n");
-    sb.append("    states: ").append(toIndentedString(states)).append("\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("    eligibleForChipMedicaid: ").append(toIndentedString(eligibleForChipMedicaid)).append("\n");
     sb.append("}");
     return sb.toString();
   }

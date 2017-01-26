@@ -3,6 +3,7 @@ package api;
 import vericred.ApiClient;
 
 import model.StateNetworkSizeResponse;
+import model.StateNetworkSizeRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-14T13:33:39.716-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-01-26T16:00:18.173-05:00")
 public interface NetworkSizesApi extends ApiClient.Api {
 
 
@@ -28,4 +29,17 @@ public interface NetworkSizesApi extends ApiClient.Api {
     "Accept: application/json",
   })
   StateNetworkSizeResponse listStateNetworkSizes(@Param("stateId") String stateId, @Param("page") Integer page, @Param("perPage") Integer perPage);
+
+  /**
+   * Network Sizes
+   * The number of in-network Providers for each network/state combination provided. This data is recalculated nightly.
+   * @param body  (required)
+   * @return StateNetworkSizeResponse
+   */
+  @RequestLine("POST /network_sizes/search")
+  @Headers({
+    "Content-type: application/json",
+    "Accept: application/json",
+  })
+  StateNetworkSizeResponse searchNetworkSizes(StateNetworkSizeRequest body);
 }

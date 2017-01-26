@@ -194,87 +194,79 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import model.Meta;
-import model.Provider;
-import model.State;
 
 import java.io.Serializable;
 /**
- * ProvidersSearchResponse
+ * NetworkDetails
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-01-26T16:00:18.173-05:00")
-public class ProvidersSearchResponse  implements Serializable {
-  @JsonProperty("meta")
-  private Meta meta = null;
+public class NetworkDetails  implements Serializable {
+  @JsonProperty("id")
+  private Integer id = null;
 
-  @JsonProperty("providers")
-  private List<Provider> providers = new ArrayList<Provider>();
+  @JsonProperty("name")
+  private String name = null;
 
-  @JsonProperty("states")
-  private List<State> states = new ArrayList<State>();
+  @JsonProperty("hios_issuer_ids")
+  private List<Integer> hiosIssuerIds = new ArrayList<Integer>();
 
-  public ProvidersSearchResponse meta(Meta meta) {
-    this.meta = meta;
+  public NetworkDetails id(Integer id) {
+    this.id = id;
     return this;
   }
 
    /**
-   * Meta-data
-   * @return meta
+   * Primary key
+   * @return id
   **/
-  @ApiModelProperty(example = "null", value = "Meta-data")
-  public Meta getMeta() {
-    return meta;
+  @ApiModelProperty(example = "null", value = "Primary key")
+  public Integer getId() {
+    return id;
   }
 
-  public void setMeta(Meta meta) {
-    this.meta = meta;
+  public void setId(Integer id) {
+    this.id = id;
   }
 
-  public ProvidersSearchResponse providers(List<Provider> providers) {
-    this.providers = providers;
-    return this;
-  }
-
-  public ProvidersSearchResponse addProvidersItem(Provider providersItem) {
-    this.providers.add(providersItem);
+  public NetworkDetails name(String name) {
+    this.name = name;
     return this;
   }
 
    /**
-   * Providers that fit the requested criterion.
-   * @return providers
+   * Name of the Network
+   * @return name
   **/
-  @ApiModelProperty(example = "null", value = "Providers that fit the requested criterion.")
-  public List<Provider> getProviders() {
-    return providers;
+  @ApiModelProperty(example = "null", value = "Name of the Network")
+  public String getName() {
+    return name;
   }
 
-  public void setProviders(List<Provider> providers) {
-    this.providers = providers;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public ProvidersSearchResponse states(List<State> states) {
-    this.states = states;
+  public NetworkDetails hiosIssuerIds(List<Integer> hiosIssuerIds) {
+    this.hiosIssuerIds = hiosIssuerIds;
     return this;
   }
 
-  public ProvidersSearchResponse addStatesItem(State statesItem) {
-    this.states.add(statesItem);
+  public NetworkDetails addHiosIssuerIdsItem(Integer hiosIssuerIdsItem) {
+    this.hiosIssuerIds.add(hiosIssuerIdsItem);
     return this;
   }
 
    /**
-   * States that fit the requested criterion.
-   * @return states
+   * List of issuer IDs
+   * @return hiosIssuerIds
   **/
-  @ApiModelProperty(example = "null", value = "States that fit the requested criterion.")
-  public List<State> getStates() {
-    return states;
+  @ApiModelProperty(example = "null", value = "List of issuer IDs")
+  public List<Integer> getHiosIssuerIds() {
+    return hiosIssuerIds;
   }
 
-  public void setStates(List<State> states) {
-    this.states = states;
+  public void setHiosIssuerIds(List<Integer> hiosIssuerIds) {
+    this.hiosIssuerIds = hiosIssuerIds;
   }
 
 
@@ -286,25 +278,25 @@ public class ProvidersSearchResponse  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ProvidersSearchResponse providersSearchResponse = (ProvidersSearchResponse) o;
-    return Objects.equals(this.meta, providersSearchResponse.meta) &&
-        Objects.equals(this.providers, providersSearchResponse.providers) &&
-        Objects.equals(this.states, providersSearchResponse.states);
+    NetworkDetails networkDetails = (NetworkDetails) o;
+    return Objects.equals(this.id, networkDetails.id) &&
+        Objects.equals(this.name, networkDetails.name) &&
+        Objects.equals(this.hiosIssuerIds, networkDetails.hiosIssuerIds);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(meta, providers, states);
+    return Objects.hash(id, name, hiosIssuerIds);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ProvidersSearchResponse {\n");
+    sb.append("class NetworkDetails {\n");
     
-    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
-    sb.append("    providers: ").append(toIndentedString(providers)).append("\n");
-    sb.append("    states: ").append(toIndentedString(states)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    hiosIssuerIds: ").append(toIndentedString(hiosIssuerIds)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -26,7 +26,7 @@ After the client library is installed/deployed, you can use it in your Maven pro
 <dependency>
     <groupId>com.vericred.api</groupId>
     <artifactId>client</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.8</version>
     <scope>compile</scope>
 </dependency>
 

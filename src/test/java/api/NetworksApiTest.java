@@ -2,6 +2,7 @@ package api;
 
 import vericred.ApiClient;
 import model.NetworkSearchResponse;
+import model.NetworkDetailsResponse;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,6 +35,19 @@ public class NetworksApiTest {
         Integer page = null;
         Integer perPage = null;
         // NetworkSearchResponse response = api.listNetworks(carrierId, page, perPage);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * Network Details
+     *
+     * A network is a list of the doctors, other health care providers, and hospitals that a plan has contracted with to provide medical care to its members.
+     */
+    @Test
+    public void showNetworkTest() {
+        Integer id = null;
+        // NetworkDetailsResponse response = api.showNetwork(id);
 
         // TODO: test validations
     }
