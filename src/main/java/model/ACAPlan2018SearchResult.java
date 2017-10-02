@@ -92,7 +92,7 @@ document.
 In this case, we want to select `name` and `phone` from the `provider` key,
 so we would add the parameters `select=provider.name,provider.phone`.
 We also want the `name` and `code` from the `states` key, so we would
-add the parameters `select=states.name,staes.code`.  The id field of
+add the parameters `select=states.name,states.code`.  The id field of
 each document is always returned whether or not it is requested.
 
 Our final request would be `GET /providers/12345?select=provider.name,provider.phone,states.name,states.code`
@@ -147,19 +147,53 @@ In [this other Summary of Benefits &amp; Coverage](https://s3.amazonaws.com/veri
 Here's a description of the benefits summary string, represented as a context-free grammar:
 
 ```
-<cost-share>     ::= <tier> <opt-num-prefix> <value> <opt-per-unit> <deductible> <tier-limit> "/" <tier> <opt-num-prefix> <value> <opt-per-unit> <deductible> "|" <benefit-limit>
-<tier>           ::= "In-Network:" | "In-Network-Tier-2:" | "Out-of-Network:"
-<opt-num-prefix> ::= "first" <num> <unit> | ""
-<unit>           ::= "day(s)" | "visit(s)" | "exam(s)" | "item(s)"
-<value>          ::= <ddct_moop> | <copay> | <coinsurance> | <compound> | "unknown" | "Not Applicable"
-<compound>       ::= <copay> <deductible> "then" <coinsurance> <deductible> | <copay> <deductible> "then" <copay> <deductible> | <coinsurance> <deductible> "then" <coinsurance> <deductible>
-<copay>          ::= "$" <num>
-<coinsurace>     ::= <num> "%"
-<ddct_moop>      ::= <copay> | "Included in Medical" | "Unlimited"
-<opt-per-unit>   ::= "per day" | "per visit" | "per stay" | ""
-<deductible>     ::= "before deductible" | "after deductible" | ""
-<tier-limit>     ::= ", " <limit> | ""
-<benefit-limit>  ::= <limit> | ""
+root                      ::= coverage
+
+coverage                  ::= (simple_coverage | tiered_coverage) (space pipe space coverage_modifier)?
+tiered_coverage           ::= tier (space slash space tier)*
+tier                      ::= tier_name colon space (tier_coverage | not_applicable)
+tier_coverage             ::= simple_coverage (space (then | or | and) space simple_coverage)* tier_limitation?
+simple_coverage           ::= (pre_coverage_limitation space)? coverage_amount (space post_coverage_limitation)? (comma? space coverage_condition)?
+coverage_modifier         ::= limit_condition colon space (((simple_coverage | simple_limitation) (semicolon space see_carrier_documentation)?) | see_carrier_documentation | waived_if_admitted | shared_across_tiers)
+waived_if_admitted        ::= ("copay" space)? "waived if admitted"
+simple_limitation         ::= pre_coverage_limitation space "copay applies"
+tier_name                 ::= "In-Network-Tier-2" | "Out-of-Network" | "In-Network"
+limit_condition           ::= "limit" | "condition"
+tier_limitation           ::= comma space "up to" space (currency | (integer space time_unit plural?)) (space post_coverage_limitation)?
+coverage_amount           ::= currency | unlimited | included | unknown | percentage | (digits space (treatment_unit | time_unit) plural?)
+pre_coverage_limitation   ::= first space digits space time_unit plural?
+post_coverage_limitation  ::= (((then space currency) | "per condition") space)? "per" space (treatment_unit | (integer space time_unit) | time_unit) plural?
+coverage_condition        ::= ("before deductible" | "after deductible" | "penalty" | allowance | "in-state" | "out-of-state") (space allowance)?
+allowance                 ::= upto_allowance | after_allowance
+upto_allowance            ::= "up to" space (currency space)? "allowance"
+after_allowance           ::= "after" space (currency space)? "allowance"
+see_carrier_documentation ::= "see carrier documentation for more information"
+shared_across_tiers       ::= "shared across all tiers"
+unknown                   ::= "unknown"
+unlimited                 ::= /[uU]nlimited/
+included                  ::= /[iI]ncluded in [mM]edical/
+time_unit                 ::= /[hH]our/ | (((/[cC]alendar/ | /[cC]ontract/) space)? /[yY]ear/) | /[mM]onth/ | /[dD]ay/ | /[wW]eek/ | /[vV]isit/ | /[lL]ifetime/ | ((((/[bB]enefit/ plural?) | /[eE]ligibility/) space)? /[pP]eriod/)
+treatment_unit            ::= /[pP]erson/ | /[gG]roup/ | /[cC]ondition/ | /[sS]cript/ | /[vV]isit/ | /[eE]xam/ | /[iI]tem/ | /[sS]tay/ | /[tT]reatment/ | /[aA]dmission/ | /[eE]pisode/
+comma                     ::= ","
+colon                     ::= ":"
+semicolon                 ::= ";"
+pipe                      ::= "|"
+slash                     ::= "/"
+plural                    ::= "(s)" | "s"
+then                      ::= "then" | ("," space) | space
+or                        ::= "or"
+and                       ::= "and"
+not_applicable            ::= "Not Applicable" | "N/A" | "NA"
+first                     ::= "first"
+currency                  ::= "$" number
+percentage                ::= number "%"
+number                    ::= float | integer
+float                     ::= digits "." digits
+integer                   ::= /[0-9]/+ (comma_int | under_int)*
+comma_int                 ::= ("," /[0-9]/*3) !"_"
+under_int                 ::= ("_" /[0-9]/*3) !","
+digits                    ::= /[0-9]/+ ("_" /[0-9]/+)*
+space                     ::= /[ \t]/+
 ```
 
 
@@ -195,13 +229,47 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import model.PlanIdentifier;
 
 import java.io.Serializable;
 /**
- * VendoredPlanBulk
+ * ACAPlan2018SearchResult
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-01-26T16:00:18.173-05:00")
-public class VendoredPlanBulk  implements Serializable {
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-02T17:06:11.296-04:00")
+public class ACAPlan2018SearchResult  implements Serializable {
+  @JsonProperty("carrier_name")
+  private String carrierName = null;
+
+  @JsonProperty("display_name")
+  private String displayName = null;
+
+  @JsonProperty("effective_date")
+  private String effectiveDate = null;
+
+  @JsonProperty("expiration_date")
+  private String expirationDate = null;
+
+  @JsonProperty("identifiers")
+  private List<PlanIdentifier> identifiers = new ArrayList<PlanIdentifier>();
+
+  @JsonProperty("name")
+  private String name = null;
+
+  @JsonProperty("network_ids")
+  private List<Integer> networkIds = new ArrayList<Integer>();
+
+  @JsonProperty("plan_type")
+  private String planType = null;
+
+  @JsonProperty("service_area_id")
+  private String serviceAreaId = null;
+
+  @JsonProperty("source")
+  private String source = null;
+
+  @JsonProperty("type")
+  private String type = null;
+
   @JsonProperty("adult_dental")
   private Boolean adultDental = null;
 
@@ -216,9 +284,6 @@ public class VendoredPlanBulk  implements Serializable {
 
   @JsonProperty("buy_link")
   private String buyLink = null;
-
-  @JsonProperty("carrier_name")
-  private String carrierName = null;
 
   @JsonProperty("child_dental")
   private Boolean childDental = null;
@@ -238,20 +303,11 @@ public class VendoredPlanBulk  implements Serializable {
   @JsonProperty("diagnostic_test")
   private String diagnosticTest = null;
 
-  @JsonProperty("display_name")
-  private String displayName = null;
-
   @JsonProperty("dp_rider")
   private Boolean dpRider = null;
 
   @JsonProperty("drug_formulary_url")
   private String drugFormularyUrl = null;
-
-  @JsonProperty("effective_date")
-  private String effectiveDate = null;
-
-  @JsonProperty("expiration_date")
-  private String expirationDate = null;
 
   @JsonProperty("emergency_room")
   private String emergencyRoom = null;
@@ -295,9 +351,6 @@ public class VendoredPlanBulk  implements Serializable {
   @JsonProperty("imaging")
   private String imaging = null;
 
-  @JsonProperty("in_network_ids")
-  private List<Integer> inNetworkIds = new ArrayList<Integer>();
-
   @JsonProperty("individual_drug_deductible")
   private String individualDrugDeductible = null;
 
@@ -325,17 +378,14 @@ public class VendoredPlanBulk  implements Serializable {
   @JsonProperty("inpatient_substance")
   private String inpatientSubstance = null;
 
+  @JsonProperty("in_network_ids")
+  private List<Integer> inNetworkIds = new ArrayList<Integer>();
+
   @JsonProperty("level")
   private String level = null;
 
   @JsonProperty("logo_url")
   private String logoUrl = null;
-
-  @JsonProperty("name")
-  private String name = null;
-
-  @JsonProperty("network_size")
-  private Integer networkSize = null;
 
   @JsonProperty("non_preferred_brand_drugs")
   private String nonPreferredBrandDrugs = null;
@@ -367,9 +417,6 @@ public class VendoredPlanBulk  implements Serializable {
   @JsonProperty("plan_market")
   private String planMarket = null;
 
-  @JsonProperty("plan_type")
-  private String planType = null;
-
   @JsonProperty("preferred_brand_drugs")
   private String preferredBrandDrugs = null;
 
@@ -394,9 +441,6 @@ public class VendoredPlanBulk  implements Serializable {
   @JsonProperty("rehabilitation_services")
   private String rehabilitationServices = null;
 
-  @JsonProperty("service_area_id")
-  private String serviceAreaId = null;
-
   @JsonProperty("skilled_nursing")
   private String skilledNursing = null;
 
@@ -409,100 +453,67 @@ public class VendoredPlanBulk  implements Serializable {
   @JsonProperty("urgent_care")
   private String urgentCare = null;
 
-  @JsonProperty("vendor_id")
-  private String vendorId = null;
+  @JsonProperty("actuarial_value")
+  private BigDecimal actuarialValue = null;
 
-  public VendoredPlanBulk adultDental(Boolean adultDental) {
-    this.adultDental = adultDental;
-    return this;
-  }
+  @JsonProperty("chiropractic_services")
+  private String chiropracticServices = null;
 
-   /**
-   * Does the plan provide dental coverage for adults?
-   * @return adultDental
-  **/
-  @ApiModelProperty(example = "null", value = "Does the plan provide dental coverage for adults?")
-  public Boolean getAdultDental() {
-    return adultDental;
-  }
+  @JsonProperty("coinsurance")
+  private BigDecimal coinsurance = null;
 
-  public void setAdultDental(Boolean adultDental) {
-    this.adultDental = adultDental;
-  }
+  @JsonProperty("embedded_deductible")
+  private String embeddedDeductible = null;
 
-  public VendoredPlanBulk age29Rider(Boolean age29Rider) {
-    this.age29Rider = age29Rider;
-    return this;
-  }
+  @JsonProperty("gated")
+  private Boolean gated = null;
 
-   /**
-   * True if the plan allows dependents up to age 29
-   * @return age29Rider
-  **/
-  @ApiModelProperty(example = "null", value = "True if the plan allows dependents up to age 29")
-  public Boolean getAge29Rider() {
-    return age29Rider;
-  }
+  @JsonProperty("imaging_center")
+  private String imagingCenter = null;
 
-  public void setAge29Rider(Boolean age29Rider) {
-    this.age29Rider = age29Rider;
-  }
+  @JsonProperty("imaging_physician")
+  private String imagingPhysician = null;
 
-  public VendoredPlanBulk ambulance(String ambulance) {
-    this.ambulance = ambulance;
-    return this;
-  }
+  @JsonProperty("lab_test")
+  private String labTest = null;
 
-   /**
-   * Benefits string for ambulance coverage
-   * @return ambulance
-  **/
-  @ApiModelProperty(example = "null", value = "Benefits string for ambulance coverage")
-  public String getAmbulance() {
-    return ambulance;
-  }
+  @JsonProperty("mail_order_rx")
+  private BigDecimal mailOrderRx = null;
 
-  public void setAmbulance(String ambulance) {
-    this.ambulance = ambulance;
-  }
+  @JsonProperty("nonpreferred_generic_drug_share")
+  private String nonpreferredGenericDrugShare = null;
 
-  public VendoredPlanBulk benefitsSummaryUrl(String benefitsSummaryUrl) {
-    this.benefitsSummaryUrl = benefitsSummaryUrl;
-    return this;
-  }
+  @JsonProperty("nonpreferred_specialty_drug_share")
+  private String nonpreferredSpecialtyDrugShare = null;
 
-   /**
-   * Link to the summary of benefits and coverage (SBC) document.
-   * @return benefitsSummaryUrl
-  **/
-  @ApiModelProperty(example = "null", value = "Link to the summary of benefits and coverage (SBC) document.")
-  public String getBenefitsSummaryUrl() {
-    return benefitsSummaryUrl;
-  }
+  @JsonProperty("outpatient_ambulatory_care_center")
+  private String outpatientAmbulatoryCareCenter = null;
 
-  public void setBenefitsSummaryUrl(String benefitsSummaryUrl) {
-    this.benefitsSummaryUrl = benefitsSummaryUrl;
-  }
+  @JsonProperty("plan_calendar")
+  private String planCalendar = null;
 
-  public VendoredPlanBulk buyLink(String buyLink) {
-    this.buyLink = buyLink;
-    return this;
-  }
+  @JsonProperty("prenatal_care")
+  private String prenatalCare = null;
 
-   /**
-   * Link to a location to purchase the plan.
-   * @return buyLink
-  **/
-  @ApiModelProperty(example = "null", value = "Link to a location to purchase the plan.")
-  public String getBuyLink() {
-    return buyLink;
-  }
+  @JsonProperty("postnatal_care")
+  private String postnatalCare = null;
 
-  public void setBuyLink(String buyLink) {
-    this.buyLink = buyLink;
-  }
+  @JsonProperty("skilled_nursing_facility_365")
+  private String skilledNursingFacility365 = null;
 
-  public VendoredPlanBulk carrierName(String carrierName) {
+  @JsonProperty("match_percentage")
+  private Integer matchPercentage = null;
+
+  @JsonProperty("perfect_match_percentage")
+  private Integer perfectMatchPercentage = null;
+
+  @JsonProperty("employee_premium")
+  private BigDecimal employeePremium = null;
+
+  @JsonProperty("dependent_premium")
+  private BigDecimal dependentPremium = null;
+
+  public ACAPlan2018SearchResult carrierName(String carrierName) {
     this.carrierName = carrierName;
     return this;
   }
@@ -520,115 +531,7 @@ public class VendoredPlanBulk  implements Serializable {
     this.carrierName = carrierName;
   }
 
-  public VendoredPlanBulk childDental(Boolean childDental) {
-    this.childDental = childDental;
-    return this;
-  }
-
-   /**
-   * Does the plan provide dental coverage for children?
-   * @return childDental
-  **/
-  @ApiModelProperty(example = "null", value = "Does the plan provide dental coverage for children?")
-  public Boolean getChildDental() {
-    return childDental;
-  }
-
-  public void setChildDental(Boolean childDental) {
-    this.childDental = childDental;
-  }
-
-  public VendoredPlanBulk childEyewear(String childEyewear) {
-    this.childEyewear = childEyewear;
-    return this;
-  }
-
-   /**
-   * Child eyewear benefits summary
-   * @return childEyewear
-  **/
-  @ApiModelProperty(example = "null", value = "Child eyewear benefits summary")
-  public String getChildEyewear() {
-    return childEyewear;
-  }
-
-  public void setChildEyewear(String childEyewear) {
-    this.childEyewear = childEyewear;
-  }
-
-  public VendoredPlanBulk childEyeExam(String childEyeExam) {
-    this.childEyeExam = childEyeExam;
-    return this;
-  }
-
-   /**
-   * Child eye exam benefits summary
-   * @return childEyeExam
-  **/
-  @ApiModelProperty(example = "null", value = "Child eye exam benefits summary")
-  public String getChildEyeExam() {
-    return childEyeExam;
-  }
-
-  public void setChildEyeExam(String childEyeExam) {
-    this.childEyeExam = childEyeExam;
-  }
-
-  public VendoredPlanBulk customerServicePhoneNumber(String customerServicePhoneNumber) {
-    this.customerServicePhoneNumber = customerServicePhoneNumber;
-    return this;
-  }
-
-   /**
-   * Phone number to contact the insurance carrier
-   * @return customerServicePhoneNumber
-  **/
-  @ApiModelProperty(example = "null", value = "Phone number to contact the insurance carrier")
-  public String getCustomerServicePhoneNumber() {
-    return customerServicePhoneNumber;
-  }
-
-  public void setCustomerServicePhoneNumber(String customerServicePhoneNumber) {
-    this.customerServicePhoneNumber = customerServicePhoneNumber;
-  }
-
-  public VendoredPlanBulk durableMedicalEquipment(String durableMedicalEquipment) {
-    this.durableMedicalEquipment = durableMedicalEquipment;
-    return this;
-  }
-
-   /**
-   * Benefits summary for durable medical equipment
-   * @return durableMedicalEquipment
-  **/
-  @ApiModelProperty(example = "null", value = "Benefits summary for durable medical equipment")
-  public String getDurableMedicalEquipment() {
-    return durableMedicalEquipment;
-  }
-
-  public void setDurableMedicalEquipment(String durableMedicalEquipment) {
-    this.durableMedicalEquipment = durableMedicalEquipment;
-  }
-
-  public VendoredPlanBulk diagnosticTest(String diagnosticTest) {
-    this.diagnosticTest = diagnosticTest;
-    return this;
-  }
-
-   /**
-   * Diagnostic tests benefit summary
-   * @return diagnosticTest
-  **/
-  @ApiModelProperty(example = "null", value = "Diagnostic tests benefit summary")
-  public String getDiagnosticTest() {
-    return diagnosticTest;
-  }
-
-  public void setDiagnosticTest(String diagnosticTest) {
-    this.diagnosticTest = diagnosticTest;
-  }
-
-  public VendoredPlanBulk displayName(String displayName) {
+  public ACAPlan2018SearchResult displayName(String displayName) {
     this.displayName = displayName;
     return this;
   }
@@ -646,43 +549,7 @@ public class VendoredPlanBulk  implements Serializable {
     this.displayName = displayName;
   }
 
-  public VendoredPlanBulk dpRider(Boolean dpRider) {
-    this.dpRider = dpRider;
-    return this;
-  }
-
-   /**
-   * True if plan does not cover domestic partners
-   * @return dpRider
-  **/
-  @ApiModelProperty(example = "null", value = "True if plan does not cover domestic partners")
-  public Boolean getDpRider() {
-    return dpRider;
-  }
-
-  public void setDpRider(Boolean dpRider) {
-    this.dpRider = dpRider;
-  }
-
-  public VendoredPlanBulk drugFormularyUrl(String drugFormularyUrl) {
-    this.drugFormularyUrl = drugFormularyUrl;
-    return this;
-  }
-
-   /**
-   * Link to the summary of drug benefits for the plan
-   * @return drugFormularyUrl
-  **/
-  @ApiModelProperty(example = "null", value = "Link to the summary of drug benefits for the plan")
-  public String getDrugFormularyUrl() {
-    return drugFormularyUrl;
-  }
-
-  public void setDrugFormularyUrl(String drugFormularyUrl) {
-    this.drugFormularyUrl = drugFormularyUrl;
-  }
-
-  public VendoredPlanBulk effectiveDate(String effectiveDate) {
+  public ACAPlan2018SearchResult effectiveDate(String effectiveDate) {
     this.effectiveDate = effectiveDate;
     return this;
   }
@@ -700,7 +567,7 @@ public class VendoredPlanBulk  implements Serializable {
     this.effectiveDate = effectiveDate;
   }
 
-  public VendoredPlanBulk expirationDate(String expirationDate) {
+  public ACAPlan2018SearchResult expirationDate(String expirationDate) {
     this.expirationDate = expirationDate;
     return this;
   }
@@ -718,480 +585,30 @@ public class VendoredPlanBulk  implements Serializable {
     this.expirationDate = expirationDate;
   }
 
-  public VendoredPlanBulk emergencyRoom(String emergencyRoom) {
-    this.emergencyRoom = emergencyRoom;
+  public ACAPlan2018SearchResult identifiers(List<PlanIdentifier> identifiers) {
+    this.identifiers = identifiers;
+    return this;
+  }
+
+  public ACAPlan2018SearchResult addIdentifiersItem(PlanIdentifier identifiersItem) {
+    this.identifiers.add(identifiersItem);
     return this;
   }
 
    /**
-   * Description of costs when visiting the ER
-   * @return emergencyRoom
+   * List of identifiers of this Plan
+   * @return identifiers
   **/
-  @ApiModelProperty(example = "null", value = "Description of costs when visiting the ER")
-  public String getEmergencyRoom() {
-    return emergencyRoom;
+  @ApiModelProperty(example = "null", value = "List of identifiers of this Plan")
+  public List<PlanIdentifier> getIdentifiers() {
+    return identifiers;
   }
 
-  public void setEmergencyRoom(String emergencyRoom) {
-    this.emergencyRoom = emergencyRoom;
+  public void setIdentifiers(List<PlanIdentifier> identifiers) {
+    this.identifiers = identifiers;
   }
 
-  public VendoredPlanBulk familyDrugDeductible(String familyDrugDeductible) {
-    this.familyDrugDeductible = familyDrugDeductible;
-    return this;
-  }
-
-   /**
-   * Deductible for drugs when a family is on the plan.
-   * @return familyDrugDeductible
-  **/
-  @ApiModelProperty(example = "null", value = "Deductible for drugs when a family is on the plan.")
-  public String getFamilyDrugDeductible() {
-    return familyDrugDeductible;
-  }
-
-  public void setFamilyDrugDeductible(String familyDrugDeductible) {
-    this.familyDrugDeductible = familyDrugDeductible;
-  }
-
-  public VendoredPlanBulk familyDrugMoop(String familyDrugMoop) {
-    this.familyDrugMoop = familyDrugMoop;
-    return this;
-  }
-
-   /**
-   * Maximum out-of-pocket for drugs when a family is on the plan
-   * @return familyDrugMoop
-  **/
-  @ApiModelProperty(example = "null", value = "Maximum out-of-pocket for drugs when a family is on the plan")
-  public String getFamilyDrugMoop() {
-    return familyDrugMoop;
-  }
-
-  public void setFamilyDrugMoop(String familyDrugMoop) {
-    this.familyDrugMoop = familyDrugMoop;
-  }
-
-  public VendoredPlanBulk familyMedicalDeductible(String familyMedicalDeductible) {
-    this.familyMedicalDeductible = familyMedicalDeductible;
-    return this;
-  }
-
-   /**
-   * Deductible when a family is on the plan
-   * @return familyMedicalDeductible
-  **/
-  @ApiModelProperty(example = "null", value = "Deductible when a family is on the plan")
-  public String getFamilyMedicalDeductible() {
-    return familyMedicalDeductible;
-  }
-
-  public void setFamilyMedicalDeductible(String familyMedicalDeductible) {
-    this.familyMedicalDeductible = familyMedicalDeductible;
-  }
-
-  public VendoredPlanBulk familyMedicalMoop(String familyMedicalMoop) {
-    this.familyMedicalMoop = familyMedicalMoop;
-    return this;
-  }
-
-   /**
-   * Maximum out-of-pocket when a family is on the plan
-   * @return familyMedicalMoop
-  **/
-  @ApiModelProperty(example = "null", value = "Maximum out-of-pocket when a family is on the plan")
-  public String getFamilyMedicalMoop() {
-    return familyMedicalMoop;
-  }
-
-  public void setFamilyMedicalMoop(String familyMedicalMoop) {
-    this.familyMedicalMoop = familyMedicalMoop;
-  }
-
-  public VendoredPlanBulk fpRider(Boolean fpRider) {
-    this.fpRider = fpRider;
-    return this;
-  }
-
-   /**
-   * True if plan does not cover family planning
-   * @return fpRider
-  **/
-  @ApiModelProperty(example = "null", value = "True if plan does not cover family planning")
-  public Boolean getFpRider() {
-    return fpRider;
-  }
-
-  public void setFpRider(Boolean fpRider) {
-    this.fpRider = fpRider;
-  }
-
-  public VendoredPlanBulk genericDrugs(String genericDrugs) {
-    this.genericDrugs = genericDrugs;
-    return this;
-  }
-
-   /**
-   * Cost for generic drugs
-   * @return genericDrugs
-  **/
-  @ApiModelProperty(example = "null", value = "Cost for generic drugs")
-  public String getGenericDrugs() {
-    return genericDrugs;
-  }
-
-  public void setGenericDrugs(String genericDrugs) {
-    this.genericDrugs = genericDrugs;
-  }
-
-  public VendoredPlanBulk habilitationServices(String habilitationServices) {
-    this.habilitationServices = habilitationServices;
-    return this;
-  }
-
-   /**
-   * Habilitation services benefits summary
-   * @return habilitationServices
-  **/
-  @ApiModelProperty(example = "null", value = "Habilitation services benefits summary")
-  public String getHabilitationServices() {
-    return habilitationServices;
-  }
-
-  public void setHabilitationServices(String habilitationServices) {
-    this.habilitationServices = habilitationServices;
-  }
-
-  public VendoredPlanBulk hiosIssuerId(String hiosIssuerId) {
-    this.hiosIssuerId = hiosIssuerId;
-    return this;
-  }
-
-   /**
-   * 
-   * @return hiosIssuerId
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public String getHiosIssuerId() {
-    return hiosIssuerId;
-  }
-
-  public void setHiosIssuerId(String hiosIssuerId) {
-    this.hiosIssuerId = hiosIssuerId;
-  }
-
-  public VendoredPlanBulk homeHealthCare(String homeHealthCare) {
-    this.homeHealthCare = homeHealthCare;
-    return this;
-  }
-
-   /**
-   * Home health care benefits summary
-   * @return homeHealthCare
-  **/
-  @ApiModelProperty(example = "null", value = "Home health care benefits summary")
-  public String getHomeHealthCare() {
-    return homeHealthCare;
-  }
-
-  public void setHomeHealthCare(String homeHealthCare) {
-    this.homeHealthCare = homeHealthCare;
-  }
-
-  public VendoredPlanBulk hospiceService(String hospiceService) {
-    this.hospiceService = hospiceService;
-    return this;
-  }
-
-   /**
-   * Hospice service benefits summary
-   * @return hospiceService
-  **/
-  @ApiModelProperty(example = "null", value = "Hospice service benefits summary")
-  public String getHospiceService() {
-    return hospiceService;
-  }
-
-  public void setHospiceService(String hospiceService) {
-    this.hospiceService = hospiceService;
-  }
-
-  public VendoredPlanBulk hsaEligible(Boolean hsaEligible) {
-    this.hsaEligible = hsaEligible;
-    return this;
-  }
-
-   /**
-   * Is the plan HSA eligible?
-   * @return hsaEligible
-  **/
-  @ApiModelProperty(example = "null", value = "Is the plan HSA eligible?")
-  public Boolean getHsaEligible() {
-    return hsaEligible;
-  }
-
-  public void setHsaEligible(Boolean hsaEligible) {
-    this.hsaEligible = hsaEligible;
-  }
-
-  public VendoredPlanBulk id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Government-issued HIOS plan ID
-   * @return id
-  **/
-  @ApiModelProperty(example = "null", value = "Government-issued HIOS plan ID")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public VendoredPlanBulk imaging(String imaging) {
-    this.imaging = imaging;
-    return this;
-  }
-
-   /**
-   * Benefits summary for imaging coverage
-   * @return imaging
-  **/
-  @ApiModelProperty(example = "null", value = "Benefits summary for imaging coverage")
-  public String getImaging() {
-    return imaging;
-  }
-
-  public void setImaging(String imaging) {
-    this.imaging = imaging;
-  }
-
-  public VendoredPlanBulk inNetworkIds(List<Integer> inNetworkIds) {
-    this.inNetworkIds = inNetworkIds;
-    return this;
-  }
-
-  public VendoredPlanBulk addInNetworkIdsItem(Integer inNetworkIdsItem) {
-    this.inNetworkIds.add(inNetworkIdsItem);
-    return this;
-  }
-
-   /**
-   * List of NPI numbers for Providers passed in who accept this Plan
-   * @return inNetworkIds
-  **/
-  @ApiModelProperty(example = "null", value = "List of NPI numbers for Providers passed in who accept this Plan")
-  public List<Integer> getInNetworkIds() {
-    return inNetworkIds;
-  }
-
-  public void setInNetworkIds(List<Integer> inNetworkIds) {
-    this.inNetworkIds = inNetworkIds;
-  }
-
-  public VendoredPlanBulk individualDrugDeductible(String individualDrugDeductible) {
-    this.individualDrugDeductible = individualDrugDeductible;
-    return this;
-  }
-
-   /**
-   * Deductible for drugs when an individual is on the plan
-   * @return individualDrugDeductible
-  **/
-  @ApiModelProperty(example = "null", value = "Deductible for drugs when an individual is on the plan")
-  public String getIndividualDrugDeductible() {
-    return individualDrugDeductible;
-  }
-
-  public void setIndividualDrugDeductible(String individualDrugDeductible) {
-    this.individualDrugDeductible = individualDrugDeductible;
-  }
-
-  public VendoredPlanBulk individualDrugMoop(String individualDrugMoop) {
-    this.individualDrugMoop = individualDrugMoop;
-    return this;
-  }
-
-   /**
-   * Maximum out-of-pocket for drugs when an individual is on the plan
-   * @return individualDrugMoop
-  **/
-  @ApiModelProperty(example = "null", value = "Maximum out-of-pocket for drugs when an individual is on the plan")
-  public String getIndividualDrugMoop() {
-    return individualDrugMoop;
-  }
-
-  public void setIndividualDrugMoop(String individualDrugMoop) {
-    this.individualDrugMoop = individualDrugMoop;
-  }
-
-  public VendoredPlanBulk individualMedicalDeductible(String individualMedicalDeductible) {
-    this.individualMedicalDeductible = individualMedicalDeductible;
-    return this;
-  }
-
-   /**
-   * Deductible when an individual is on the plan
-   * @return individualMedicalDeductible
-  **/
-  @ApiModelProperty(example = "null", value = "Deductible when an individual is on the plan")
-  public String getIndividualMedicalDeductible() {
-    return individualMedicalDeductible;
-  }
-
-  public void setIndividualMedicalDeductible(String individualMedicalDeductible) {
-    this.individualMedicalDeductible = individualMedicalDeductible;
-  }
-
-  public VendoredPlanBulk individualMedicalMoop(String individualMedicalMoop) {
-    this.individualMedicalMoop = individualMedicalMoop;
-    return this;
-  }
-
-   /**
-   * Maximum out-of-pocket when an individual is on the plan
-   * @return individualMedicalMoop
-  **/
-  @ApiModelProperty(example = "null", value = "Maximum out-of-pocket when an individual is on the plan")
-  public String getIndividualMedicalMoop() {
-    return individualMedicalMoop;
-  }
-
-  public void setIndividualMedicalMoop(String individualMedicalMoop) {
-    this.individualMedicalMoop = individualMedicalMoop;
-  }
-
-  public VendoredPlanBulk inpatientBirth(String inpatientBirth) {
-    this.inpatientBirth = inpatientBirth;
-    return this;
-  }
-
-   /**
-   * Inpatient birth benefits summary
-   * @return inpatientBirth
-  **/
-  @ApiModelProperty(example = "null", value = "Inpatient birth benefits summary")
-  public String getInpatientBirth() {
-    return inpatientBirth;
-  }
-
-  public void setInpatientBirth(String inpatientBirth) {
-    this.inpatientBirth = inpatientBirth;
-  }
-
-  public VendoredPlanBulk inpatientFacility(String inpatientFacility) {
-    this.inpatientFacility = inpatientFacility;
-    return this;
-  }
-
-   /**
-   * Cost under the plan for an inpatient facility
-   * @return inpatientFacility
-  **/
-  @ApiModelProperty(example = "null", value = "Cost under the plan for an inpatient facility")
-  public String getInpatientFacility() {
-    return inpatientFacility;
-  }
-
-  public void setInpatientFacility(String inpatientFacility) {
-    this.inpatientFacility = inpatientFacility;
-  }
-
-  public VendoredPlanBulk inpatientMentalHealth(String inpatientMentalHealth) {
-    this.inpatientMentalHealth = inpatientMentalHealth;
-    return this;
-  }
-
-   /**
-   * Inpatient mental helath benefits summary
-   * @return inpatientMentalHealth
-  **/
-  @ApiModelProperty(example = "null", value = "Inpatient mental helath benefits summary")
-  public String getInpatientMentalHealth() {
-    return inpatientMentalHealth;
-  }
-
-  public void setInpatientMentalHealth(String inpatientMentalHealth) {
-    this.inpatientMentalHealth = inpatientMentalHealth;
-  }
-
-  public VendoredPlanBulk inpatientPhysician(String inpatientPhysician) {
-    this.inpatientPhysician = inpatientPhysician;
-    return this;
-  }
-
-   /**
-   * Cost under the plan for an inpatient physician
-   * @return inpatientPhysician
-  **/
-  @ApiModelProperty(example = "null", value = "Cost under the plan for an inpatient physician")
-  public String getInpatientPhysician() {
-    return inpatientPhysician;
-  }
-
-  public void setInpatientPhysician(String inpatientPhysician) {
-    this.inpatientPhysician = inpatientPhysician;
-  }
-
-  public VendoredPlanBulk inpatientSubstance(String inpatientSubstance) {
-    this.inpatientSubstance = inpatientSubstance;
-    return this;
-  }
-
-   /**
-   * Inpatient substance abuse benefits summary
-   * @return inpatientSubstance
-  **/
-  @ApiModelProperty(example = "null", value = "Inpatient substance abuse benefits summary")
-  public String getInpatientSubstance() {
-    return inpatientSubstance;
-  }
-
-  public void setInpatientSubstance(String inpatientSubstance) {
-    this.inpatientSubstance = inpatientSubstance;
-  }
-
-  public VendoredPlanBulk level(String level) {
-    this.level = level;
-    return this;
-  }
-
-   /**
-   * Plan metal grouping (e.g. platinum, gold, silver, etc)
-   * @return level
-  **/
-  @ApiModelProperty(example = "null", value = "Plan metal grouping (e.g. platinum, gold, silver, etc)")
-  public String getLevel() {
-    return level;
-  }
-
-  public void setLevel(String level) {
-    this.level = level;
-  }
-
-  public VendoredPlanBulk logoUrl(String logoUrl) {
-    this.logoUrl = logoUrl;
-    return this;
-  }
-
-   /**
-   * Link to a copy of the insurance carrier's logo
-   * @return logoUrl
-  **/
-  @ApiModelProperty(example = "null", value = "Link to a copy of the insurance carrier's logo")
-  public String getLogoUrl() {
-    return logoUrl;
-  }
-
-  public void setLogoUrl(String logoUrl) {
-    this.logoUrl = logoUrl;
-  }
-
-  public VendoredPlanBulk name(String name) {
+  public ACAPlan2018SearchResult name(String name) {
     this.name = name;
     return this;
   }
@@ -1209,219 +626,39 @@ public class VendoredPlanBulk  implements Serializable {
     this.name = name;
   }
 
-  public VendoredPlanBulk networkSize(Integer networkSize) {
-    this.networkSize = networkSize;
+  public ACAPlan2018SearchResult networkIds(List<Integer> networkIds) {
+    this.networkIds = networkIds;
+    return this;
+  }
+
+  public ACAPlan2018SearchResult addNetworkIdsItem(Integer networkIdsItem) {
+    this.networkIds.add(networkIdsItem);
     return this;
   }
 
    /**
-   * Total number of Providers in network
-   * @return networkSize
+   * List of Vericred-generated network_ids
+   * @return networkIds
   **/
-  @ApiModelProperty(example = "null", value = "Total number of Providers in network")
-  public Integer getNetworkSize() {
-    return networkSize;
+  @ApiModelProperty(example = "null", value = "List of Vericred-generated network_ids")
+  public List<Integer> getNetworkIds() {
+    return networkIds;
   }
 
-  public void setNetworkSize(Integer networkSize) {
-    this.networkSize = networkSize;
+  public void setNetworkIds(List<Integer> networkIds) {
+    this.networkIds = networkIds;
   }
 
-  public VendoredPlanBulk nonPreferredBrandDrugs(String nonPreferredBrandDrugs) {
-    this.nonPreferredBrandDrugs = nonPreferredBrandDrugs;
-    return this;
-  }
-
-   /**
-   * Cost under the plan for non-preferred brand drugs
-   * @return nonPreferredBrandDrugs
-  **/
-  @ApiModelProperty(example = "null", value = "Cost under the plan for non-preferred brand drugs")
-  public String getNonPreferredBrandDrugs() {
-    return nonPreferredBrandDrugs;
-  }
-
-  public void setNonPreferredBrandDrugs(String nonPreferredBrandDrugs) {
-    this.nonPreferredBrandDrugs = nonPreferredBrandDrugs;
-  }
-
-  public VendoredPlanBulk onMarket(Boolean onMarket) {
-    this.onMarket = onMarket;
-    return this;
-  }
-
-   /**
-   * Is the plan on-market?
-   * @return onMarket
-  **/
-  @ApiModelProperty(example = "null", value = "Is the plan on-market?")
-  public Boolean getOnMarket() {
-    return onMarket;
-  }
-
-  public void setOnMarket(Boolean onMarket) {
-    this.onMarket = onMarket;
-  }
-
-  public VendoredPlanBulk offMarket(Boolean offMarket) {
-    this.offMarket = offMarket;
-    return this;
-  }
-
-   /**
-   * Is the plan off-market?
-   * @return offMarket
-  **/
-  @ApiModelProperty(example = "null", value = "Is the plan off-market?")
-  public Boolean getOffMarket() {
-    return offMarket;
-  }
-
-  public void setOffMarket(Boolean offMarket) {
-    this.offMarket = offMarket;
-  }
-
-  public VendoredPlanBulk outOfNetworkCoverage(Boolean outOfNetworkCoverage) {
-    this.outOfNetworkCoverage = outOfNetworkCoverage;
-    return this;
-  }
-
-   /**
-   * Does this plan provide any out of network coverage?
-   * @return outOfNetworkCoverage
-  **/
-  @ApiModelProperty(example = "null", value = "Does this plan provide any out of network coverage?")
-  public Boolean getOutOfNetworkCoverage() {
-    return outOfNetworkCoverage;
-  }
-
-  public void setOutOfNetworkCoverage(Boolean outOfNetworkCoverage) {
-    this.outOfNetworkCoverage = outOfNetworkCoverage;
-  }
-
-  public VendoredPlanBulk outOfNetworkIds(List<Integer> outOfNetworkIds) {
-    this.outOfNetworkIds = outOfNetworkIds;
-    return this;
-  }
-
-  public VendoredPlanBulk addOutOfNetworkIdsItem(Integer outOfNetworkIdsItem) {
-    this.outOfNetworkIds.add(outOfNetworkIdsItem);
-    return this;
-  }
-
-   /**
-   * List of NPI numbers for Providers passed in who do not accept this Plan
-   * @return outOfNetworkIds
-  **/
-  @ApiModelProperty(example = "null", value = "List of NPI numbers for Providers passed in who do not accept this Plan")
-  public List<Integer> getOutOfNetworkIds() {
-    return outOfNetworkIds;
-  }
-
-  public void setOutOfNetworkIds(List<Integer> outOfNetworkIds) {
-    this.outOfNetworkIds = outOfNetworkIds;
-  }
-
-  public VendoredPlanBulk outpatientFacility(String outpatientFacility) {
-    this.outpatientFacility = outpatientFacility;
-    return this;
-  }
-
-   /**
-   * Benefits summary for outpatient facility coverage
-   * @return outpatientFacility
-  **/
-  @ApiModelProperty(example = "null", value = "Benefits summary for outpatient facility coverage")
-  public String getOutpatientFacility() {
-    return outpatientFacility;
-  }
-
-  public void setOutpatientFacility(String outpatientFacility) {
-    this.outpatientFacility = outpatientFacility;
-  }
-
-  public VendoredPlanBulk outpatientMentalHealth(String outpatientMentalHealth) {
-    this.outpatientMentalHealth = outpatientMentalHealth;
-    return this;
-  }
-
-   /**
-   * Benefits summary for outpatient mental health coverage
-   * @return outpatientMentalHealth
-  **/
-  @ApiModelProperty(example = "null", value = "Benefits summary for outpatient mental health coverage")
-  public String getOutpatientMentalHealth() {
-    return outpatientMentalHealth;
-  }
-
-  public void setOutpatientMentalHealth(String outpatientMentalHealth) {
-    this.outpatientMentalHealth = outpatientMentalHealth;
-  }
-
-  public VendoredPlanBulk outpatientPhysician(String outpatientPhysician) {
-    this.outpatientPhysician = outpatientPhysician;
-    return this;
-  }
-
-   /**
-   * Benefits summary for outpatient physician coverage
-   * @return outpatientPhysician
-  **/
-  @ApiModelProperty(example = "null", value = "Benefits summary for outpatient physician coverage")
-  public String getOutpatientPhysician() {
-    return outpatientPhysician;
-  }
-
-  public void setOutpatientPhysician(String outpatientPhysician) {
-    this.outpatientPhysician = outpatientPhysician;
-  }
-
-  public VendoredPlanBulk outpatientSubstance(String outpatientSubstance) {
-    this.outpatientSubstance = outpatientSubstance;
-    return this;
-  }
-
-   /**
-   * Outpatient substance abuse benefits summary
-   * @return outpatientSubstance
-  **/
-  @ApiModelProperty(example = "null", value = "Outpatient substance abuse benefits summary")
-  public String getOutpatientSubstance() {
-    return outpatientSubstance;
-  }
-
-  public void setOutpatientSubstance(String outpatientSubstance) {
-    this.outpatientSubstance = outpatientSubstance;
-  }
-
-  public VendoredPlanBulk planMarket(String planMarket) {
-    this.planMarket = planMarket;
-    return this;
-  }
-
-   /**
-   * Market in which the plan is offered (on_marketplace, shop, etc)
-   * @return planMarket
-  **/
-  @ApiModelProperty(example = "null", value = "Market in which the plan is offered (on_marketplace, shop, etc)")
-  public String getPlanMarket() {
-    return planMarket;
-  }
-
-  public void setPlanMarket(String planMarket) {
-    this.planMarket = planMarket;
-  }
-
-  public VendoredPlanBulk planType(String planType) {
+  public ACAPlan2018SearchResult planType(String planType) {
     this.planType = planType;
     return this;
   }
 
    /**
-   * Category of the plan (e.g. EPO, HMO, PPO, POS, Indemnity)
+   * Category of the plan (e.g. EPO, HMO, PPO, POS, Indemnity, PACE, Medicare-Medicaid, HMO w/POS, Cost, FFS, MSA)
    * @return planType
   **/
-  @ApiModelProperty(example = "null", value = "Category of the plan (e.g. EPO, HMO, PPO, POS, Indemnity)")
+  @ApiModelProperty(example = "null", value = "Category of the plan (e.g. EPO, HMO, PPO, POS, Indemnity, PACE, Medicare-Medicaid, HMO w/POS, Cost, FFS, MSA)")
   public String getPlanType() {
     return planType;
   }
@@ -1430,151 +667,7 @@ public class VendoredPlanBulk  implements Serializable {
     this.planType = planType;
   }
 
-  public VendoredPlanBulk preferredBrandDrugs(String preferredBrandDrugs) {
-    this.preferredBrandDrugs = preferredBrandDrugs;
-    return this;
-  }
-
-   /**
-   * Cost under the plan for perferred brand drugs
-   * @return preferredBrandDrugs
-  **/
-  @ApiModelProperty(example = "null", value = "Cost under the plan for perferred brand drugs")
-  public String getPreferredBrandDrugs() {
-    return preferredBrandDrugs;
-  }
-
-  public void setPreferredBrandDrugs(String preferredBrandDrugs) {
-    this.preferredBrandDrugs = preferredBrandDrugs;
-  }
-
-  public VendoredPlanBulk prenatalPostnatalCare(String prenatalPostnatalCare) {
-    this.prenatalPostnatalCare = prenatalPostnatalCare;
-    return this;
-  }
-
-   /**
-   * Inpatient substance abuse benefits summary
-   * @return prenatalPostnatalCare
-  **/
-  @ApiModelProperty(example = "null", value = "Inpatient substance abuse benefits summary")
-  public String getPrenatalPostnatalCare() {
-    return prenatalPostnatalCare;
-  }
-
-  public void setPrenatalPostnatalCare(String prenatalPostnatalCare) {
-    this.prenatalPostnatalCare = prenatalPostnatalCare;
-  }
-
-  public VendoredPlanBulk preventativeCare(String preventativeCare) {
-    this.preventativeCare = preventativeCare;
-    return this;
-  }
-
-   /**
-   * Benefits summary for preventative care
-   * @return preventativeCare
-  **/
-  @ApiModelProperty(example = "null", value = "Benefits summary for preventative care")
-  public String getPreventativeCare() {
-    return preventativeCare;
-  }
-
-  public void setPreventativeCare(String preventativeCare) {
-    this.preventativeCare = preventativeCare;
-  }
-
-  public VendoredPlanBulk premiumSubsidized(BigDecimal premiumSubsidized) {
-    this.premiumSubsidized = premiumSubsidized;
-    return this;
-  }
-
-   /**
-   * Cumulative premium amount after subsidy
-   * @return premiumSubsidized
-  **/
-  @ApiModelProperty(example = "null", value = "Cumulative premium amount after subsidy")
-  public BigDecimal getPremiumSubsidized() {
-    return premiumSubsidized;
-  }
-
-  public void setPremiumSubsidized(BigDecimal premiumSubsidized) {
-    this.premiumSubsidized = premiumSubsidized;
-  }
-
-  public VendoredPlanBulk premium(BigDecimal premium) {
-    this.premium = premium;
-    return this;
-  }
-
-   /**
-   * Cumulative premium amount
-   * @return premium
-  **/
-  @ApiModelProperty(example = "null", value = "Cumulative premium amount")
-  public BigDecimal getPremium() {
-    return premium;
-  }
-
-  public void setPremium(BigDecimal premium) {
-    this.premium = premium;
-  }
-
-  public VendoredPlanBulk premiumSource(String premiumSource) {
-    this.premiumSource = premiumSource;
-    return this;
-  }
-
-   /**
-   * Source of the base pricing data
-   * @return premiumSource
-  **/
-  @ApiModelProperty(example = "null", value = "Source of the base pricing data")
-  public String getPremiumSource() {
-    return premiumSource;
-  }
-
-  public void setPremiumSource(String premiumSource) {
-    this.premiumSource = premiumSource;
-  }
-
-  public VendoredPlanBulk primaryCarePhysician(String primaryCarePhysician) {
-    this.primaryCarePhysician = primaryCarePhysician;
-    return this;
-  }
-
-   /**
-   * Cost under the plan to visit a Primary Care Physician
-   * @return primaryCarePhysician
-  **/
-  @ApiModelProperty(example = "null", value = "Cost under the plan to visit a Primary Care Physician")
-  public String getPrimaryCarePhysician() {
-    return primaryCarePhysician;
-  }
-
-  public void setPrimaryCarePhysician(String primaryCarePhysician) {
-    this.primaryCarePhysician = primaryCarePhysician;
-  }
-
-  public VendoredPlanBulk rehabilitationServices(String rehabilitationServices) {
-    this.rehabilitationServices = rehabilitationServices;
-    return this;
-  }
-
-   /**
-   * Benefits summary for rehabilitation services
-   * @return rehabilitationServices
-  **/
-  @ApiModelProperty(example = "null", value = "Benefits summary for rehabilitation services")
-  public String getRehabilitationServices() {
-    return rehabilitationServices;
-  }
-
-  public void setRehabilitationServices(String rehabilitationServices) {
-    this.rehabilitationServices = rehabilitationServices;
-  }
-
-  public VendoredPlanBulk serviceAreaId(String serviceAreaId) {
+  public ACAPlan2018SearchResult serviceAreaId(String serviceAreaId) {
     this.serviceAreaId = serviceAreaId;
     return this;
   }
@@ -1592,7 +685,1079 @@ public class VendoredPlanBulk  implements Serializable {
     this.serviceAreaId = serviceAreaId;
   }
 
-  public VendoredPlanBulk skilledNursing(String skilledNursing) {
+  public ACAPlan2018SearchResult source(String source) {
+    this.source = source;
+    return this;
+  }
+
+   /**
+   * Source of the plan benefit data
+   * @return source
+  **/
+  @ApiModelProperty(example = "null", value = "Source of the plan benefit data")
+  public String getSource() {
+    return source;
+  }
+
+  public void setSource(String source) {
+    this.source = source;
+  }
+
+  public ACAPlan2018SearchResult type(String type) {
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * The type of the Plan
+   * @return type
+  **/
+  @ApiModelProperty(example = "null", value = "The type of the Plan")
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public ACAPlan2018SearchResult adultDental(Boolean adultDental) {
+    this.adultDental = adultDental;
+    return this;
+  }
+
+   /**
+   * Does the plan provide dental coverage for adults?
+   * @return adultDental
+  **/
+  @ApiModelProperty(example = "null", value = "Does the plan provide dental coverage for adults?")
+  public Boolean getAdultDental() {
+    return adultDental;
+  }
+
+  public void setAdultDental(Boolean adultDental) {
+    this.adultDental = adultDental;
+  }
+
+  public ACAPlan2018SearchResult age29Rider(Boolean age29Rider) {
+    this.age29Rider = age29Rider;
+    return this;
+  }
+
+   /**
+   * True if the plan allows dependents up to age 29
+   * @return age29Rider
+  **/
+  @ApiModelProperty(example = "null", value = "True if the plan allows dependents up to age 29")
+  public Boolean getAge29Rider() {
+    return age29Rider;
+  }
+
+  public void setAge29Rider(Boolean age29Rider) {
+    this.age29Rider = age29Rider;
+  }
+
+  public ACAPlan2018SearchResult ambulance(String ambulance) {
+    this.ambulance = ambulance;
+    return this;
+  }
+
+   /**
+   * Benefits string for ambulance coverage
+   * @return ambulance
+  **/
+  @ApiModelProperty(example = "null", value = "Benefits string for ambulance coverage")
+  public String getAmbulance() {
+    return ambulance;
+  }
+
+  public void setAmbulance(String ambulance) {
+    this.ambulance = ambulance;
+  }
+
+  public ACAPlan2018SearchResult benefitsSummaryUrl(String benefitsSummaryUrl) {
+    this.benefitsSummaryUrl = benefitsSummaryUrl;
+    return this;
+  }
+
+   /**
+   * Link to the summary of benefits and coverage (SBC) document.
+   * @return benefitsSummaryUrl
+  **/
+  @ApiModelProperty(example = "null", value = "Link to the summary of benefits and coverage (SBC) document.")
+  public String getBenefitsSummaryUrl() {
+    return benefitsSummaryUrl;
+  }
+
+  public void setBenefitsSummaryUrl(String benefitsSummaryUrl) {
+    this.benefitsSummaryUrl = benefitsSummaryUrl;
+  }
+
+  public ACAPlan2018SearchResult buyLink(String buyLink) {
+    this.buyLink = buyLink;
+    return this;
+  }
+
+   /**
+   * Link to a location to purchase the plan.
+   * @return buyLink
+  **/
+  @ApiModelProperty(example = "null", value = "Link to a location to purchase the plan.")
+  public String getBuyLink() {
+    return buyLink;
+  }
+
+  public void setBuyLink(String buyLink) {
+    this.buyLink = buyLink;
+  }
+
+  public ACAPlan2018SearchResult childDental(Boolean childDental) {
+    this.childDental = childDental;
+    return this;
+  }
+
+   /**
+   * Does the plan provide dental coverage for children?
+   * @return childDental
+  **/
+  @ApiModelProperty(example = "null", value = "Does the plan provide dental coverage for children?")
+  public Boolean getChildDental() {
+    return childDental;
+  }
+
+  public void setChildDental(Boolean childDental) {
+    this.childDental = childDental;
+  }
+
+  public ACAPlan2018SearchResult childEyewear(String childEyewear) {
+    this.childEyewear = childEyewear;
+    return this;
+  }
+
+   /**
+   * Child eyewear benefits summary
+   * @return childEyewear
+  **/
+  @ApiModelProperty(example = "null", value = "Child eyewear benefits summary")
+  public String getChildEyewear() {
+    return childEyewear;
+  }
+
+  public void setChildEyewear(String childEyewear) {
+    this.childEyewear = childEyewear;
+  }
+
+  public ACAPlan2018SearchResult childEyeExam(String childEyeExam) {
+    this.childEyeExam = childEyeExam;
+    return this;
+  }
+
+   /**
+   * Child eye exam benefits summary
+   * @return childEyeExam
+  **/
+  @ApiModelProperty(example = "null", value = "Child eye exam benefits summary")
+  public String getChildEyeExam() {
+    return childEyeExam;
+  }
+
+  public void setChildEyeExam(String childEyeExam) {
+    this.childEyeExam = childEyeExam;
+  }
+
+  public ACAPlan2018SearchResult customerServicePhoneNumber(String customerServicePhoneNumber) {
+    this.customerServicePhoneNumber = customerServicePhoneNumber;
+    return this;
+  }
+
+   /**
+   * Phone number to contact the insurance carrier
+   * @return customerServicePhoneNumber
+  **/
+  @ApiModelProperty(example = "null", value = "Phone number to contact the insurance carrier")
+  public String getCustomerServicePhoneNumber() {
+    return customerServicePhoneNumber;
+  }
+
+  public void setCustomerServicePhoneNumber(String customerServicePhoneNumber) {
+    this.customerServicePhoneNumber = customerServicePhoneNumber;
+  }
+
+  public ACAPlan2018SearchResult durableMedicalEquipment(String durableMedicalEquipment) {
+    this.durableMedicalEquipment = durableMedicalEquipment;
+    return this;
+  }
+
+   /**
+   * Benefits summary for durable medical equipment
+   * @return durableMedicalEquipment
+  **/
+  @ApiModelProperty(example = "null", value = "Benefits summary for durable medical equipment")
+  public String getDurableMedicalEquipment() {
+    return durableMedicalEquipment;
+  }
+
+  public void setDurableMedicalEquipment(String durableMedicalEquipment) {
+    this.durableMedicalEquipment = durableMedicalEquipment;
+  }
+
+  public ACAPlan2018SearchResult diagnosticTest(String diagnosticTest) {
+    this.diagnosticTest = diagnosticTest;
+    return this;
+  }
+
+   /**
+   * Diagnostic tests benefit summary
+   * @return diagnosticTest
+  **/
+  @ApiModelProperty(example = "null", value = "Diagnostic tests benefit summary")
+  public String getDiagnosticTest() {
+    return diagnosticTest;
+  }
+
+  public void setDiagnosticTest(String diagnosticTest) {
+    this.diagnosticTest = diagnosticTest;
+  }
+
+  public ACAPlan2018SearchResult dpRider(Boolean dpRider) {
+    this.dpRider = dpRider;
+    return this;
+  }
+
+   /**
+   * True if plan does not cover domestic partners
+   * @return dpRider
+  **/
+  @ApiModelProperty(example = "null", value = "True if plan does not cover domestic partners")
+  public Boolean getDpRider() {
+    return dpRider;
+  }
+
+  public void setDpRider(Boolean dpRider) {
+    this.dpRider = dpRider;
+  }
+
+  public ACAPlan2018SearchResult drugFormularyUrl(String drugFormularyUrl) {
+    this.drugFormularyUrl = drugFormularyUrl;
+    return this;
+  }
+
+   /**
+   * Link to the summary of drug benefits for the plan
+   * @return drugFormularyUrl
+  **/
+  @ApiModelProperty(example = "null", value = "Link to the summary of drug benefits for the plan")
+  public String getDrugFormularyUrl() {
+    return drugFormularyUrl;
+  }
+
+  public void setDrugFormularyUrl(String drugFormularyUrl) {
+    this.drugFormularyUrl = drugFormularyUrl;
+  }
+
+  public ACAPlan2018SearchResult emergencyRoom(String emergencyRoom) {
+    this.emergencyRoom = emergencyRoom;
+    return this;
+  }
+
+   /**
+   * Description of costs when visiting the ER
+   * @return emergencyRoom
+  **/
+  @ApiModelProperty(example = "null", value = "Description of costs when visiting the ER")
+  public String getEmergencyRoom() {
+    return emergencyRoom;
+  }
+
+  public void setEmergencyRoom(String emergencyRoom) {
+    this.emergencyRoom = emergencyRoom;
+  }
+
+  public ACAPlan2018SearchResult familyDrugDeductible(String familyDrugDeductible) {
+    this.familyDrugDeductible = familyDrugDeductible;
+    return this;
+  }
+
+   /**
+   * Deductible for drugs when a family is on the plan.
+   * @return familyDrugDeductible
+  **/
+  @ApiModelProperty(example = "null", value = "Deductible for drugs when a family is on the plan.")
+  public String getFamilyDrugDeductible() {
+    return familyDrugDeductible;
+  }
+
+  public void setFamilyDrugDeductible(String familyDrugDeductible) {
+    this.familyDrugDeductible = familyDrugDeductible;
+  }
+
+  public ACAPlan2018SearchResult familyDrugMoop(String familyDrugMoop) {
+    this.familyDrugMoop = familyDrugMoop;
+    return this;
+  }
+
+   /**
+   * Maximum out-of-pocket for drugs when a family is on the plan
+   * @return familyDrugMoop
+  **/
+  @ApiModelProperty(example = "null", value = "Maximum out-of-pocket for drugs when a family is on the plan")
+  public String getFamilyDrugMoop() {
+    return familyDrugMoop;
+  }
+
+  public void setFamilyDrugMoop(String familyDrugMoop) {
+    this.familyDrugMoop = familyDrugMoop;
+  }
+
+  public ACAPlan2018SearchResult familyMedicalDeductible(String familyMedicalDeductible) {
+    this.familyMedicalDeductible = familyMedicalDeductible;
+    return this;
+  }
+
+   /**
+   * Deductible when a family is on the plan
+   * @return familyMedicalDeductible
+  **/
+  @ApiModelProperty(example = "null", value = "Deductible when a family is on the plan")
+  public String getFamilyMedicalDeductible() {
+    return familyMedicalDeductible;
+  }
+
+  public void setFamilyMedicalDeductible(String familyMedicalDeductible) {
+    this.familyMedicalDeductible = familyMedicalDeductible;
+  }
+
+  public ACAPlan2018SearchResult familyMedicalMoop(String familyMedicalMoop) {
+    this.familyMedicalMoop = familyMedicalMoop;
+    return this;
+  }
+
+   /**
+   * Maximum out-of-pocket when a family is on the plan
+   * @return familyMedicalMoop
+  **/
+  @ApiModelProperty(example = "null", value = "Maximum out-of-pocket when a family is on the plan")
+  public String getFamilyMedicalMoop() {
+    return familyMedicalMoop;
+  }
+
+  public void setFamilyMedicalMoop(String familyMedicalMoop) {
+    this.familyMedicalMoop = familyMedicalMoop;
+  }
+
+  public ACAPlan2018SearchResult fpRider(Boolean fpRider) {
+    this.fpRider = fpRider;
+    return this;
+  }
+
+   /**
+   * True if plan does not cover family planning
+   * @return fpRider
+  **/
+  @ApiModelProperty(example = "null", value = "True if plan does not cover family planning")
+  public Boolean getFpRider() {
+    return fpRider;
+  }
+
+  public void setFpRider(Boolean fpRider) {
+    this.fpRider = fpRider;
+  }
+
+  public ACAPlan2018SearchResult genericDrugs(String genericDrugs) {
+    this.genericDrugs = genericDrugs;
+    return this;
+  }
+
+   /**
+   * Cost for generic drugs
+   * @return genericDrugs
+  **/
+  @ApiModelProperty(example = "null", value = "Cost for generic drugs")
+  public String getGenericDrugs() {
+    return genericDrugs;
+  }
+
+  public void setGenericDrugs(String genericDrugs) {
+    this.genericDrugs = genericDrugs;
+  }
+
+  public ACAPlan2018SearchResult habilitationServices(String habilitationServices) {
+    this.habilitationServices = habilitationServices;
+    return this;
+  }
+
+   /**
+   * Habilitation services benefits summary
+   * @return habilitationServices
+  **/
+  @ApiModelProperty(example = "null", value = "Habilitation services benefits summary")
+  public String getHabilitationServices() {
+    return habilitationServices;
+  }
+
+  public void setHabilitationServices(String habilitationServices) {
+    this.habilitationServices = habilitationServices;
+  }
+
+  public ACAPlan2018SearchResult hiosIssuerId(String hiosIssuerId) {
+    this.hiosIssuerId = hiosIssuerId;
+    return this;
+  }
+
+   /**
+   * 
+   * @return hiosIssuerId
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public String getHiosIssuerId() {
+    return hiosIssuerId;
+  }
+
+  public void setHiosIssuerId(String hiosIssuerId) {
+    this.hiosIssuerId = hiosIssuerId;
+  }
+
+  public ACAPlan2018SearchResult homeHealthCare(String homeHealthCare) {
+    this.homeHealthCare = homeHealthCare;
+    return this;
+  }
+
+   /**
+   * Home health care benefits summary
+   * @return homeHealthCare
+  **/
+  @ApiModelProperty(example = "null", value = "Home health care benefits summary")
+  public String getHomeHealthCare() {
+    return homeHealthCare;
+  }
+
+  public void setHomeHealthCare(String homeHealthCare) {
+    this.homeHealthCare = homeHealthCare;
+  }
+
+  public ACAPlan2018SearchResult hospiceService(String hospiceService) {
+    this.hospiceService = hospiceService;
+    return this;
+  }
+
+   /**
+   * Hospice service benefits summary
+   * @return hospiceService
+  **/
+  @ApiModelProperty(example = "null", value = "Hospice service benefits summary")
+  public String getHospiceService() {
+    return hospiceService;
+  }
+
+  public void setHospiceService(String hospiceService) {
+    this.hospiceService = hospiceService;
+  }
+
+  public ACAPlan2018SearchResult hsaEligible(Boolean hsaEligible) {
+    this.hsaEligible = hsaEligible;
+    return this;
+  }
+
+   /**
+   * Is the plan HSA eligible?
+   * @return hsaEligible
+  **/
+  @ApiModelProperty(example = "null", value = "Is the plan HSA eligible?")
+  public Boolean getHsaEligible() {
+    return hsaEligible;
+  }
+
+  public void setHsaEligible(Boolean hsaEligible) {
+    this.hsaEligible = hsaEligible;
+  }
+
+  public ACAPlan2018SearchResult id(String id) {
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * Government-issued HIOS plan ID
+   * @return id
+  **/
+  @ApiModelProperty(example = "null", value = "Government-issued HIOS plan ID")
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public ACAPlan2018SearchResult imaging(String imaging) {
+    this.imaging = imaging;
+    return this;
+  }
+
+   /**
+   * Benefits summary for imaging coverage
+   * @return imaging
+  **/
+  @ApiModelProperty(example = "null", value = "Benefits summary for imaging coverage")
+  public String getImaging() {
+    return imaging;
+  }
+
+  public void setImaging(String imaging) {
+    this.imaging = imaging;
+  }
+
+  public ACAPlan2018SearchResult individualDrugDeductible(String individualDrugDeductible) {
+    this.individualDrugDeductible = individualDrugDeductible;
+    return this;
+  }
+
+   /**
+   * Deductible for drugs when an individual is on the plan
+   * @return individualDrugDeductible
+  **/
+  @ApiModelProperty(example = "null", value = "Deductible for drugs when an individual is on the plan")
+  public String getIndividualDrugDeductible() {
+    return individualDrugDeductible;
+  }
+
+  public void setIndividualDrugDeductible(String individualDrugDeductible) {
+    this.individualDrugDeductible = individualDrugDeductible;
+  }
+
+  public ACAPlan2018SearchResult individualDrugMoop(String individualDrugMoop) {
+    this.individualDrugMoop = individualDrugMoop;
+    return this;
+  }
+
+   /**
+   * Maximum out-of-pocket for drugs when an individual is on the plan
+   * @return individualDrugMoop
+  **/
+  @ApiModelProperty(example = "null", value = "Maximum out-of-pocket for drugs when an individual is on the plan")
+  public String getIndividualDrugMoop() {
+    return individualDrugMoop;
+  }
+
+  public void setIndividualDrugMoop(String individualDrugMoop) {
+    this.individualDrugMoop = individualDrugMoop;
+  }
+
+  public ACAPlan2018SearchResult individualMedicalDeductible(String individualMedicalDeductible) {
+    this.individualMedicalDeductible = individualMedicalDeductible;
+    return this;
+  }
+
+   /**
+   * Deductible when an individual is on the plan
+   * @return individualMedicalDeductible
+  **/
+  @ApiModelProperty(example = "null", value = "Deductible when an individual is on the plan")
+  public String getIndividualMedicalDeductible() {
+    return individualMedicalDeductible;
+  }
+
+  public void setIndividualMedicalDeductible(String individualMedicalDeductible) {
+    this.individualMedicalDeductible = individualMedicalDeductible;
+  }
+
+  public ACAPlan2018SearchResult individualMedicalMoop(String individualMedicalMoop) {
+    this.individualMedicalMoop = individualMedicalMoop;
+    return this;
+  }
+
+   /**
+   * Maximum out-of-pocket when an individual is on the plan
+   * @return individualMedicalMoop
+  **/
+  @ApiModelProperty(example = "null", value = "Maximum out-of-pocket when an individual is on the plan")
+  public String getIndividualMedicalMoop() {
+    return individualMedicalMoop;
+  }
+
+  public void setIndividualMedicalMoop(String individualMedicalMoop) {
+    this.individualMedicalMoop = individualMedicalMoop;
+  }
+
+  public ACAPlan2018SearchResult inpatientBirth(String inpatientBirth) {
+    this.inpatientBirth = inpatientBirth;
+    return this;
+  }
+
+   /**
+   * Inpatient birth benefits summary
+   * @return inpatientBirth
+  **/
+  @ApiModelProperty(example = "null", value = "Inpatient birth benefits summary")
+  public String getInpatientBirth() {
+    return inpatientBirth;
+  }
+
+  public void setInpatientBirth(String inpatientBirth) {
+    this.inpatientBirth = inpatientBirth;
+  }
+
+  public ACAPlan2018SearchResult inpatientFacility(String inpatientFacility) {
+    this.inpatientFacility = inpatientFacility;
+    return this;
+  }
+
+   /**
+   * Cost under the plan for an inpatient facility
+   * @return inpatientFacility
+  **/
+  @ApiModelProperty(example = "null", value = "Cost under the plan for an inpatient facility")
+  public String getInpatientFacility() {
+    return inpatientFacility;
+  }
+
+  public void setInpatientFacility(String inpatientFacility) {
+    this.inpatientFacility = inpatientFacility;
+  }
+
+  public ACAPlan2018SearchResult inpatientMentalHealth(String inpatientMentalHealth) {
+    this.inpatientMentalHealth = inpatientMentalHealth;
+    return this;
+  }
+
+   /**
+   * Inpatient mental helath benefits summary
+   * @return inpatientMentalHealth
+  **/
+  @ApiModelProperty(example = "null", value = "Inpatient mental helath benefits summary")
+  public String getInpatientMentalHealth() {
+    return inpatientMentalHealth;
+  }
+
+  public void setInpatientMentalHealth(String inpatientMentalHealth) {
+    this.inpatientMentalHealth = inpatientMentalHealth;
+  }
+
+  public ACAPlan2018SearchResult inpatientPhysician(String inpatientPhysician) {
+    this.inpatientPhysician = inpatientPhysician;
+    return this;
+  }
+
+   /**
+   * Cost under the plan for an inpatient physician
+   * @return inpatientPhysician
+  **/
+  @ApiModelProperty(example = "null", value = "Cost under the plan for an inpatient physician")
+  public String getInpatientPhysician() {
+    return inpatientPhysician;
+  }
+
+  public void setInpatientPhysician(String inpatientPhysician) {
+    this.inpatientPhysician = inpatientPhysician;
+  }
+
+  public ACAPlan2018SearchResult inpatientSubstance(String inpatientSubstance) {
+    this.inpatientSubstance = inpatientSubstance;
+    return this;
+  }
+
+   /**
+   * Inpatient substance abuse benefits summary
+   * @return inpatientSubstance
+  **/
+  @ApiModelProperty(example = "null", value = "Inpatient substance abuse benefits summary")
+  public String getInpatientSubstance() {
+    return inpatientSubstance;
+  }
+
+  public void setInpatientSubstance(String inpatientSubstance) {
+    this.inpatientSubstance = inpatientSubstance;
+  }
+
+  public ACAPlan2018SearchResult inNetworkIds(List<Integer> inNetworkIds) {
+    this.inNetworkIds = inNetworkIds;
+    return this;
+  }
+
+  public ACAPlan2018SearchResult addInNetworkIdsItem(Integer inNetworkIdsItem) {
+    this.inNetworkIds.add(inNetworkIdsItem);
+    return this;
+  }
+
+   /**
+   * List of NPI numbers for Providers passed in who accept this Plan
+   * @return inNetworkIds
+  **/
+  @ApiModelProperty(example = "null", value = "List of NPI numbers for Providers passed in who accept this Plan")
+  public List<Integer> getInNetworkIds() {
+    return inNetworkIds;
+  }
+
+  public void setInNetworkIds(List<Integer> inNetworkIds) {
+    this.inNetworkIds = inNetworkIds;
+  }
+
+  public ACAPlan2018SearchResult level(String level) {
+    this.level = level;
+    return this;
+  }
+
+   /**
+   * Plan metal grouping (e.g. platinum, gold, silver, etc)
+   * @return level
+  **/
+  @ApiModelProperty(example = "null", value = "Plan metal grouping (e.g. platinum, gold, silver, etc)")
+  public String getLevel() {
+    return level;
+  }
+
+  public void setLevel(String level) {
+    this.level = level;
+  }
+
+  public ACAPlan2018SearchResult logoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+    return this;
+  }
+
+   /**
+   * Link to a copy of the insurance carrier's logo
+   * @return logoUrl
+  **/
+  @ApiModelProperty(example = "null", value = "Link to a copy of the insurance carrier's logo")
+  public String getLogoUrl() {
+    return logoUrl;
+  }
+
+  public void setLogoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+  }
+
+  public ACAPlan2018SearchResult nonPreferredBrandDrugs(String nonPreferredBrandDrugs) {
+    this.nonPreferredBrandDrugs = nonPreferredBrandDrugs;
+    return this;
+  }
+
+   /**
+   * Cost under the plan for non-preferred brand drugs
+   * @return nonPreferredBrandDrugs
+  **/
+  @ApiModelProperty(example = "null", value = "Cost under the plan for non-preferred brand drugs")
+  public String getNonPreferredBrandDrugs() {
+    return nonPreferredBrandDrugs;
+  }
+
+  public void setNonPreferredBrandDrugs(String nonPreferredBrandDrugs) {
+    this.nonPreferredBrandDrugs = nonPreferredBrandDrugs;
+  }
+
+  public ACAPlan2018SearchResult onMarket(Boolean onMarket) {
+    this.onMarket = onMarket;
+    return this;
+  }
+
+   /**
+   * Is the plan on-market?
+   * @return onMarket
+  **/
+  @ApiModelProperty(example = "null", value = "Is the plan on-market?")
+  public Boolean getOnMarket() {
+    return onMarket;
+  }
+
+  public void setOnMarket(Boolean onMarket) {
+    this.onMarket = onMarket;
+  }
+
+  public ACAPlan2018SearchResult offMarket(Boolean offMarket) {
+    this.offMarket = offMarket;
+    return this;
+  }
+
+   /**
+   * Is the plan off-market?
+   * @return offMarket
+  **/
+  @ApiModelProperty(example = "null", value = "Is the plan off-market?")
+  public Boolean getOffMarket() {
+    return offMarket;
+  }
+
+  public void setOffMarket(Boolean offMarket) {
+    this.offMarket = offMarket;
+  }
+
+  public ACAPlan2018SearchResult outOfNetworkCoverage(Boolean outOfNetworkCoverage) {
+    this.outOfNetworkCoverage = outOfNetworkCoverage;
+    return this;
+  }
+
+   /**
+   * Does this plan provide any out of network coverage?
+   * @return outOfNetworkCoverage
+  **/
+  @ApiModelProperty(example = "null", value = "Does this plan provide any out of network coverage?")
+  public Boolean getOutOfNetworkCoverage() {
+    return outOfNetworkCoverage;
+  }
+
+  public void setOutOfNetworkCoverage(Boolean outOfNetworkCoverage) {
+    this.outOfNetworkCoverage = outOfNetworkCoverage;
+  }
+
+  public ACAPlan2018SearchResult outOfNetworkIds(List<Integer> outOfNetworkIds) {
+    this.outOfNetworkIds = outOfNetworkIds;
+    return this;
+  }
+
+  public ACAPlan2018SearchResult addOutOfNetworkIdsItem(Integer outOfNetworkIdsItem) {
+    this.outOfNetworkIds.add(outOfNetworkIdsItem);
+    return this;
+  }
+
+   /**
+   * List of NPI numbers for Providers passed in who do not accept this Plan
+   * @return outOfNetworkIds
+  **/
+  @ApiModelProperty(example = "null", value = "List of NPI numbers for Providers passed in who do not accept this Plan")
+  public List<Integer> getOutOfNetworkIds() {
+    return outOfNetworkIds;
+  }
+
+  public void setOutOfNetworkIds(List<Integer> outOfNetworkIds) {
+    this.outOfNetworkIds = outOfNetworkIds;
+  }
+
+  public ACAPlan2018SearchResult outpatientFacility(String outpatientFacility) {
+    this.outpatientFacility = outpatientFacility;
+    return this;
+  }
+
+   /**
+   * Benefits summary for outpatient facility coverage
+   * @return outpatientFacility
+  **/
+  @ApiModelProperty(example = "null", value = "Benefits summary for outpatient facility coverage")
+  public String getOutpatientFacility() {
+    return outpatientFacility;
+  }
+
+  public void setOutpatientFacility(String outpatientFacility) {
+    this.outpatientFacility = outpatientFacility;
+  }
+
+  public ACAPlan2018SearchResult outpatientMentalHealth(String outpatientMentalHealth) {
+    this.outpatientMentalHealth = outpatientMentalHealth;
+    return this;
+  }
+
+   /**
+   * Benefits summary for outpatient mental health coverage
+   * @return outpatientMentalHealth
+  **/
+  @ApiModelProperty(example = "null", value = "Benefits summary for outpatient mental health coverage")
+  public String getOutpatientMentalHealth() {
+    return outpatientMentalHealth;
+  }
+
+  public void setOutpatientMentalHealth(String outpatientMentalHealth) {
+    this.outpatientMentalHealth = outpatientMentalHealth;
+  }
+
+  public ACAPlan2018SearchResult outpatientPhysician(String outpatientPhysician) {
+    this.outpatientPhysician = outpatientPhysician;
+    return this;
+  }
+
+   /**
+   * Benefits summary for outpatient physician coverage
+   * @return outpatientPhysician
+  **/
+  @ApiModelProperty(example = "null", value = "Benefits summary for outpatient physician coverage")
+  public String getOutpatientPhysician() {
+    return outpatientPhysician;
+  }
+
+  public void setOutpatientPhysician(String outpatientPhysician) {
+    this.outpatientPhysician = outpatientPhysician;
+  }
+
+  public ACAPlan2018SearchResult outpatientSubstance(String outpatientSubstance) {
+    this.outpatientSubstance = outpatientSubstance;
+    return this;
+  }
+
+   /**
+   * Outpatient substance abuse benefits summary
+   * @return outpatientSubstance
+  **/
+  @ApiModelProperty(example = "null", value = "Outpatient substance abuse benefits summary")
+  public String getOutpatientSubstance() {
+    return outpatientSubstance;
+  }
+
+  public void setOutpatientSubstance(String outpatientSubstance) {
+    this.outpatientSubstance = outpatientSubstance;
+  }
+
+  public ACAPlan2018SearchResult planMarket(String planMarket) {
+    this.planMarket = planMarket;
+    return this;
+  }
+
+   /**
+   * Market in which the plan is offered (on_marketplace, shop, etc)
+   * @return planMarket
+  **/
+  @ApiModelProperty(example = "null", value = "Market in which the plan is offered (on_marketplace, shop, etc)")
+  public String getPlanMarket() {
+    return planMarket;
+  }
+
+  public void setPlanMarket(String planMarket) {
+    this.planMarket = planMarket;
+  }
+
+  public ACAPlan2018SearchResult preferredBrandDrugs(String preferredBrandDrugs) {
+    this.preferredBrandDrugs = preferredBrandDrugs;
+    return this;
+  }
+
+   /**
+   * Cost under the plan for perferred brand drugs
+   * @return preferredBrandDrugs
+  **/
+  @ApiModelProperty(example = "null", value = "Cost under the plan for perferred brand drugs")
+  public String getPreferredBrandDrugs() {
+    return preferredBrandDrugs;
+  }
+
+  public void setPreferredBrandDrugs(String preferredBrandDrugs) {
+    this.preferredBrandDrugs = preferredBrandDrugs;
+  }
+
+  public ACAPlan2018SearchResult prenatalPostnatalCare(String prenatalPostnatalCare) {
+    this.prenatalPostnatalCare = prenatalPostnatalCare;
+    return this;
+  }
+
+   /**
+   * Inpatient substance abuse benefits summary
+   * @return prenatalPostnatalCare
+  **/
+  @ApiModelProperty(example = "null", value = "Inpatient substance abuse benefits summary")
+  public String getPrenatalPostnatalCare() {
+    return prenatalPostnatalCare;
+  }
+
+  public void setPrenatalPostnatalCare(String prenatalPostnatalCare) {
+    this.prenatalPostnatalCare = prenatalPostnatalCare;
+  }
+
+  public ACAPlan2018SearchResult preventativeCare(String preventativeCare) {
+    this.preventativeCare = preventativeCare;
+    return this;
+  }
+
+   /**
+   * Benefits summary for preventative care
+   * @return preventativeCare
+  **/
+  @ApiModelProperty(example = "null", value = "Benefits summary for preventative care")
+  public String getPreventativeCare() {
+    return preventativeCare;
+  }
+
+  public void setPreventativeCare(String preventativeCare) {
+    this.preventativeCare = preventativeCare;
+  }
+
+  public ACAPlan2018SearchResult premiumSubsidized(BigDecimal premiumSubsidized) {
+    this.premiumSubsidized = premiumSubsidized;
+    return this;
+  }
+
+   /**
+   * Cumulative premium amount after subsidy
+   * @return premiumSubsidized
+  **/
+  @ApiModelProperty(example = "null", value = "Cumulative premium amount after subsidy")
+  public BigDecimal getPremiumSubsidized() {
+    return premiumSubsidized;
+  }
+
+  public void setPremiumSubsidized(BigDecimal premiumSubsidized) {
+    this.premiumSubsidized = premiumSubsidized;
+  }
+
+  public ACAPlan2018SearchResult premium(BigDecimal premium) {
+    this.premium = premium;
+    return this;
+  }
+
+   /**
+   * Cumulative premium amount
+   * @return premium
+  **/
+  @ApiModelProperty(example = "null", value = "Cumulative premium amount")
+  public BigDecimal getPremium() {
+    return premium;
+  }
+
+  public void setPremium(BigDecimal premium) {
+    this.premium = premium;
+  }
+
+  public ACAPlan2018SearchResult premiumSource(String premiumSource) {
+    this.premiumSource = premiumSource;
+    return this;
+  }
+
+   /**
+   * Source of the base pricing data
+   * @return premiumSource
+  **/
+  @ApiModelProperty(example = "null", value = "Source of the base pricing data")
+  public String getPremiumSource() {
+    return premiumSource;
+  }
+
+  public void setPremiumSource(String premiumSource) {
+    this.premiumSource = premiumSource;
+  }
+
+  public ACAPlan2018SearchResult primaryCarePhysician(String primaryCarePhysician) {
+    this.primaryCarePhysician = primaryCarePhysician;
+    return this;
+  }
+
+   /**
+   * Cost under the plan to visit a Primary Care Physician
+   * @return primaryCarePhysician
+  **/
+  @ApiModelProperty(example = "null", value = "Cost under the plan to visit a Primary Care Physician")
+  public String getPrimaryCarePhysician() {
+    return primaryCarePhysician;
+  }
+
+  public void setPrimaryCarePhysician(String primaryCarePhysician) {
+    this.primaryCarePhysician = primaryCarePhysician;
+  }
+
+  public ACAPlan2018SearchResult rehabilitationServices(String rehabilitationServices) {
+    this.rehabilitationServices = rehabilitationServices;
+    return this;
+  }
+
+   /**
+   * Benefits summary for rehabilitation services
+   * @return rehabilitationServices
+  **/
+  @ApiModelProperty(example = "null", value = "Benefits summary for rehabilitation services")
+  public String getRehabilitationServices() {
+    return rehabilitationServices;
+  }
+
+  public void setRehabilitationServices(String rehabilitationServices) {
+    this.rehabilitationServices = rehabilitationServices;
+  }
+
+  public ACAPlan2018SearchResult skilledNursing(String skilledNursing) {
     this.skilledNursing = skilledNursing;
     return this;
   }
@@ -1610,7 +1775,7 @@ public class VendoredPlanBulk  implements Serializable {
     this.skilledNursing = skilledNursing;
   }
 
-  public VendoredPlanBulk specialist(String specialist) {
+  public ACAPlan2018SearchResult specialist(String specialist) {
     this.specialist = specialist;
     return this;
   }
@@ -1628,7 +1793,7 @@ public class VendoredPlanBulk  implements Serializable {
     this.specialist = specialist;
   }
 
-  public VendoredPlanBulk specialtyDrugs(String specialtyDrugs) {
+  public ACAPlan2018SearchResult specialtyDrugs(String specialtyDrugs) {
     this.specialtyDrugs = specialtyDrugs;
     return this;
   }
@@ -1646,7 +1811,7 @@ public class VendoredPlanBulk  implements Serializable {
     this.specialtyDrugs = specialtyDrugs;
   }
 
-  public VendoredPlanBulk urgentCare(String urgentCare) {
+  public ACAPlan2018SearchResult urgentCare(String urgentCare) {
     this.urgentCare = urgentCare;
     return this;
   }
@@ -1664,22 +1829,364 @@ public class VendoredPlanBulk  implements Serializable {
     this.urgentCare = urgentCare;
   }
 
-  public VendoredPlanBulk vendorId(String vendorId) {
-    this.vendorId = vendorId;
+  public ACAPlan2018SearchResult actuarialValue(BigDecimal actuarialValue) {
+    this.actuarialValue = actuarialValue;
     return this;
   }
 
    /**
-   * Vendor-specific ID
-   * @return vendorId
+   * Percentage of total average costs for covered benefits that a plan will cover.
+   * @return actuarialValue
   **/
-  @ApiModelProperty(example = "null", value = "Vendor-specific ID")
-  public String getVendorId() {
-    return vendorId;
+  @ApiModelProperty(example = "null", value = "Percentage of total average costs for covered benefits that a plan will cover.")
+  public BigDecimal getActuarialValue() {
+    return actuarialValue;
   }
 
-  public void setVendorId(String vendorId) {
-    this.vendorId = vendorId;
+  public void setActuarialValue(BigDecimal actuarialValue) {
+    this.actuarialValue = actuarialValue;
+  }
+
+  public ACAPlan2018SearchResult chiropracticServices(String chiropracticServices) {
+    this.chiropracticServices = chiropracticServices;
+    return this;
+  }
+
+   /**
+   * Chiropractic services benefits summary
+   * @return chiropracticServices
+  **/
+  @ApiModelProperty(example = "null", value = "Chiropractic services benefits summary")
+  public String getChiropracticServices() {
+    return chiropracticServices;
+  }
+
+  public void setChiropracticServices(String chiropracticServices) {
+    this.chiropracticServices = chiropracticServices;
+  }
+
+  public ACAPlan2018SearchResult coinsurance(BigDecimal coinsurance) {
+    this.coinsurance = coinsurance;
+    return this;
+  }
+
+   /**
+   * Standard cost share for most benefits
+   * @return coinsurance
+  **/
+  @ApiModelProperty(example = "null", value = "Standard cost share for most benefits")
+  public BigDecimal getCoinsurance() {
+    return coinsurance;
+  }
+
+  public void setCoinsurance(BigDecimal coinsurance) {
+    this.coinsurance = coinsurance;
+  }
+
+  public ACAPlan2018SearchResult embeddedDeductible(String embeddedDeductible) {
+    this.embeddedDeductible = embeddedDeductible;
+    return this;
+  }
+
+   /**
+   * Is the individual deductible for each covered person, embedded in the family deductible
+   * @return embeddedDeductible
+  **/
+  @ApiModelProperty(example = "null", value = "Is the individual deductible for each covered person, embedded in the family deductible")
+  public String getEmbeddedDeductible() {
+    return embeddedDeductible;
+  }
+
+  public void setEmbeddedDeductible(String embeddedDeductible) {
+    this.embeddedDeductible = embeddedDeductible;
+  }
+
+  public ACAPlan2018SearchResult gated(Boolean gated) {
+    this.gated = gated;
+    return this;
+  }
+
+   /**
+   * Does the plan's network require a physician referral?
+   * @return gated
+  **/
+  @ApiModelProperty(example = "null", value = "Does the plan's network require a physician referral?")
+  public Boolean getGated() {
+    return gated;
+  }
+
+  public void setGated(Boolean gated) {
+    this.gated = gated;
+  }
+
+  public ACAPlan2018SearchResult imagingCenter(String imagingCenter) {
+    this.imagingCenter = imagingCenter;
+    return this;
+  }
+
+   /**
+   * Imaging center benefits summary
+   * @return imagingCenter
+  **/
+  @ApiModelProperty(example = "null", value = "Imaging center benefits summary")
+  public String getImagingCenter() {
+    return imagingCenter;
+  }
+
+  public void setImagingCenter(String imagingCenter) {
+    this.imagingCenter = imagingCenter;
+  }
+
+  public ACAPlan2018SearchResult imagingPhysician(String imagingPhysician) {
+    this.imagingPhysician = imagingPhysician;
+    return this;
+  }
+
+   /**
+   * Imaging physician benefits summary
+   * @return imagingPhysician
+  **/
+  @ApiModelProperty(example = "null", value = "Imaging physician benefits summary")
+  public String getImagingPhysician() {
+    return imagingPhysician;
+  }
+
+  public void setImagingPhysician(String imagingPhysician) {
+    this.imagingPhysician = imagingPhysician;
+  }
+
+  public ACAPlan2018SearchResult labTest(String labTest) {
+    this.labTest = labTest;
+    return this;
+  }
+
+   /**
+   * Lab test benefits summary
+   * @return labTest
+  **/
+  @ApiModelProperty(example = "null", value = "Lab test benefits summary")
+  public String getLabTest() {
+    return labTest;
+  }
+
+  public void setLabTest(String labTest) {
+    this.labTest = labTest;
+  }
+
+  public ACAPlan2018SearchResult mailOrderRx(BigDecimal mailOrderRx) {
+    this.mailOrderRx = mailOrderRx;
+    return this;
+  }
+
+   /**
+   * Multiple of the standard Rx cost share for orders filled via mail order
+   * @return mailOrderRx
+  **/
+  @ApiModelProperty(example = "null", value = "Multiple of the standard Rx cost share for orders filled via mail order")
+  public BigDecimal getMailOrderRx() {
+    return mailOrderRx;
+  }
+
+  public void setMailOrderRx(BigDecimal mailOrderRx) {
+    this.mailOrderRx = mailOrderRx;
+  }
+
+  public ACAPlan2018SearchResult nonpreferredGenericDrugShare(String nonpreferredGenericDrugShare) {
+    this.nonpreferredGenericDrugShare = nonpreferredGenericDrugShare;
+    return this;
+  }
+
+   /**
+   * Non-preferred generic drugs benefits summary
+   * @return nonpreferredGenericDrugShare
+  **/
+  @ApiModelProperty(example = "null", value = "Non-preferred generic drugs benefits summary")
+  public String getNonpreferredGenericDrugShare() {
+    return nonpreferredGenericDrugShare;
+  }
+
+  public void setNonpreferredGenericDrugShare(String nonpreferredGenericDrugShare) {
+    this.nonpreferredGenericDrugShare = nonpreferredGenericDrugShare;
+  }
+
+  public ACAPlan2018SearchResult nonpreferredSpecialtyDrugShare(String nonpreferredSpecialtyDrugShare) {
+    this.nonpreferredSpecialtyDrugShare = nonpreferredSpecialtyDrugShare;
+    return this;
+  }
+
+   /**
+   * Non-preferred specialty drugs benefits summary
+   * @return nonpreferredSpecialtyDrugShare
+  **/
+  @ApiModelProperty(example = "null", value = "Non-preferred specialty drugs benefits summary")
+  public String getNonpreferredSpecialtyDrugShare() {
+    return nonpreferredSpecialtyDrugShare;
+  }
+
+  public void setNonpreferredSpecialtyDrugShare(String nonpreferredSpecialtyDrugShare) {
+    this.nonpreferredSpecialtyDrugShare = nonpreferredSpecialtyDrugShare;
+  }
+
+  public ACAPlan2018SearchResult outpatientAmbulatoryCareCenter(String outpatientAmbulatoryCareCenter) {
+    this.outpatientAmbulatoryCareCenter = outpatientAmbulatoryCareCenter;
+    return this;
+  }
+
+   /**
+   * Outpatient ambulatory care center benefits summary
+   * @return outpatientAmbulatoryCareCenter
+  **/
+  @ApiModelProperty(example = "null", value = "Outpatient ambulatory care center benefits summary")
+  public String getOutpatientAmbulatoryCareCenter() {
+    return outpatientAmbulatoryCareCenter;
+  }
+
+  public void setOutpatientAmbulatoryCareCenter(String outpatientAmbulatoryCareCenter) {
+    this.outpatientAmbulatoryCareCenter = outpatientAmbulatoryCareCenter;
+  }
+
+  public ACAPlan2018SearchResult planCalendar(String planCalendar) {
+    this.planCalendar = planCalendar;
+    return this;
+  }
+
+   /**
+   * Are deductibles and MOOPs reset on Dec-31 (\"calendar year\") or 365 days after enrollment date (\"plan year\")?
+   * @return planCalendar
+  **/
+  @ApiModelProperty(example = "null", value = "Are deductibles and MOOPs reset on Dec-31 (\"calendar year\") or 365 days after enrollment date (\"plan year\")?")
+  public String getPlanCalendar() {
+    return planCalendar;
+  }
+
+  public void setPlanCalendar(String planCalendar) {
+    this.planCalendar = planCalendar;
+  }
+
+  public ACAPlan2018SearchResult prenatalCare(String prenatalCare) {
+    this.prenatalCare = prenatalCare;
+    return this;
+  }
+
+   /**
+   * Prenatal care benefits summary
+   * @return prenatalCare
+  **/
+  @ApiModelProperty(example = "null", value = "Prenatal care benefits summary")
+  public String getPrenatalCare() {
+    return prenatalCare;
+  }
+
+  public void setPrenatalCare(String prenatalCare) {
+    this.prenatalCare = prenatalCare;
+  }
+
+  public ACAPlan2018SearchResult postnatalCare(String postnatalCare) {
+    this.postnatalCare = postnatalCare;
+    return this;
+  }
+
+   /**
+   * Post-natal care benefits summary
+   * @return postnatalCare
+  **/
+  @ApiModelProperty(example = "null", value = "Post-natal care benefits summary")
+  public String getPostnatalCare() {
+    return postnatalCare;
+  }
+
+  public void setPostnatalCare(String postnatalCare) {
+    this.postnatalCare = postnatalCare;
+  }
+
+  public ACAPlan2018SearchResult skilledNursingFacility365(String skilledNursingFacility365) {
+    this.skilledNursingFacility365 = skilledNursingFacility365;
+    return this;
+  }
+
+   /**
+   * Does the plan cover full-time, year-round, nursing facilities?
+   * @return skilledNursingFacility365
+  **/
+  @ApiModelProperty(example = "null", value = "Does the plan cover full-time, year-round, nursing facilities?")
+  public String getSkilledNursingFacility365() {
+    return skilledNursingFacility365;
+  }
+
+  public void setSkilledNursingFacility365(String skilledNursingFacility365) {
+    this.skilledNursingFacility365 = skilledNursingFacility365;
+  }
+
+  public ACAPlan2018SearchResult matchPercentage(Integer matchPercentage) {
+    this.matchPercentage = matchPercentage;
+    return this;
+  }
+
+   /**
+   * Percentage of doctors who matched this Plan
+   * @return matchPercentage
+  **/
+  @ApiModelProperty(example = "null", value = "Percentage of doctors who matched this Plan")
+  public Integer getMatchPercentage() {
+    return matchPercentage;
+  }
+
+  public void setMatchPercentage(Integer matchPercentage) {
+    this.matchPercentage = matchPercentage;
+  }
+
+  public ACAPlan2018SearchResult perfectMatchPercentage(Integer perfectMatchPercentage) {
+    this.perfectMatchPercentage = perfectMatchPercentage;
+    return this;
+  }
+
+   /**
+   * Percentage of employees with 100% matchedch
+   * @return perfectMatchPercentage
+  **/
+  @ApiModelProperty(example = "null", value = "Percentage of employees with 100% matchedch")
+  public Integer getPerfectMatchPercentage() {
+    return perfectMatchPercentage;
+  }
+
+  public void setPerfectMatchPercentage(Integer perfectMatchPercentage) {
+    this.perfectMatchPercentage = perfectMatchPercentage;
+  }
+
+  public ACAPlan2018SearchResult employeePremium(BigDecimal employeePremium) {
+    this.employeePremium = employeePremium;
+    return this;
+  }
+
+   /**
+   * Cumulative premium amount for employees
+   * @return employeePremium
+  **/
+  @ApiModelProperty(example = "null", value = "Cumulative premium amount for employees")
+  public BigDecimal getEmployeePremium() {
+    return employeePremium;
+  }
+
+  public void setEmployeePremium(BigDecimal employeePremium) {
+    this.employeePremium = employeePremium;
+  }
+
+  public ACAPlan2018SearchResult dependentPremium(BigDecimal dependentPremium) {
+    this.dependentPremium = dependentPremium;
+    return this;
+  }
+
+   /**
+   * Cumulative premium amount for dependents
+   * @return dependentPremium
+  **/
+  @ApiModelProperty(example = "null", value = "Cumulative premium amount for dependents")
+  public BigDecimal getDependentPremium() {
+    return dependentPremium;
+  }
+
+  public void setDependentPremium(BigDecimal dependentPremium) {
+    this.dependentPremium = dependentPremium;
   }
 
 
@@ -1691,106 +2198,135 @@ public class VendoredPlanBulk  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    VendoredPlanBulk vendoredPlanBulk = (VendoredPlanBulk) o;
-    return Objects.equals(this.adultDental, vendoredPlanBulk.adultDental) &&
-        Objects.equals(this.age29Rider, vendoredPlanBulk.age29Rider) &&
-        Objects.equals(this.ambulance, vendoredPlanBulk.ambulance) &&
-        Objects.equals(this.benefitsSummaryUrl, vendoredPlanBulk.benefitsSummaryUrl) &&
-        Objects.equals(this.buyLink, vendoredPlanBulk.buyLink) &&
-        Objects.equals(this.carrierName, vendoredPlanBulk.carrierName) &&
-        Objects.equals(this.childDental, vendoredPlanBulk.childDental) &&
-        Objects.equals(this.childEyewear, vendoredPlanBulk.childEyewear) &&
-        Objects.equals(this.childEyeExam, vendoredPlanBulk.childEyeExam) &&
-        Objects.equals(this.customerServicePhoneNumber, vendoredPlanBulk.customerServicePhoneNumber) &&
-        Objects.equals(this.durableMedicalEquipment, vendoredPlanBulk.durableMedicalEquipment) &&
-        Objects.equals(this.diagnosticTest, vendoredPlanBulk.diagnosticTest) &&
-        Objects.equals(this.displayName, vendoredPlanBulk.displayName) &&
-        Objects.equals(this.dpRider, vendoredPlanBulk.dpRider) &&
-        Objects.equals(this.drugFormularyUrl, vendoredPlanBulk.drugFormularyUrl) &&
-        Objects.equals(this.effectiveDate, vendoredPlanBulk.effectiveDate) &&
-        Objects.equals(this.expirationDate, vendoredPlanBulk.expirationDate) &&
-        Objects.equals(this.emergencyRoom, vendoredPlanBulk.emergencyRoom) &&
-        Objects.equals(this.familyDrugDeductible, vendoredPlanBulk.familyDrugDeductible) &&
-        Objects.equals(this.familyDrugMoop, vendoredPlanBulk.familyDrugMoop) &&
-        Objects.equals(this.familyMedicalDeductible, vendoredPlanBulk.familyMedicalDeductible) &&
-        Objects.equals(this.familyMedicalMoop, vendoredPlanBulk.familyMedicalMoop) &&
-        Objects.equals(this.fpRider, vendoredPlanBulk.fpRider) &&
-        Objects.equals(this.genericDrugs, vendoredPlanBulk.genericDrugs) &&
-        Objects.equals(this.habilitationServices, vendoredPlanBulk.habilitationServices) &&
-        Objects.equals(this.hiosIssuerId, vendoredPlanBulk.hiosIssuerId) &&
-        Objects.equals(this.homeHealthCare, vendoredPlanBulk.homeHealthCare) &&
-        Objects.equals(this.hospiceService, vendoredPlanBulk.hospiceService) &&
-        Objects.equals(this.hsaEligible, vendoredPlanBulk.hsaEligible) &&
-        Objects.equals(this.id, vendoredPlanBulk.id) &&
-        Objects.equals(this.imaging, vendoredPlanBulk.imaging) &&
-        Objects.equals(this.inNetworkIds, vendoredPlanBulk.inNetworkIds) &&
-        Objects.equals(this.individualDrugDeductible, vendoredPlanBulk.individualDrugDeductible) &&
-        Objects.equals(this.individualDrugMoop, vendoredPlanBulk.individualDrugMoop) &&
-        Objects.equals(this.individualMedicalDeductible, vendoredPlanBulk.individualMedicalDeductible) &&
-        Objects.equals(this.individualMedicalMoop, vendoredPlanBulk.individualMedicalMoop) &&
-        Objects.equals(this.inpatientBirth, vendoredPlanBulk.inpatientBirth) &&
-        Objects.equals(this.inpatientFacility, vendoredPlanBulk.inpatientFacility) &&
-        Objects.equals(this.inpatientMentalHealth, vendoredPlanBulk.inpatientMentalHealth) &&
-        Objects.equals(this.inpatientPhysician, vendoredPlanBulk.inpatientPhysician) &&
-        Objects.equals(this.inpatientSubstance, vendoredPlanBulk.inpatientSubstance) &&
-        Objects.equals(this.level, vendoredPlanBulk.level) &&
-        Objects.equals(this.logoUrl, vendoredPlanBulk.logoUrl) &&
-        Objects.equals(this.name, vendoredPlanBulk.name) &&
-        Objects.equals(this.networkSize, vendoredPlanBulk.networkSize) &&
-        Objects.equals(this.nonPreferredBrandDrugs, vendoredPlanBulk.nonPreferredBrandDrugs) &&
-        Objects.equals(this.onMarket, vendoredPlanBulk.onMarket) &&
-        Objects.equals(this.offMarket, vendoredPlanBulk.offMarket) &&
-        Objects.equals(this.outOfNetworkCoverage, vendoredPlanBulk.outOfNetworkCoverage) &&
-        Objects.equals(this.outOfNetworkIds, vendoredPlanBulk.outOfNetworkIds) &&
-        Objects.equals(this.outpatientFacility, vendoredPlanBulk.outpatientFacility) &&
-        Objects.equals(this.outpatientMentalHealth, vendoredPlanBulk.outpatientMentalHealth) &&
-        Objects.equals(this.outpatientPhysician, vendoredPlanBulk.outpatientPhysician) &&
-        Objects.equals(this.outpatientSubstance, vendoredPlanBulk.outpatientSubstance) &&
-        Objects.equals(this.planMarket, vendoredPlanBulk.planMarket) &&
-        Objects.equals(this.planType, vendoredPlanBulk.planType) &&
-        Objects.equals(this.preferredBrandDrugs, vendoredPlanBulk.preferredBrandDrugs) &&
-        Objects.equals(this.prenatalPostnatalCare, vendoredPlanBulk.prenatalPostnatalCare) &&
-        Objects.equals(this.preventativeCare, vendoredPlanBulk.preventativeCare) &&
-        Objects.equals(this.premiumSubsidized, vendoredPlanBulk.premiumSubsidized) &&
-        Objects.equals(this.premium, vendoredPlanBulk.premium) &&
-        Objects.equals(this.premiumSource, vendoredPlanBulk.premiumSource) &&
-        Objects.equals(this.primaryCarePhysician, vendoredPlanBulk.primaryCarePhysician) &&
-        Objects.equals(this.rehabilitationServices, vendoredPlanBulk.rehabilitationServices) &&
-        Objects.equals(this.serviceAreaId, vendoredPlanBulk.serviceAreaId) &&
-        Objects.equals(this.skilledNursing, vendoredPlanBulk.skilledNursing) &&
-        Objects.equals(this.specialist, vendoredPlanBulk.specialist) &&
-        Objects.equals(this.specialtyDrugs, vendoredPlanBulk.specialtyDrugs) &&
-        Objects.equals(this.urgentCare, vendoredPlanBulk.urgentCare) &&
-        Objects.equals(this.vendorId, vendoredPlanBulk.vendorId);
+    ACAPlan2018SearchResult aCAPlan2018SearchResult = (ACAPlan2018SearchResult) o;
+    return Objects.equals(this.carrierName, aCAPlan2018SearchResult.carrierName) &&
+        Objects.equals(this.displayName, aCAPlan2018SearchResult.displayName) &&
+        Objects.equals(this.effectiveDate, aCAPlan2018SearchResult.effectiveDate) &&
+        Objects.equals(this.expirationDate, aCAPlan2018SearchResult.expirationDate) &&
+        Objects.equals(this.identifiers, aCAPlan2018SearchResult.identifiers) &&
+        Objects.equals(this.name, aCAPlan2018SearchResult.name) &&
+        Objects.equals(this.networkIds, aCAPlan2018SearchResult.networkIds) &&
+        Objects.equals(this.planType, aCAPlan2018SearchResult.planType) &&
+        Objects.equals(this.serviceAreaId, aCAPlan2018SearchResult.serviceAreaId) &&
+        Objects.equals(this.source, aCAPlan2018SearchResult.source) &&
+        Objects.equals(this.type, aCAPlan2018SearchResult.type) &&
+        Objects.equals(this.adultDental, aCAPlan2018SearchResult.adultDental) &&
+        Objects.equals(this.age29Rider, aCAPlan2018SearchResult.age29Rider) &&
+        Objects.equals(this.ambulance, aCAPlan2018SearchResult.ambulance) &&
+        Objects.equals(this.benefitsSummaryUrl, aCAPlan2018SearchResult.benefitsSummaryUrl) &&
+        Objects.equals(this.buyLink, aCAPlan2018SearchResult.buyLink) &&
+        Objects.equals(this.childDental, aCAPlan2018SearchResult.childDental) &&
+        Objects.equals(this.childEyewear, aCAPlan2018SearchResult.childEyewear) &&
+        Objects.equals(this.childEyeExam, aCAPlan2018SearchResult.childEyeExam) &&
+        Objects.equals(this.customerServicePhoneNumber, aCAPlan2018SearchResult.customerServicePhoneNumber) &&
+        Objects.equals(this.durableMedicalEquipment, aCAPlan2018SearchResult.durableMedicalEquipment) &&
+        Objects.equals(this.diagnosticTest, aCAPlan2018SearchResult.diagnosticTest) &&
+        Objects.equals(this.dpRider, aCAPlan2018SearchResult.dpRider) &&
+        Objects.equals(this.drugFormularyUrl, aCAPlan2018SearchResult.drugFormularyUrl) &&
+        Objects.equals(this.emergencyRoom, aCAPlan2018SearchResult.emergencyRoom) &&
+        Objects.equals(this.familyDrugDeductible, aCAPlan2018SearchResult.familyDrugDeductible) &&
+        Objects.equals(this.familyDrugMoop, aCAPlan2018SearchResult.familyDrugMoop) &&
+        Objects.equals(this.familyMedicalDeductible, aCAPlan2018SearchResult.familyMedicalDeductible) &&
+        Objects.equals(this.familyMedicalMoop, aCAPlan2018SearchResult.familyMedicalMoop) &&
+        Objects.equals(this.fpRider, aCAPlan2018SearchResult.fpRider) &&
+        Objects.equals(this.genericDrugs, aCAPlan2018SearchResult.genericDrugs) &&
+        Objects.equals(this.habilitationServices, aCAPlan2018SearchResult.habilitationServices) &&
+        Objects.equals(this.hiosIssuerId, aCAPlan2018SearchResult.hiosIssuerId) &&
+        Objects.equals(this.homeHealthCare, aCAPlan2018SearchResult.homeHealthCare) &&
+        Objects.equals(this.hospiceService, aCAPlan2018SearchResult.hospiceService) &&
+        Objects.equals(this.hsaEligible, aCAPlan2018SearchResult.hsaEligible) &&
+        Objects.equals(this.id, aCAPlan2018SearchResult.id) &&
+        Objects.equals(this.imaging, aCAPlan2018SearchResult.imaging) &&
+        Objects.equals(this.individualDrugDeductible, aCAPlan2018SearchResult.individualDrugDeductible) &&
+        Objects.equals(this.individualDrugMoop, aCAPlan2018SearchResult.individualDrugMoop) &&
+        Objects.equals(this.individualMedicalDeductible, aCAPlan2018SearchResult.individualMedicalDeductible) &&
+        Objects.equals(this.individualMedicalMoop, aCAPlan2018SearchResult.individualMedicalMoop) &&
+        Objects.equals(this.inpatientBirth, aCAPlan2018SearchResult.inpatientBirth) &&
+        Objects.equals(this.inpatientFacility, aCAPlan2018SearchResult.inpatientFacility) &&
+        Objects.equals(this.inpatientMentalHealth, aCAPlan2018SearchResult.inpatientMentalHealth) &&
+        Objects.equals(this.inpatientPhysician, aCAPlan2018SearchResult.inpatientPhysician) &&
+        Objects.equals(this.inpatientSubstance, aCAPlan2018SearchResult.inpatientSubstance) &&
+        Objects.equals(this.inNetworkIds, aCAPlan2018SearchResult.inNetworkIds) &&
+        Objects.equals(this.level, aCAPlan2018SearchResult.level) &&
+        Objects.equals(this.logoUrl, aCAPlan2018SearchResult.logoUrl) &&
+        Objects.equals(this.nonPreferredBrandDrugs, aCAPlan2018SearchResult.nonPreferredBrandDrugs) &&
+        Objects.equals(this.onMarket, aCAPlan2018SearchResult.onMarket) &&
+        Objects.equals(this.offMarket, aCAPlan2018SearchResult.offMarket) &&
+        Objects.equals(this.outOfNetworkCoverage, aCAPlan2018SearchResult.outOfNetworkCoverage) &&
+        Objects.equals(this.outOfNetworkIds, aCAPlan2018SearchResult.outOfNetworkIds) &&
+        Objects.equals(this.outpatientFacility, aCAPlan2018SearchResult.outpatientFacility) &&
+        Objects.equals(this.outpatientMentalHealth, aCAPlan2018SearchResult.outpatientMentalHealth) &&
+        Objects.equals(this.outpatientPhysician, aCAPlan2018SearchResult.outpatientPhysician) &&
+        Objects.equals(this.outpatientSubstance, aCAPlan2018SearchResult.outpatientSubstance) &&
+        Objects.equals(this.planMarket, aCAPlan2018SearchResult.planMarket) &&
+        Objects.equals(this.preferredBrandDrugs, aCAPlan2018SearchResult.preferredBrandDrugs) &&
+        Objects.equals(this.prenatalPostnatalCare, aCAPlan2018SearchResult.prenatalPostnatalCare) &&
+        Objects.equals(this.preventativeCare, aCAPlan2018SearchResult.preventativeCare) &&
+        Objects.equals(this.premiumSubsidized, aCAPlan2018SearchResult.premiumSubsidized) &&
+        Objects.equals(this.premium, aCAPlan2018SearchResult.premium) &&
+        Objects.equals(this.premiumSource, aCAPlan2018SearchResult.premiumSource) &&
+        Objects.equals(this.primaryCarePhysician, aCAPlan2018SearchResult.primaryCarePhysician) &&
+        Objects.equals(this.rehabilitationServices, aCAPlan2018SearchResult.rehabilitationServices) &&
+        Objects.equals(this.skilledNursing, aCAPlan2018SearchResult.skilledNursing) &&
+        Objects.equals(this.specialist, aCAPlan2018SearchResult.specialist) &&
+        Objects.equals(this.specialtyDrugs, aCAPlan2018SearchResult.specialtyDrugs) &&
+        Objects.equals(this.urgentCare, aCAPlan2018SearchResult.urgentCare) &&
+        Objects.equals(this.actuarialValue, aCAPlan2018SearchResult.actuarialValue) &&
+        Objects.equals(this.chiropracticServices, aCAPlan2018SearchResult.chiropracticServices) &&
+        Objects.equals(this.coinsurance, aCAPlan2018SearchResult.coinsurance) &&
+        Objects.equals(this.embeddedDeductible, aCAPlan2018SearchResult.embeddedDeductible) &&
+        Objects.equals(this.gated, aCAPlan2018SearchResult.gated) &&
+        Objects.equals(this.imagingCenter, aCAPlan2018SearchResult.imagingCenter) &&
+        Objects.equals(this.imagingPhysician, aCAPlan2018SearchResult.imagingPhysician) &&
+        Objects.equals(this.labTest, aCAPlan2018SearchResult.labTest) &&
+        Objects.equals(this.mailOrderRx, aCAPlan2018SearchResult.mailOrderRx) &&
+        Objects.equals(this.nonpreferredGenericDrugShare, aCAPlan2018SearchResult.nonpreferredGenericDrugShare) &&
+        Objects.equals(this.nonpreferredSpecialtyDrugShare, aCAPlan2018SearchResult.nonpreferredSpecialtyDrugShare) &&
+        Objects.equals(this.outpatientAmbulatoryCareCenter, aCAPlan2018SearchResult.outpatientAmbulatoryCareCenter) &&
+        Objects.equals(this.planCalendar, aCAPlan2018SearchResult.planCalendar) &&
+        Objects.equals(this.prenatalCare, aCAPlan2018SearchResult.prenatalCare) &&
+        Objects.equals(this.postnatalCare, aCAPlan2018SearchResult.postnatalCare) &&
+        Objects.equals(this.skilledNursingFacility365, aCAPlan2018SearchResult.skilledNursingFacility365) &&
+        Objects.equals(this.matchPercentage, aCAPlan2018SearchResult.matchPercentage) &&
+        Objects.equals(this.perfectMatchPercentage, aCAPlan2018SearchResult.perfectMatchPercentage) &&
+        Objects.equals(this.employeePremium, aCAPlan2018SearchResult.employeePremium) &&
+        Objects.equals(this.dependentPremium, aCAPlan2018SearchResult.dependentPremium);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(adultDental, age29Rider, ambulance, benefitsSummaryUrl, buyLink, carrierName, childDental, childEyewear, childEyeExam, customerServicePhoneNumber, durableMedicalEquipment, diagnosticTest, displayName, dpRider, drugFormularyUrl, effectiveDate, expirationDate, emergencyRoom, familyDrugDeductible, familyDrugMoop, familyMedicalDeductible, familyMedicalMoop, fpRider, genericDrugs, habilitationServices, hiosIssuerId, homeHealthCare, hospiceService, hsaEligible, id, imaging, inNetworkIds, individualDrugDeductible, individualDrugMoop, individualMedicalDeductible, individualMedicalMoop, inpatientBirth, inpatientFacility, inpatientMentalHealth, inpatientPhysician, inpatientSubstance, level, logoUrl, name, networkSize, nonPreferredBrandDrugs, onMarket, offMarket, outOfNetworkCoverage, outOfNetworkIds, outpatientFacility, outpatientMentalHealth, outpatientPhysician, outpatientSubstance, planMarket, planType, preferredBrandDrugs, prenatalPostnatalCare, preventativeCare, premiumSubsidized, premium, premiumSource, primaryCarePhysician, rehabilitationServices, serviceAreaId, skilledNursing, specialist, specialtyDrugs, urgentCare, vendorId);
+    return Objects.hash(carrierName, displayName, effectiveDate, expirationDate, identifiers, name, networkIds, planType, serviceAreaId, source, type, adultDental, age29Rider, ambulance, benefitsSummaryUrl, buyLink, childDental, childEyewear, childEyeExam, customerServicePhoneNumber, durableMedicalEquipment, diagnosticTest, dpRider, drugFormularyUrl, emergencyRoom, familyDrugDeductible, familyDrugMoop, familyMedicalDeductible, familyMedicalMoop, fpRider, genericDrugs, habilitationServices, hiosIssuerId, homeHealthCare, hospiceService, hsaEligible, id, imaging, individualDrugDeductible, individualDrugMoop, individualMedicalDeductible, individualMedicalMoop, inpatientBirth, inpatientFacility, inpatientMentalHealth, inpatientPhysician, inpatientSubstance, inNetworkIds, level, logoUrl, nonPreferredBrandDrugs, onMarket, offMarket, outOfNetworkCoverage, outOfNetworkIds, outpatientFacility, outpatientMentalHealth, outpatientPhysician, outpatientSubstance, planMarket, preferredBrandDrugs, prenatalPostnatalCare, preventativeCare, premiumSubsidized, premium, premiumSource, primaryCarePhysician, rehabilitationServices, skilledNursing, specialist, specialtyDrugs, urgentCare, actuarialValue, chiropracticServices, coinsurance, embeddedDeductible, gated, imagingCenter, imagingPhysician, labTest, mailOrderRx, nonpreferredGenericDrugShare, nonpreferredSpecialtyDrugShare, outpatientAmbulatoryCareCenter, planCalendar, prenatalCare, postnatalCare, skilledNursingFacility365, matchPercentage, perfectMatchPercentage, employeePremium, dependentPremium);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class VendoredPlanBulk {\n");
+    sb.append("class ACAPlan2018SearchResult {\n");
     
+    sb.append("    carrierName: ").append(toIndentedString(carrierName)).append("\n");
+    sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
+    sb.append("    effectiveDate: ").append(toIndentedString(effectiveDate)).append("\n");
+    sb.append("    expirationDate: ").append(toIndentedString(expirationDate)).append("\n");
+    sb.append("    identifiers: ").append(toIndentedString(identifiers)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    networkIds: ").append(toIndentedString(networkIds)).append("\n");
+    sb.append("    planType: ").append(toIndentedString(planType)).append("\n");
+    sb.append("    serviceAreaId: ").append(toIndentedString(serviceAreaId)).append("\n");
+    sb.append("    source: ").append(toIndentedString(source)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    adultDental: ").append(toIndentedString(adultDental)).append("\n");
     sb.append("    age29Rider: ").append(toIndentedString(age29Rider)).append("\n");
     sb.append("    ambulance: ").append(toIndentedString(ambulance)).append("\n");
     sb.append("    benefitsSummaryUrl: ").append(toIndentedString(benefitsSummaryUrl)).append("\n");
     sb.append("    buyLink: ").append(toIndentedString(buyLink)).append("\n");
-    sb.append("    carrierName: ").append(toIndentedString(carrierName)).append("\n");
     sb.append("    childDental: ").append(toIndentedString(childDental)).append("\n");
     sb.append("    childEyewear: ").append(toIndentedString(childEyewear)).append("\n");
     sb.append("    childEyeExam: ").append(toIndentedString(childEyeExam)).append("\n");
     sb.append("    customerServicePhoneNumber: ").append(toIndentedString(customerServicePhoneNumber)).append("\n");
     sb.append("    durableMedicalEquipment: ").append(toIndentedString(durableMedicalEquipment)).append("\n");
     sb.append("    diagnosticTest: ").append(toIndentedString(diagnosticTest)).append("\n");
-    sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    dpRider: ").append(toIndentedString(dpRider)).append("\n");
     sb.append("    drugFormularyUrl: ").append(toIndentedString(drugFormularyUrl)).append("\n");
-    sb.append("    effectiveDate: ").append(toIndentedString(effectiveDate)).append("\n");
-    sb.append("    expirationDate: ").append(toIndentedString(expirationDate)).append("\n");
     sb.append("    emergencyRoom: ").append(toIndentedString(emergencyRoom)).append("\n");
     sb.append("    familyDrugDeductible: ").append(toIndentedString(familyDrugDeductible)).append("\n");
     sb.append("    familyDrugMoop: ").append(toIndentedString(familyDrugMoop)).append("\n");
@@ -1805,7 +2341,6 @@ public class VendoredPlanBulk  implements Serializable {
     sb.append("    hsaEligible: ").append(toIndentedString(hsaEligible)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    imaging: ").append(toIndentedString(imaging)).append("\n");
-    sb.append("    inNetworkIds: ").append(toIndentedString(inNetworkIds)).append("\n");
     sb.append("    individualDrugDeductible: ").append(toIndentedString(individualDrugDeductible)).append("\n");
     sb.append("    individualDrugMoop: ").append(toIndentedString(individualDrugMoop)).append("\n");
     sb.append("    individualMedicalDeductible: ").append(toIndentedString(individualMedicalDeductible)).append("\n");
@@ -1815,10 +2350,9 @@ public class VendoredPlanBulk  implements Serializable {
     sb.append("    inpatientMentalHealth: ").append(toIndentedString(inpatientMentalHealth)).append("\n");
     sb.append("    inpatientPhysician: ").append(toIndentedString(inpatientPhysician)).append("\n");
     sb.append("    inpatientSubstance: ").append(toIndentedString(inpatientSubstance)).append("\n");
+    sb.append("    inNetworkIds: ").append(toIndentedString(inNetworkIds)).append("\n");
     sb.append("    level: ").append(toIndentedString(level)).append("\n");
     sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    networkSize: ").append(toIndentedString(networkSize)).append("\n");
     sb.append("    nonPreferredBrandDrugs: ").append(toIndentedString(nonPreferredBrandDrugs)).append("\n");
     sb.append("    onMarket: ").append(toIndentedString(onMarket)).append("\n");
     sb.append("    offMarket: ").append(toIndentedString(offMarket)).append("\n");
@@ -1829,7 +2363,6 @@ public class VendoredPlanBulk  implements Serializable {
     sb.append("    outpatientPhysician: ").append(toIndentedString(outpatientPhysician)).append("\n");
     sb.append("    outpatientSubstance: ").append(toIndentedString(outpatientSubstance)).append("\n");
     sb.append("    planMarket: ").append(toIndentedString(planMarket)).append("\n");
-    sb.append("    planType: ").append(toIndentedString(planType)).append("\n");
     sb.append("    preferredBrandDrugs: ").append(toIndentedString(preferredBrandDrugs)).append("\n");
     sb.append("    prenatalPostnatalCare: ").append(toIndentedString(prenatalPostnatalCare)).append("\n");
     sb.append("    preventativeCare: ").append(toIndentedString(preventativeCare)).append("\n");
@@ -1838,12 +2371,30 @@ public class VendoredPlanBulk  implements Serializable {
     sb.append("    premiumSource: ").append(toIndentedString(premiumSource)).append("\n");
     sb.append("    primaryCarePhysician: ").append(toIndentedString(primaryCarePhysician)).append("\n");
     sb.append("    rehabilitationServices: ").append(toIndentedString(rehabilitationServices)).append("\n");
-    sb.append("    serviceAreaId: ").append(toIndentedString(serviceAreaId)).append("\n");
     sb.append("    skilledNursing: ").append(toIndentedString(skilledNursing)).append("\n");
     sb.append("    specialist: ").append(toIndentedString(specialist)).append("\n");
     sb.append("    specialtyDrugs: ").append(toIndentedString(specialtyDrugs)).append("\n");
     sb.append("    urgentCare: ").append(toIndentedString(urgentCare)).append("\n");
-    sb.append("    vendorId: ").append(toIndentedString(vendorId)).append("\n");
+    sb.append("    actuarialValue: ").append(toIndentedString(actuarialValue)).append("\n");
+    sb.append("    chiropracticServices: ").append(toIndentedString(chiropracticServices)).append("\n");
+    sb.append("    coinsurance: ").append(toIndentedString(coinsurance)).append("\n");
+    sb.append("    embeddedDeductible: ").append(toIndentedString(embeddedDeductible)).append("\n");
+    sb.append("    gated: ").append(toIndentedString(gated)).append("\n");
+    sb.append("    imagingCenter: ").append(toIndentedString(imagingCenter)).append("\n");
+    sb.append("    imagingPhysician: ").append(toIndentedString(imagingPhysician)).append("\n");
+    sb.append("    labTest: ").append(toIndentedString(labTest)).append("\n");
+    sb.append("    mailOrderRx: ").append(toIndentedString(mailOrderRx)).append("\n");
+    sb.append("    nonpreferredGenericDrugShare: ").append(toIndentedString(nonpreferredGenericDrugShare)).append("\n");
+    sb.append("    nonpreferredSpecialtyDrugShare: ").append(toIndentedString(nonpreferredSpecialtyDrugShare)).append("\n");
+    sb.append("    outpatientAmbulatoryCareCenter: ").append(toIndentedString(outpatientAmbulatoryCareCenter)).append("\n");
+    sb.append("    planCalendar: ").append(toIndentedString(planCalendar)).append("\n");
+    sb.append("    prenatalCare: ").append(toIndentedString(prenatalCare)).append("\n");
+    sb.append("    postnatalCare: ").append(toIndentedString(postnatalCare)).append("\n");
+    sb.append("    skilledNursingFacility365: ").append(toIndentedString(skilledNursingFacility365)).append("\n");
+    sb.append("    matchPercentage: ").append(toIndentedString(matchPercentage)).append("\n");
+    sb.append("    perfectMatchPercentage: ").append(toIndentedString(perfectMatchPercentage)).append("\n");
+    sb.append("    employeePremium: ").append(toIndentedString(employeePremium)).append("\n");
+    sb.append("    dependentPremium: ").append(toIndentedString(dependentPremium)).append("\n");
     sb.append("}");
     return sb.toString();
   }
