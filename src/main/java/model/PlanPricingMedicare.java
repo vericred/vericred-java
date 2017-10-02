@@ -92,7 +92,7 @@ document.
 In this case, we want to select `name` and `phone` from the `provider` key,
 so we would add the parameters `select=provider.name,provider.phone`.
 We also want the `name` and `code` from the `states` key, so we would
-add the parameters `select=states.name,staes.code`.  The id field of
+add the parameters `select=states.name,states.code`.  The id field of
 each document is always returned whether or not it is requested.
 
 Our final request would be `GET /providers/12345?select=provider.name,provider.phone,states.name,states.code`
@@ -147,19 +147,53 @@ In [this other Summary of Benefits &amp; Coverage](https://s3.amazonaws.com/veri
 Here's a description of the benefits summary string, represented as a context-free grammar:
 
 ```
-<cost-share>     ::= <tier> <opt-num-prefix> <value> <opt-per-unit> <deductible> <tier-limit> "/" <tier> <opt-num-prefix> <value> <opt-per-unit> <deductible> "|" <benefit-limit>
-<tier>           ::= "In-Network:" | "In-Network-Tier-2:" | "Out-of-Network:"
-<opt-num-prefix> ::= "first" <num> <unit> | ""
-<unit>           ::= "day(s)" | "visit(s)" | "exam(s)" | "item(s)"
-<value>          ::= <ddct_moop> | <copay> | <coinsurance> | <compound> | "unknown" | "Not Applicable"
-<compound>       ::= <copay> <deductible> "then" <coinsurance> <deductible> | <copay> <deductible> "then" <copay> <deductible> | <coinsurance> <deductible> "then" <coinsurance> <deductible>
-<copay>          ::= "$" <num>
-<coinsurace>     ::= <num> "%"
-<ddct_moop>      ::= <copay> | "Included in Medical" | "Unlimited"
-<opt-per-unit>   ::= "per day" | "per visit" | "per stay" | ""
-<deductible>     ::= "before deductible" | "after deductible" | ""
-<tier-limit>     ::= ", " <limit> | ""
-<benefit-limit>  ::= <limit> | ""
+root                      ::= coverage
+
+coverage                  ::= (simple_coverage | tiered_coverage) (space pipe space coverage_modifier)?
+tiered_coverage           ::= tier (space slash space tier)*
+tier                      ::= tier_name colon space (tier_coverage | not_applicable)
+tier_coverage             ::= simple_coverage (space (then | or | and) space simple_coverage)* tier_limitation?
+simple_coverage           ::= (pre_coverage_limitation space)? coverage_amount (space post_coverage_limitation)? (comma? space coverage_condition)?
+coverage_modifier         ::= limit_condition colon space (((simple_coverage | simple_limitation) (semicolon space see_carrier_documentation)?) | see_carrier_documentation | waived_if_admitted | shared_across_tiers)
+waived_if_admitted        ::= ("copay" space)? "waived if admitted"
+simple_limitation         ::= pre_coverage_limitation space "copay applies"
+tier_name                 ::= "In-Network-Tier-2" | "Out-of-Network" | "In-Network"
+limit_condition           ::= "limit" | "condition"
+tier_limitation           ::= comma space "up to" space (currency | (integer space time_unit plural?)) (space post_coverage_limitation)?
+coverage_amount           ::= currency | unlimited | included | unknown | percentage | (digits space (treatment_unit | time_unit) plural?)
+pre_coverage_limitation   ::= first space digits space time_unit plural?
+post_coverage_limitation  ::= (((then space currency) | "per condition") space)? "per" space (treatment_unit | (integer space time_unit) | time_unit) plural?
+coverage_condition        ::= ("before deductible" | "after deductible" | "penalty" | allowance | "in-state" | "out-of-state") (space allowance)?
+allowance                 ::= upto_allowance | after_allowance
+upto_allowance            ::= "up to" space (currency space)? "allowance"
+after_allowance           ::= "after" space (currency space)? "allowance"
+see_carrier_documentation ::= "see carrier documentation for more information"
+shared_across_tiers       ::= "shared across all tiers"
+unknown                   ::= "unknown"
+unlimited                 ::= /[uU]nlimited/
+included                  ::= /[iI]ncluded in [mM]edical/
+time_unit                 ::= /[hH]our/ | (((/[cC]alendar/ | /[cC]ontract/) space)? /[yY]ear/) | /[mM]onth/ | /[dD]ay/ | /[wW]eek/ | /[vV]isit/ | /[lL]ifetime/ | ((((/[bB]enefit/ plural?) | /[eE]ligibility/) space)? /[pP]eriod/)
+treatment_unit            ::= /[pP]erson/ | /[gG]roup/ | /[cC]ondition/ | /[sS]cript/ | /[vV]isit/ | /[eE]xam/ | /[iI]tem/ | /[sS]tay/ | /[tT]reatment/ | /[aA]dmission/ | /[eE]pisode/
+comma                     ::= ","
+colon                     ::= ":"
+semicolon                 ::= ";"
+pipe                      ::= "|"
+slash                     ::= "/"
+plural                    ::= "(s)" | "s"
+then                      ::= "then" | ("," space) | space
+or                        ::= "or"
+and                       ::= "and"
+not_applicable            ::= "Not Applicable" | "N/A" | "NA"
+first                     ::= "first"
+currency                  ::= "$" number
+percentage                ::= number "%"
+number                    ::= float | integer
+float                     ::= digits "." digits
+integer                   ::= /[0-9]/+ (comma_int | under_int)*
+comma_int                 ::= ("," /[0-9]/*3) !"_"
+under_int                 ::= ("_" /[0-9]/*3) !","
+digits                    ::= /[0-9]/+ ("_" /[0-9]/+)*
+space                     ::= /[ \t]/+
 ```
 
 
@@ -197,13 +231,10 @@ import java.time.LocalDate;
 
 import java.io.Serializable;
 /**
- * Pricing
+ * PlanPricingMedicare
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-01-26T16:00:18.173-05:00")
-public class Pricing  implements Serializable {
-  @JsonProperty("age")
-  private Integer age = null;
-
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-02T17:06:11.296-04:00")
+public class PlanPricingMedicare  implements Serializable {
   @JsonProperty("effective_date")
   private LocalDate effectiveDate = null;
 
@@ -211,28 +242,16 @@ public class Pricing  implements Serializable {
   private LocalDate expirationDate = null;
 
   @JsonProperty("plan_id")
-  private Integer planId = null;
-
-  @JsonProperty("premium_child_only")
-  private BigDecimal premiumChildOnly = null;
-
-  @JsonProperty("premium_family")
-  private BigDecimal premiumFamily = null;
-
-  @JsonProperty("premium_single")
-  private BigDecimal premiumSingle = null;
-
-  @JsonProperty("premium_single_and_children")
-  private BigDecimal premiumSingleAndChildren = null;
-
-  @JsonProperty("premium_single_and_spouse")
-  private BigDecimal premiumSingleAndSpouse = null;
-
-  @JsonProperty("premium_single_smoker")
-  private BigDecimal premiumSingleSmoker = null;
+  private String planId = null;
 
   @JsonProperty("rating_area_id")
   private String ratingAreaId = null;
+
+  @JsonProperty("health_premium")
+  private BigDecimal healthPremium = null;
+
+  @JsonProperty("drug_premium")
+  private BigDecimal drugPremium = null;
 
   @JsonProperty("premium_source")
   private String premiumSource = null;
@@ -240,34 +259,16 @@ public class Pricing  implements Serializable {
   @JsonProperty("updated_at")
   private String updatedAt = null;
 
-  public Pricing age(Integer age) {
-    this.age = age;
-    return this;
-  }
-
-   /**
-   * Age of applicant
-   * @return age
-  **/
-  @ApiModelProperty(example = "null", value = "Age of applicant")
-  public Integer getAge() {
-    return age;
-  }
-
-  public void setAge(Integer age) {
-    this.age = age;
-  }
-
-  public Pricing effectiveDate(LocalDate effectiveDate) {
+  public PlanPricingMedicare effectiveDate(LocalDate effectiveDate) {
     this.effectiveDate = effectiveDate;
     return this;
   }
 
    /**
-   * Effective date of plan
+   * Date these prices take effect
    * @return effectiveDate
   **/
-  @ApiModelProperty(example = "null", value = "Effective date of plan")
+  @ApiModelProperty(example = "null", value = "Date these prices take effect")
   public LocalDate getEffectiveDate() {
     return effectiveDate;
   }
@@ -276,16 +277,16 @@ public class Pricing  implements Serializable {
     this.effectiveDate = effectiveDate;
   }
 
-  public Pricing expirationDate(LocalDate expirationDate) {
+  public PlanPricingMedicare expirationDate(LocalDate expirationDate) {
     this.expirationDate = expirationDate;
     return this;
   }
 
    /**
-   * Plan expiration date
+   * Date these prices expire
    * @return expirationDate
   **/
-  @ApiModelProperty(example = "null", value = "Plan expiration date")
+  @ApiModelProperty(example = "null", value = "Date these prices expire")
   public LocalDate getExpirationDate() {
     return expirationDate;
   }
@@ -294,142 +295,34 @@ public class Pricing  implements Serializable {
     this.expirationDate = expirationDate;
   }
 
-  public Pricing planId(Integer planId) {
+  public PlanPricingMedicare planId(String planId) {
     this.planId = planId;
     return this;
   }
 
    /**
-   * Foreign key to plans
+   * Medicare Advantage plan ID
    * @return planId
   **/
-  @ApiModelProperty(example = "null", value = "Foreign key to plans")
-  public Integer getPlanId() {
+  @ApiModelProperty(example = "null", value = "Medicare Advantage plan ID")
+  public String getPlanId() {
     return planId;
   }
 
-  public void setPlanId(Integer planId) {
+  public void setPlanId(String planId) {
     this.planId = planId;
   }
 
-  public Pricing premiumChildOnly(BigDecimal premiumChildOnly) {
-    this.premiumChildOnly = premiumChildOnly;
-    return this;
-  }
-
-   /**
-   * Child-only premium
-   * @return premiumChildOnly
-  **/
-  @ApiModelProperty(example = "null", value = "Child-only premium")
-  public BigDecimal getPremiumChildOnly() {
-    return premiumChildOnly;
-  }
-
-  public void setPremiumChildOnly(BigDecimal premiumChildOnly) {
-    this.premiumChildOnly = premiumChildOnly;
-  }
-
-  public Pricing premiumFamily(BigDecimal premiumFamily) {
-    this.premiumFamily = premiumFamily;
-    return this;
-  }
-
-   /**
-   * Family premium
-   * @return premiumFamily
-  **/
-  @ApiModelProperty(example = "null", value = "Family premium")
-  public BigDecimal getPremiumFamily() {
-    return premiumFamily;
-  }
-
-  public void setPremiumFamily(BigDecimal premiumFamily) {
-    this.premiumFamily = premiumFamily;
-  }
-
-  public Pricing premiumSingle(BigDecimal premiumSingle) {
-    this.premiumSingle = premiumSingle;
-    return this;
-  }
-
-   /**
-   * Single-person premium
-   * @return premiumSingle
-  **/
-  @ApiModelProperty(example = "null", value = "Single-person premium")
-  public BigDecimal getPremiumSingle() {
-    return premiumSingle;
-  }
-
-  public void setPremiumSingle(BigDecimal premiumSingle) {
-    this.premiumSingle = premiumSingle;
-  }
-
-  public Pricing premiumSingleAndChildren(BigDecimal premiumSingleAndChildren) {
-    this.premiumSingleAndChildren = premiumSingleAndChildren;
-    return this;
-  }
-
-   /**
-   * Single person including children premium
-   * @return premiumSingleAndChildren
-  **/
-  @ApiModelProperty(example = "null", value = "Single person including children premium")
-  public BigDecimal getPremiumSingleAndChildren() {
-    return premiumSingleAndChildren;
-  }
-
-  public void setPremiumSingleAndChildren(BigDecimal premiumSingleAndChildren) {
-    this.premiumSingleAndChildren = premiumSingleAndChildren;
-  }
-
-  public Pricing premiumSingleAndSpouse(BigDecimal premiumSingleAndSpouse) {
-    this.premiumSingleAndSpouse = premiumSingleAndSpouse;
-    return this;
-  }
-
-   /**
-   * Person with spouse premium
-   * @return premiumSingleAndSpouse
-  **/
-  @ApiModelProperty(example = "null", value = "Person with spouse premium")
-  public BigDecimal getPremiumSingleAndSpouse() {
-    return premiumSingleAndSpouse;
-  }
-
-  public void setPremiumSingleAndSpouse(BigDecimal premiumSingleAndSpouse) {
-    this.premiumSingleAndSpouse = premiumSingleAndSpouse;
-  }
-
-  public Pricing premiumSingleSmoker(BigDecimal premiumSingleSmoker) {
-    this.premiumSingleSmoker = premiumSingleSmoker;
-    return this;
-  }
-
-   /**
-   * Premium for single smoker
-   * @return premiumSingleSmoker
-  **/
-  @ApiModelProperty(example = "null", value = "Premium for single smoker")
-  public BigDecimal getPremiumSingleSmoker() {
-    return premiumSingleSmoker;
-  }
-
-  public void setPremiumSingleSmoker(BigDecimal premiumSingleSmoker) {
-    this.premiumSingleSmoker = premiumSingleSmoker;
-  }
-
-  public Pricing ratingAreaId(String ratingAreaId) {
+  public PlanPricingMedicare ratingAreaId(String ratingAreaId) {
     this.ratingAreaId = ratingAreaId;
     return this;
   }
 
    /**
-   * Foreign key to rating areas
+   * Identifier for the plan's rating area
    * @return ratingAreaId
   **/
-  @ApiModelProperty(example = "null", value = "Foreign key to rating areas")
+  @ApiModelProperty(example = "null", value = "Identifier for the plan's rating area")
   public String getRatingAreaId() {
     return ratingAreaId;
   }
@@ -438,16 +331,52 @@ public class Pricing  implements Serializable {
     this.ratingAreaId = ratingAreaId;
   }
 
-  public Pricing premiumSource(String premiumSource) {
+  public PlanPricingMedicare healthPremium(BigDecimal healthPremium) {
+    this.healthPremium = healthPremium;
+    return this;
+  }
+
+   /**
+   * Medicare Advantage health premium
+   * @return healthPremium
+  **/
+  @ApiModelProperty(example = "null", value = "Medicare Advantage health premium")
+  public BigDecimal getHealthPremium() {
+    return healthPremium;
+  }
+
+  public void setHealthPremium(BigDecimal healthPremium) {
+    this.healthPremium = healthPremium;
+  }
+
+  public PlanPricingMedicare drugPremium(BigDecimal drugPremium) {
+    this.drugPremium = drugPremium;
+    return this;
+  }
+
+   /**
+   * Medicare Advantage drug premium
+   * @return drugPremium
+  **/
+  @ApiModelProperty(example = "null", value = "Medicare Advantage drug premium")
+  public BigDecimal getDrugPremium() {
+    return drugPremium;
+  }
+
+  public void setDrugPremium(BigDecimal drugPremium) {
+    this.drugPremium = drugPremium;
+  }
+
+  public PlanPricingMedicare premiumSource(String premiumSource) {
     this.premiumSource = premiumSource;
     return this;
   }
 
    /**
-   * Where was this pricing data extracted from?
+   * Source of this pricing data
    * @return premiumSource
   **/
-  @ApiModelProperty(example = "null", value = "Where was this pricing data extracted from?")
+  @ApiModelProperty(example = "null", value = "Source of this pricing data")
   public String getPremiumSource() {
     return premiumSource;
   }
@@ -456,16 +385,16 @@ public class Pricing  implements Serializable {
     this.premiumSource = premiumSource;
   }
 
-  public Pricing updatedAt(String updatedAt) {
+  public PlanPricingMedicare updatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
 
    /**
-   * Time when pricing was last updated
+   * When this pricing data was last updated
    * @return updatedAt
   **/
-  @ApiModelProperty(example = "null", value = "Time when pricing was last updated")
+  @ApiModelProperty(example = "null", value = "When this pricing data was last updated")
   public String getUpdatedAt() {
     return updatedAt;
   }
@@ -483,43 +412,33 @@ public class Pricing  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Pricing pricing = (Pricing) o;
-    return Objects.equals(this.age, pricing.age) &&
-        Objects.equals(this.effectiveDate, pricing.effectiveDate) &&
-        Objects.equals(this.expirationDate, pricing.expirationDate) &&
-        Objects.equals(this.planId, pricing.planId) &&
-        Objects.equals(this.premiumChildOnly, pricing.premiumChildOnly) &&
-        Objects.equals(this.premiumFamily, pricing.premiumFamily) &&
-        Objects.equals(this.premiumSingle, pricing.premiumSingle) &&
-        Objects.equals(this.premiumSingleAndChildren, pricing.premiumSingleAndChildren) &&
-        Objects.equals(this.premiumSingleAndSpouse, pricing.premiumSingleAndSpouse) &&
-        Objects.equals(this.premiumSingleSmoker, pricing.premiumSingleSmoker) &&
-        Objects.equals(this.ratingAreaId, pricing.ratingAreaId) &&
-        Objects.equals(this.premiumSource, pricing.premiumSource) &&
-        Objects.equals(this.updatedAt, pricing.updatedAt);
+    PlanPricingMedicare planPricingMedicare = (PlanPricingMedicare) o;
+    return Objects.equals(this.effectiveDate, planPricingMedicare.effectiveDate) &&
+        Objects.equals(this.expirationDate, planPricingMedicare.expirationDate) &&
+        Objects.equals(this.planId, planPricingMedicare.planId) &&
+        Objects.equals(this.ratingAreaId, planPricingMedicare.ratingAreaId) &&
+        Objects.equals(this.healthPremium, planPricingMedicare.healthPremium) &&
+        Objects.equals(this.drugPremium, planPricingMedicare.drugPremium) &&
+        Objects.equals(this.premiumSource, planPricingMedicare.premiumSource) &&
+        Objects.equals(this.updatedAt, planPricingMedicare.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(age, effectiveDate, expirationDate, planId, premiumChildOnly, premiumFamily, premiumSingle, premiumSingleAndChildren, premiumSingleAndSpouse, premiumSingleSmoker, ratingAreaId, premiumSource, updatedAt);
+    return Objects.hash(effectiveDate, expirationDate, planId, ratingAreaId, healthPremium, drugPremium, premiumSource, updatedAt);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Pricing {\n");
+    sb.append("class PlanPricingMedicare {\n");
     
-    sb.append("    age: ").append(toIndentedString(age)).append("\n");
     sb.append("    effectiveDate: ").append(toIndentedString(effectiveDate)).append("\n");
     sb.append("    expirationDate: ").append(toIndentedString(expirationDate)).append("\n");
     sb.append("    planId: ").append(toIndentedString(planId)).append("\n");
-    sb.append("    premiumChildOnly: ").append(toIndentedString(premiumChildOnly)).append("\n");
-    sb.append("    premiumFamily: ").append(toIndentedString(premiumFamily)).append("\n");
-    sb.append("    premiumSingle: ").append(toIndentedString(premiumSingle)).append("\n");
-    sb.append("    premiumSingleAndChildren: ").append(toIndentedString(premiumSingleAndChildren)).append("\n");
-    sb.append("    premiumSingleAndSpouse: ").append(toIndentedString(premiumSingleAndSpouse)).append("\n");
-    sb.append("    premiumSingleSmoker: ").append(toIndentedString(premiumSingleSmoker)).append("\n");
     sb.append("    ratingAreaId: ").append(toIndentedString(ratingAreaId)).append("\n");
+    sb.append("    healthPremium: ").append(toIndentedString(healthPremium)).append("\n");
+    sb.append("    drugPremium: ").append(toIndentedString(drugPremium)).append("\n");
     sb.append("    premiumSource: ").append(toIndentedString(premiumSource)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
