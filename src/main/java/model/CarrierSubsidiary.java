@@ -231,7 +231,7 @@ import java.io.Serializable;
 /**
  * CarrierSubsidiary
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-02T17:06:11.296-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-21T16:41:18.837-04:00")
 public class CarrierSubsidiary  implements Serializable {
   @JsonProperty("id")
   private Integer id = null;
@@ -241,6 +241,9 @@ public class CarrierSubsidiary  implements Serializable {
 
   @JsonProperty("alternate_name")
   private String alternateName = null;
+
+  @JsonProperty("logo_path")
+  private String logoPath = null;
 
   public CarrierSubsidiary id(Integer id) {
     this.id = id;
@@ -296,6 +299,24 @@ public class CarrierSubsidiary  implements Serializable {
     this.alternateName = alternateName;
   }
 
+  public CarrierSubsidiary logoPath(String logoPath) {
+    this.logoPath = logoPath;
+    return this;
+  }
+
+   /**
+   * URL for the Carrier's logo
+   * @return logoPath
+  **/
+  @ApiModelProperty(example = "null", value = "URL for the Carrier's logo")
+  public String getLogoPath() {
+    return logoPath;
+  }
+
+  public void setLogoPath(String logoPath) {
+    this.logoPath = logoPath;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -308,12 +329,13 @@ public class CarrierSubsidiary  implements Serializable {
     CarrierSubsidiary carrierSubsidiary = (CarrierSubsidiary) o;
     return Objects.equals(this.id, carrierSubsidiary.id) &&
         Objects.equals(this.name, carrierSubsidiary.name) &&
-        Objects.equals(this.alternateName, carrierSubsidiary.alternateName);
+        Objects.equals(this.alternateName, carrierSubsidiary.alternateName) &&
+        Objects.equals(this.logoPath, carrierSubsidiary.logoPath);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, alternateName);
+    return Objects.hash(id, name, alternateName, logoPath);
   }
 
   @Override
@@ -324,6 +346,7 @@ public class CarrierSubsidiary  implements Serializable {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    alternateName: ").append(toIndentedString(alternateName)).append("\n");
+    sb.append("    logoPath: ").append(toIndentedString(logoPath)).append("\n");
     sb.append("}");
     return sb.toString();
   }

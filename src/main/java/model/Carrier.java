@@ -231,16 +231,13 @@ import java.io.Serializable;
 /**
  * Carrier
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-02T17:06:11.296-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-21T16:41:18.837-04:00")
 public class Carrier  implements Serializable {
   @JsonProperty("id")
   private Integer id = null;
 
   @JsonProperty("name")
   private String name = null;
-
-  @JsonProperty("logo_path")
-  private String logoPath = null;
 
   public Carrier id(Integer id) {
     this.id = id;
@@ -278,24 +275,6 @@ public class Carrier  implements Serializable {
     this.name = name;
   }
 
-  public Carrier logoPath(String logoPath) {
-    this.logoPath = logoPath;
-    return this;
-  }
-
-   /**
-   * URL for the Carrier's logo
-   * @return logoPath
-  **/
-  @ApiModelProperty(example = "null", value = "URL for the Carrier's logo")
-  public String getLogoPath() {
-    return logoPath;
-  }
-
-  public void setLogoPath(String logoPath) {
-    this.logoPath = logoPath;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -307,13 +286,12 @@ public class Carrier  implements Serializable {
     }
     Carrier carrier = (Carrier) o;
     return Objects.equals(this.id, carrier.id) &&
-        Objects.equals(this.name, carrier.name) &&
-        Objects.equals(this.logoPath, carrier.logoPath);
+        Objects.equals(this.name, carrier.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, logoPath);
+    return Objects.hash(id, name);
   }
 
   @Override
@@ -323,7 +301,6 @@ public class Carrier  implements Serializable {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    logoPath: ").append(toIndentedString(logoPath)).append("\n");
     sb.append("}");
     return sb.toString();
   }

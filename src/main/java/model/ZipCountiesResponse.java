@@ -237,7 +237,7 @@ import java.io.Serializable;
 /**
  * ZipCountiesResponse
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-02T17:06:11.296-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-21T16:41:18.837-04:00")
 public class ZipCountiesResponse  implements Serializable {
   @JsonProperty("counties")
   private List<County> counties = new ArrayList<County>();

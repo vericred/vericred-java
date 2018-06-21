@@ -226,159 +226,74 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.LocalDate;
 
 import java.io.Serializable;
 /**
- * Applicant
+ * DentalPlanSearchApplicant
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-02T17:06:11.296-04:00")
-public class Applicant  implements Serializable {
-  @JsonProperty("id")
-  private Integer id = null;
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-21T16:41:18.837-04:00")
+public class DentalPlanSearchApplicant  implements Serializable {
+  @JsonProperty("age")
+  private Integer age = null;
 
-  @JsonProperty("dob")
-  private LocalDate dob = null;
+  @JsonProperty("child")
+  private Boolean child = null;
 
-  @JsonProperty("member_id")
-  private String memberId = null;
+  @JsonProperty("gender")
+  private String gender = null;
 
-  @JsonProperty("name")
-  private String name = null;
-
-  @JsonProperty("relationship")
-  private String relationship = null;
-
-  @JsonProperty("smoker")
-  private Boolean smoker = null;
-
-  @JsonProperty("ssn")
-  private String ssn = null;
-
-  public Applicant id(Integer id) {
-    this.id = id;
+  public DentalPlanSearchApplicant age(Integer age) {
+    this.age = age;
     return this;
   }
 
    /**
-   * Primary key
-   * @return id
+   * Age of applicant to search for
+   * @return age
   **/
-  @ApiModelProperty(example = "null", value = "Primary key")
-  public Integer getId() {
-    return id;
+  @ApiModelProperty(example = "null", value = "Age of applicant to search for")
+  public Integer getAge() {
+    return age;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
+  public void setAge(Integer age) {
+    this.age = age;
   }
 
-  public Applicant dob(LocalDate dob) {
-    this.dob = dob;
+  public DentalPlanSearchApplicant child(Boolean child) {
+    this.child = child;
     return this;
   }
 
    /**
-   * Date of Birth
-   * @return dob
+   * Is this applicant a child?
+   * @return child
   **/
-  @ApiModelProperty(example = "null", value = "Date of Birth")
-  public LocalDate getDob() {
-    return dob;
+  @ApiModelProperty(example = "null", value = "Is this applicant a child?")
+  public Boolean getChild() {
+    return child;
   }
 
-  public void setDob(LocalDate dob) {
-    this.dob = dob;
+  public void setChild(Boolean child) {
+    this.child = child;
   }
 
-  public Applicant memberId(String memberId) {
-    this.memberId = memberId;
+  public DentalPlanSearchApplicant gender(String gender) {
+    this.gender = gender;
     return this;
   }
 
    /**
-   * Member token
-   * @return memberId
+   * Applicant's gender (M or F)
+   * @return gender
   **/
-  @ApiModelProperty(example = "null", value = "Member token")
-  public String getMemberId() {
-    return memberId;
+  @ApiModelProperty(example = "null", value = "Applicant's gender (M or F)")
+  public String getGender() {
+    return gender;
   }
 
-  public void setMemberId(String memberId) {
-    this.memberId = memberId;
-  }
-
-  public Applicant name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Full name of the Applicant
-   * @return name
-  **/
-  @ApiModelProperty(example = "null", value = "Full name of the Applicant")
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public Applicant relationship(String relationship) {
-    this.relationship = relationship;
-    return this;
-  }
-
-   /**
-   * Relationship of the Applicant to the Member
-   * @return relationship
-  **/
-  @ApiModelProperty(example = "null", value = "Relationship of the Applicant to the Member")
-  public String getRelationship() {
-    return relationship;
-  }
-
-  public void setRelationship(String relationship) {
-    this.relationship = relationship;
-  }
-
-  public Applicant smoker(Boolean smoker) {
-    this.smoker = smoker;
-    return this;
-  }
-
-   /**
-   * Does the Applicant smoke?
-   * @return smoker
-  **/
-  @ApiModelProperty(example = "null", value = "Does the Applicant smoke?")
-  public Boolean getSmoker() {
-    return smoker;
-  }
-
-  public void setSmoker(Boolean smoker) {
-    this.smoker = smoker;
-  }
-
-  public Applicant ssn(String ssn) {
-    this.ssn = ssn;
-    return this;
-  }
-
-   /**
-   * Applicant's Social Security Number
-   * @return ssn
-  **/
-  @ApiModelProperty(example = "null", value = "Applicant's Social Security Number")
-  public String getSsn() {
-    return ssn;
-  }
-
-  public void setSsn(String ssn) {
-    this.ssn = ssn;
+  public void setGender(String gender) {
+    this.gender = gender;
   }
 
 
@@ -390,33 +305,25 @@ public class Applicant  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Applicant applicant = (Applicant) o;
-    return Objects.equals(this.id, applicant.id) &&
-        Objects.equals(this.dob, applicant.dob) &&
-        Objects.equals(this.memberId, applicant.memberId) &&
-        Objects.equals(this.name, applicant.name) &&
-        Objects.equals(this.relationship, applicant.relationship) &&
-        Objects.equals(this.smoker, applicant.smoker) &&
-        Objects.equals(this.ssn, applicant.ssn);
+    DentalPlanSearchApplicant dentalPlanSearchApplicant = (DentalPlanSearchApplicant) o;
+    return Objects.equals(this.age, dentalPlanSearchApplicant.age) &&
+        Objects.equals(this.child, dentalPlanSearchApplicant.child) &&
+        Objects.equals(this.gender, dentalPlanSearchApplicant.gender);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, dob, memberId, name, relationship, smoker, ssn);
+    return Objects.hash(age, child, gender);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Applicant {\n");
+    sb.append("class DentalPlanSearchApplicant {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    dob: ").append(toIndentedString(dob)).append("\n");
-    sb.append("    memberId: ").append(toIndentedString(memberId)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    relationship: ").append(toIndentedString(relationship)).append("\n");
-    sb.append("    smoker: ").append(toIndentedString(smoker)).append("\n");
-    sb.append("    ssn: ").append(toIndentedString(ssn)).append("\n");
+    sb.append("    age: ").append(toIndentedString(age)).append("\n");
+    sb.append("    child: ").append(toIndentedString(child)).append("\n");
+    sb.append("    gender: ").append(toIndentedString(gender)).append("\n");
     sb.append("}");
     return sb.toString();
   }

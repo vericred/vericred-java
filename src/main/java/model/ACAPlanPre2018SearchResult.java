@@ -235,7 +235,7 @@ import java.io.Serializable;
 /**
  * ACAPlanPre2018SearchResult
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-02T17:06:11.296-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-21T16:41:18.837-04:00")
 public class ACAPlanPre2018SearchResult  implements Serializable {
   @JsonProperty("carrier_name")
   private String carrierName = null;
@@ -2051,10 +2051,10 @@ public class ACAPlanPre2018SearchResult  implements Serializable {
   }
 
    /**
-   * Are deductibles and MOOPs reset on Dec-31 (\"calendar year\") or 365 days after enrollment date (\"plan year\")?
+   * Are deductibles and MOOPs reset on Dec-31 (\"calendar year\"), 365 days after enrollment date (\"plan year\"), or are both options available (\"both\")?
    * @return planCalendar
   **/
-  @ApiModelProperty(example = "null", value = "Are deductibles and MOOPs reset on Dec-31 (\"calendar year\") or 365 days after enrollment date (\"plan year\")?")
+  @ApiModelProperty(example = "null", value = "Are deductibles and MOOPs reset on Dec-31 (\"calendar year\"), 365 days after enrollment date (\"plan year\"), or are both options available (\"both\")?")
   public String getPlanCalendar() {
     return planCalendar;
   }

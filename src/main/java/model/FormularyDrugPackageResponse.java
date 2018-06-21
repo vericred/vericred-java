@@ -234,7 +234,7 @@ import java.io.Serializable;
 /**
  * FormularyDrugPackageResponse
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-02T17:06:11.296-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-21T16:41:18.837-04:00")
 public class FormularyDrugPackageResponse  implements Serializable {
   @JsonProperty("coverage")
   private DrugCoverage coverage = null;

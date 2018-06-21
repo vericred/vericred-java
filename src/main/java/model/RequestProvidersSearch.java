@@ -234,10 +234,13 @@ import java.io.Serializable;
 /**
  * RequestProvidersSearch
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-02T17:06:11.296-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-21T16:41:18.837-04:00")
 public class RequestProvidersSearch  implements Serializable {
   @JsonProperty("accepts_insurance")
   private Boolean acceptsInsurance = null;
+
+  @JsonProperty("ids")
+  private List<Integer> ids = new ArrayList<Integer>();
 
   @JsonProperty("min_score")
   private BigDecimal minScore = null;
@@ -288,6 +291,29 @@ public class RequestProvidersSearch  implements Serializable {
 
   public void setAcceptsInsurance(Boolean acceptsInsurance) {
     this.acceptsInsurance = acceptsInsurance;
+  }
+
+  public RequestProvidersSearch ids(List<Integer> ids) {
+    this.ids = ids;
+    return this;
+  }
+
+  public RequestProvidersSearch addIdsItem(Integer idsItem) {
+    this.ids.add(idsItem);
+    return this;
+  }
+
+   /**
+   * List of NPIs
+   * @return ids
+  **/
+  @ApiModelProperty(example = "null", value = "List of NPIs")
+  public List<Integer> getIds() {
+    return ids;
+  }
+
+  public void setIds(List<Integer> ids) {
+    this.ids = ids;
   }
 
   public RequestProvidersSearch minScore(BigDecimal minScore) {
@@ -504,6 +530,7 @@ public class RequestProvidersSearch  implements Serializable {
     }
     RequestProvidersSearch requestProvidersSearch = (RequestProvidersSearch) o;
     return Objects.equals(this.acceptsInsurance, requestProvidersSearch.acceptsInsurance) &&
+        Objects.equals(this.ids, requestProvidersSearch.ids) &&
         Objects.equals(this.minScore, requestProvidersSearch.minScore) &&
         Objects.equals(this.networkIds, requestProvidersSearch.networkIds) &&
         Objects.equals(this.page, requestProvidersSearch.page) &&
@@ -519,7 +546,7 @@ public class RequestProvidersSearch  implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(acceptsInsurance, minScore, networkIds, page, perPage, polygon, radius, searchTerm, sort, sortSeed, type, zipCode);
+    return Objects.hash(acceptsInsurance, ids, minScore, networkIds, page, perPage, polygon, radius, searchTerm, sort, sortSeed, type, zipCode);
   }
 
   @Override
@@ -528,6 +555,7 @@ public class RequestProvidersSearch  implements Serializable {
     sb.append("class RequestProvidersSearch {\n");
     
     sb.append("    acceptsInsurance: ").append(toIndentedString(acceptsInsurance)).append("\n");
+    sb.append("    ids: ").append(toIndentedString(ids)).append("\n");
     sb.append("    minScore: ").append(toIndentedString(minScore)).append("\n");
     sb.append("    networkIds: ").append(toIndentedString(networkIds)).append("\n");
     sb.append("    page: ").append(toIndentedString(page)).append("\n");

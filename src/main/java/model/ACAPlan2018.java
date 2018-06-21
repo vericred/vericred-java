@@ -235,7 +235,7 @@ import java.io.Serializable;
 /**
  * ACAPlan2018
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-02T17:06:11.296-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-21T16:41:18.837-04:00")
 public class ACAPlan2018  implements Serializable {
   @JsonProperty("carrier_name")
   private String carrierName = null;
@@ -503,6 +503,9 @@ public class ACAPlan2018  implements Serializable {
 
   @JsonProperty("skilled_nursing_facility_365")
   private String skilledNursingFacility365 = null;
+
+  @JsonProperty("essential_health_benefits_percentage")
+  private BigDecimal essentialHealthBenefitsPercentage = null;
 
   public ACAPlan2018 carrierName(String carrierName) {
     this.carrierName = carrierName;
@@ -2060,10 +2063,10 @@ public class ACAPlan2018  implements Serializable {
   }
 
    /**
-   * Are deductibles and MOOPs reset on Dec-31 (\"calendar year\") or 365 days after enrollment date (\"plan year\")?
+   * Are deductibles and MOOPs reset on Dec-31 (\"calendar year\"), 365 days after enrollment date (\"plan year\"), or are both options available (\"both\")?
    * @return planCalendar
   **/
-  @ApiModelProperty(example = "null", value = "Are deductibles and MOOPs reset on Dec-31 (\"calendar year\") or 365 days after enrollment date (\"plan year\")?")
+  @ApiModelProperty(example = "null", value = "Are deductibles and MOOPs reset on Dec-31 (\"calendar year\"), 365 days after enrollment date (\"plan year\"), or are both options available (\"both\")?")
   public String getPlanCalendar() {
     return planCalendar;
   }
@@ -2124,6 +2127,24 @@ public class ACAPlan2018  implements Serializable {
 
   public void setSkilledNursingFacility365(String skilledNursingFacility365) {
     this.skilledNursingFacility365 = skilledNursingFacility365;
+  }
+
+  public ACAPlan2018 essentialHealthBenefitsPercentage(BigDecimal essentialHealthBenefitsPercentage) {
+    this.essentialHealthBenefitsPercentage = essentialHealthBenefitsPercentage;
+    return this;
+  }
+
+   /**
+   * Percentage of essential plan benefits
+   * @return essentialHealthBenefitsPercentage
+  **/
+  @ApiModelProperty(example = "null", value = "Percentage of essential plan benefits")
+  public BigDecimal getEssentialHealthBenefitsPercentage() {
+    return essentialHealthBenefitsPercentage;
+  }
+
+  public void setEssentialHealthBenefitsPercentage(BigDecimal essentialHealthBenefitsPercentage) {
+    this.essentialHealthBenefitsPercentage = essentialHealthBenefitsPercentage;
   }
 
 
@@ -2224,12 +2245,13 @@ public class ACAPlan2018  implements Serializable {
         Objects.equals(this.planCalendar, aCAPlan2018.planCalendar) &&
         Objects.equals(this.prenatalCare, aCAPlan2018.prenatalCare) &&
         Objects.equals(this.postnatalCare, aCAPlan2018.postnatalCare) &&
-        Objects.equals(this.skilledNursingFacility365, aCAPlan2018.skilledNursingFacility365);
+        Objects.equals(this.skilledNursingFacility365, aCAPlan2018.skilledNursingFacility365) &&
+        Objects.equals(this.essentialHealthBenefitsPercentage, aCAPlan2018.essentialHealthBenefitsPercentage);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(carrierName, displayName, effectiveDate, expirationDate, identifiers, name, networkIds, networkSize, planType, serviceAreaId, source, type, adultDental, age29Rider, ambulance, benefitsSummaryUrl, buyLink, childDental, childEyewear, childEyeExam, customerServicePhoneNumber, durableMedicalEquipment, diagnosticTest, dpRider, drugFormularyUrl, emergencyRoom, familyDrugDeductible, familyDrugMoop, familyMedicalDeductible, familyMedicalMoop, fpRider, genericDrugs, habilitationServices, hiosIssuerId, homeHealthCare, hospiceService, hsaEligible, id, imaging, individualDrugDeductible, individualDrugMoop, individualMedicalDeductible, individualMedicalMoop, inpatientBirth, inpatientFacility, inpatientMentalHealth, inpatientPhysician, inpatientSubstance, inNetworkIds, level, logoUrl, nonPreferredBrandDrugs, onMarket, offMarket, outOfNetworkCoverage, outOfNetworkIds, outpatientFacility, outpatientMentalHealth, outpatientPhysician, outpatientSubstance, planMarket, preferredBrandDrugs, prenatalPostnatalCare, preventativeCare, premiumSubsidized, premium, premiumSource, primaryCarePhysician, rehabilitationServices, skilledNursing, specialist, specialtyDrugs, urgentCare, actuarialValue, chiropracticServices, coinsurance, embeddedDeductible, gated, imagingCenter, imagingPhysician, labTest, mailOrderRx, nonpreferredGenericDrugShare, nonpreferredSpecialtyDrugShare, outpatientAmbulatoryCareCenter, planCalendar, prenatalCare, postnatalCare, skilledNursingFacility365);
+    return Objects.hash(carrierName, displayName, effectiveDate, expirationDate, identifiers, name, networkIds, networkSize, planType, serviceAreaId, source, type, adultDental, age29Rider, ambulance, benefitsSummaryUrl, buyLink, childDental, childEyewear, childEyeExam, customerServicePhoneNumber, durableMedicalEquipment, diagnosticTest, dpRider, drugFormularyUrl, emergencyRoom, familyDrugDeductible, familyDrugMoop, familyMedicalDeductible, familyMedicalMoop, fpRider, genericDrugs, habilitationServices, hiosIssuerId, homeHealthCare, hospiceService, hsaEligible, id, imaging, individualDrugDeductible, individualDrugMoop, individualMedicalDeductible, individualMedicalMoop, inpatientBirth, inpatientFacility, inpatientMentalHealth, inpatientPhysician, inpatientSubstance, inNetworkIds, level, logoUrl, nonPreferredBrandDrugs, onMarket, offMarket, outOfNetworkCoverage, outOfNetworkIds, outpatientFacility, outpatientMentalHealth, outpatientPhysician, outpatientSubstance, planMarket, preferredBrandDrugs, prenatalPostnatalCare, preventativeCare, premiumSubsidized, premium, premiumSource, primaryCarePhysician, rehabilitationServices, skilledNursing, specialist, specialtyDrugs, urgentCare, actuarialValue, chiropracticServices, coinsurance, embeddedDeductible, gated, imagingCenter, imagingPhysician, labTest, mailOrderRx, nonpreferredGenericDrugShare, nonpreferredSpecialtyDrugShare, outpatientAmbulatoryCareCenter, planCalendar, prenatalCare, postnatalCare, skilledNursingFacility365, essentialHealthBenefitsPercentage);
   }
 
   @Override
@@ -2326,6 +2348,7 @@ public class ACAPlan2018  implements Serializable {
     sb.append("    prenatalCare: ").append(toIndentedString(prenatalCare)).append("\n");
     sb.append("    postnatalCare: ").append(toIndentedString(postnatalCare)).append("\n");
     sb.append("    skilledNursingFacility365: ").append(toIndentedString(skilledNursingFacility365)).append("\n");
+    sb.append("    essentialHealthBenefitsPercentage: ").append(toIndentedString(essentialHealthBenefitsPercentage)).append("\n");
     sb.append("}");
     return sb.toString();
   }

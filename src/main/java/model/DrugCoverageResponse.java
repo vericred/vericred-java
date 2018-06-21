@@ -230,14 +230,13 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Drug;
 import model.DrugCoverage;
-import model.DrugPackage;
 import model.Meta;
 
 import java.io.Serializable;
 /**
  * DrugCoverageResponse
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-02T17:06:11.296-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-21T16:41:18.837-04:00")
 public class DrugCoverageResponse  implements Serializable {
   @JsonProperty("meta")
   private Meta meta = null;
@@ -245,11 +244,8 @@ public class DrugCoverageResponse  implements Serializable {
   @JsonProperty("drug_coverages")
   private List<DrugCoverage> drugCoverages = new ArrayList<DrugCoverage>();
 
-  @JsonProperty("drugs")
-  private List<Drug> drugs = new ArrayList<Drug>();
-
-  @JsonProperty("drug_packages")
-  private List<DrugPackage> drugPackages = new ArrayList<DrugPackage>();
+  @JsonProperty("drug")
+  private Drug drug = null;
 
   public DrugCoverageResponse meta(Meta meta) {
     this.meta = meta;
@@ -292,50 +288,22 @@ public class DrugCoverageResponse  implements Serializable {
     this.drugCoverages = drugCoverages;
   }
 
-  public DrugCoverageResponse drugs(List<Drug> drugs) {
-    this.drugs = drugs;
-    return this;
-  }
-
-  public DrugCoverageResponse addDrugsItem(Drug drugsItem) {
-    this.drugs.add(drugsItem);
+  public DrugCoverageResponse drug(Drug drug) {
+    this.drug = drug;
     return this;
   }
 
    /**
    * Drug
-   * @return drugs
+   * @return drug
   **/
   @ApiModelProperty(example = "null", value = "Drug")
-  public List<Drug> getDrugs() {
-    return drugs;
+  public Drug getDrug() {
+    return drug;
   }
 
-  public void setDrugs(List<Drug> drugs) {
-    this.drugs = drugs;
-  }
-
-  public DrugCoverageResponse drugPackages(List<DrugPackage> drugPackages) {
-    this.drugPackages = drugPackages;
-    return this;
-  }
-
-  public DrugCoverageResponse addDrugPackagesItem(DrugPackage drugPackagesItem) {
-    this.drugPackages.add(drugPackagesItem);
-    return this;
-  }
-
-   /**
-   * Drug Packages
-   * @return drugPackages
-  **/
-  @ApiModelProperty(example = "null", value = "Drug Packages")
-  public List<DrugPackage> getDrugPackages() {
-    return drugPackages;
-  }
-
-  public void setDrugPackages(List<DrugPackage> drugPackages) {
-    this.drugPackages = drugPackages;
+  public void setDrug(Drug drug) {
+    this.drug = drug;
   }
 
 
@@ -350,13 +318,12 @@ public class DrugCoverageResponse  implements Serializable {
     DrugCoverageResponse drugCoverageResponse = (DrugCoverageResponse) o;
     return Objects.equals(this.meta, drugCoverageResponse.meta) &&
         Objects.equals(this.drugCoverages, drugCoverageResponse.drugCoverages) &&
-        Objects.equals(this.drugs, drugCoverageResponse.drugs) &&
-        Objects.equals(this.drugPackages, drugCoverageResponse.drugPackages);
+        Objects.equals(this.drug, drugCoverageResponse.drug);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(meta, drugCoverages, drugs, drugPackages);
+    return Objects.hash(meta, drugCoverages, drug);
   }
 
   @Override
@@ -366,8 +333,7 @@ public class DrugCoverageResponse  implements Serializable {
     
     sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("    drugCoverages: ").append(toIndentedString(drugCoverages)).append("\n");
-    sb.append("    drugs: ").append(toIndentedString(drugs)).append("\n");
-    sb.append("    drugPackages: ").append(toIndentedString(drugPackages)).append("\n");
+    sb.append("    drug: ").append(toIndentedString(drug)).append("\n");
     sb.append("}");
     return sb.toString();
   }

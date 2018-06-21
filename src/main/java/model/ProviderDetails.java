@@ -234,7 +234,7 @@ import java.io.Serializable;
 /**
  * ProviderDetails
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-02T17:06:11.296-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-21T16:41:18.837-04:00")
 public class ProviderDetails  implements Serializable {
   @JsonProperty("city")
   private String city = null;
@@ -268,9 +268,6 @@ public class ProviderDetails  implements Serializable {
 
   @JsonProperty("organization_name")
   private String organizationName = null;
-
-  @JsonProperty("personal_phone")
-  private String personalPhone = null;
 
   @JsonProperty("phone")
   private String phone = null;
@@ -512,24 +509,6 @@ public class ProviderDetails  implements Serializable {
 
   public void setOrganizationName(String organizationName) {
     this.organizationName = organizationName;
-  }
-
-  public ProviderDetails personalPhone(String personalPhone) {
-    this.personalPhone = personalPhone;
-    return this;
-  }
-
-   /**
-   * Personal contact phone for the provider.
-   * @return personalPhone
-  **/
-  @ApiModelProperty(example = "null", value = "Personal contact phone for the provider.")
-  public String getPersonalPhone() {
-    return personalPhone;
-  }
-
-  public void setPersonalPhone(String personalPhone) {
-    this.personalPhone = personalPhone;
   }
 
   public ProviderDetails phone(String phone) {
@@ -797,7 +776,6 @@ public class ProviderDetails  implements Serializable {
         Objects.equals(this.middleName, providerDetails.middleName) &&
         Objects.equals(this.networkIds, providerDetails.networkIds) &&
         Objects.equals(this.organizationName, providerDetails.organizationName) &&
-        Objects.equals(this.personalPhone, providerDetails.personalPhone) &&
         Objects.equals(this.phone, providerDetails.phone) &&
         Objects.equals(this.presentationName, providerDetails.presentationName) &&
         Objects.equals(this.specialty, providerDetails.specialty) &&
@@ -815,7 +793,7 @@ public class ProviderDetails  implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(city, email, gender, firstName, id, lastName, latitude, longitude, middleName, networkIds, organizationName, personalPhone, phone, presentationName, specialty, state, stateId, streetLine1, streetLine2, suffix, title, type, zipCode, npis, hiosIds);
+    return Objects.hash(city, email, gender, firstName, id, lastName, latitude, longitude, middleName, networkIds, organizationName, phone, presentationName, specialty, state, stateId, streetLine1, streetLine2, suffix, title, type, zipCode, npis, hiosIds);
   }
 
   @Override
@@ -834,7 +812,6 @@ public class ProviderDetails  implements Serializable {
     sb.append("    middleName: ").append(toIndentedString(middleName)).append("\n");
     sb.append("    networkIds: ").append(toIndentedString(networkIds)).append("\n");
     sb.append("    organizationName: ").append(toIndentedString(organizationName)).append("\n");
-    sb.append("    personalPhone: ").append(toIndentedString(personalPhone)).append("\n");
     sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
     sb.append("    presentationName: ").append(toIndentedString(presentationName)).append("\n");
     sb.append("    specialty: ").append(toIndentedString(specialty)).append("\n");

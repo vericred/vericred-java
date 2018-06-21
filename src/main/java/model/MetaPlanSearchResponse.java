@@ -226,18 +226,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 
 import java.io.Serializable;
 /**
  * MetaPlanSearchResponse
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-02T17:06:11.296-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-21T16:41:18.837-04:00")
 public class MetaPlanSearchResponse  implements Serializable {
   @JsonProperty("total")
   private Integer total = null;
 
   @JsonProperty("eligible_for_chip_medicaid")
   private Boolean eligibleForChipMedicaid = null;
+
+  @JsonProperty("premium_tax_credit")
+  private BigDecimal premiumTaxCredit = null;
 
   public MetaPlanSearchResponse total(Integer total) {
     this.total = total;
@@ -275,6 +279,24 @@ public class MetaPlanSearchResponse  implements Serializable {
     this.eligibleForChipMedicaid = eligibleForChipMedicaid;
   }
 
+  public MetaPlanSearchResponse premiumTaxCredit(BigDecimal premiumTaxCredit) {
+    this.premiumTaxCredit = premiumTaxCredit;
+    return this;
+  }
+
+   /**
+   * The premium tax credit amount calculated for the applicants in the request.
+   * @return premiumTaxCredit
+  **/
+  @ApiModelProperty(example = "null", value = "The premium tax credit amount calculated for the applicants in the request.")
+  public BigDecimal getPremiumTaxCredit() {
+    return premiumTaxCredit;
+  }
+
+  public void setPremiumTaxCredit(BigDecimal premiumTaxCredit) {
+    this.premiumTaxCredit = premiumTaxCredit;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -286,12 +308,13 @@ public class MetaPlanSearchResponse  implements Serializable {
     }
     MetaPlanSearchResponse metaPlanSearchResponse = (MetaPlanSearchResponse) o;
     return Objects.equals(this.total, metaPlanSearchResponse.total) &&
-        Objects.equals(this.eligibleForChipMedicaid, metaPlanSearchResponse.eligibleForChipMedicaid);
+        Objects.equals(this.eligibleForChipMedicaid, metaPlanSearchResponse.eligibleForChipMedicaid) &&
+        Objects.equals(this.premiumTaxCredit, metaPlanSearchResponse.premiumTaxCredit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(total, eligibleForChipMedicaid);
+    return Objects.hash(total, eligibleForChipMedicaid, premiumTaxCredit);
   }
 
   @Override
@@ -301,6 +324,7 @@ public class MetaPlanSearchResponse  implements Serializable {
     
     sb.append("    total: ").append(toIndentedString(total)).append("\n");
     sb.append("    eligibleForChipMedicaid: ").append(toIndentedString(eligibleForChipMedicaid)).append("\n");
+    sb.append("    premiumTaxCredit: ").append(toIndentedString(premiumTaxCredit)).append("\n");
     sb.append("}");
     return sb.toString();
   }

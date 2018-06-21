@@ -226,12 +226,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.io.Serializable;
 /**
  * DrugCoverage
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-02T17:06:11.296-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-21T16:41:18.837-04:00")
 public class DrugCoverage  implements Serializable {
   @JsonProperty("plan_id")
   private String planId = null;
@@ -241,6 +243,9 @@ public class DrugCoverage  implements Serializable {
 
   @JsonProperty("med_id")
   private Integer medId = null;
+
+  @JsonProperty("drug_ids")
+  private List<String> drugIds = new ArrayList<String>();
 
   @JsonProperty("quantity_limit")
   private Boolean quantityLimit = null;
@@ -306,6 +311,29 @@ public class DrugCoverage  implements Serializable {
 
   public void setMedId(Integer medId) {
     this.medId = medId;
+  }
+
+  public DrugCoverage drugIds(List<String> drugIds) {
+    this.drugIds = drugIds;
+    return this;
+  }
+
+  public DrugCoverage addDrugIdsItem(String drugIdsItem) {
+    this.drugIds.add(drugIdsItem);
+    return this;
+  }
+
+   /**
+   * Vericred-generated IDs for drugs
+   * @return drugIds
+  **/
+  @ApiModelProperty(example = "null", value = "Vericred-generated IDs for drugs")
+  public List<String> getDrugIds() {
+    return drugIds;
+  }
+
+  public void setDrugIds(List<String> drugIds) {
+    this.drugIds = drugIds;
   }
 
   public DrugCoverage quantityLimit(Boolean quantityLimit) {
@@ -393,6 +421,7 @@ public class DrugCoverage  implements Serializable {
     return Objects.equals(this.planId, drugCoverage.planId) &&
         Objects.equals(this.drugPackageId, drugCoverage.drugPackageId) &&
         Objects.equals(this.medId, drugCoverage.medId) &&
+        Objects.equals(this.drugIds, drugCoverage.drugIds) &&
         Objects.equals(this.quantityLimit, drugCoverage.quantityLimit) &&
         Objects.equals(this.priorAuthorization, drugCoverage.priorAuthorization) &&
         Objects.equals(this.stepTherapy, drugCoverage.stepTherapy) &&
@@ -401,7 +430,7 @@ public class DrugCoverage  implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(planId, drugPackageId, medId, quantityLimit, priorAuthorization, stepTherapy, tier);
+    return Objects.hash(planId, drugPackageId, medId, drugIds, quantityLimit, priorAuthorization, stepTherapy, tier);
   }
 
   @Override
@@ -412,6 +441,7 @@ public class DrugCoverage  implements Serializable {
     sb.append("    planId: ").append(toIndentedString(planId)).append("\n");
     sb.append("    drugPackageId: ").append(toIndentedString(drugPackageId)).append("\n");
     sb.append("    medId: ").append(toIndentedString(medId)).append("\n");
+    sb.append("    drugIds: ").append(toIndentedString(drugIds)).append("\n");
     sb.append("    quantityLimit: ").append(toIndentedString(quantityLimit)).append("\n");
     sb.append("    priorAuthorization: ").append(toIndentedString(priorAuthorization)).append("\n");
     sb.append("    stepTherapy: ").append(toIndentedString(stepTherapy)).append("\n");
